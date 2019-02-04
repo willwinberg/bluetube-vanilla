@@ -26,6 +26,16 @@ body {
   align-items: center;
 }
 
+#mastHeadContainer button {
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  padding: 8px;
+  box-sizing: border-box;
+  border: none;
+  background-color: transparent;
+}
+
 #sideNavContainer {
   width: 240px;
   padding-top: 56px;
@@ -39,9 +49,13 @@ body {
 
 #mainSectionContainer {
   padding-top: 56px;
+  display: flex;
+}
+
+#mainSectionContainer.leftPadding {
+  padding-left: 240px;
 }
 
 #mainContentContainer {
   padding: 10px 30px;
-  padding-left: 240px;
 }

@@ -19,16 +19,17 @@
 <body>
    <div id="pageContainer">
       <div id="mastHeadContainer">
-         <button class="navShowHide">Click Me</button>
+         <button class="navShowHide">
+            <img src="assets/images/icons/menu.png" />
+         </button>
       </div>
-      <div id="sideNavContainer">
+      <div id="sideNavContainer" style="display: none">
          hi
       </div>
       <div id="mainSectionContainer">
          <div id="mainContentContainer">
             Yoyos are so cool
          </div>
-         dddd
       </div>
    </div>
 </body>
