@@ -17,7 +17,7 @@ $uploadedVideoData = new UploadedVideoData(
    "REPLACE-THIS"    
 );
 
-$videoProcessor = new VideoProcessor($dB_Connection);
+$videoProcessor = new VideoProcessor($dbConnection);
 
 $wasSuccessful = $videoProcessor->upload($uploadedVideoData);
 

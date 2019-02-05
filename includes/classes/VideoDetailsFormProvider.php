@@ -1,7 +1,7 @@
 <?php
 class VideoDetailsFormProvider {
-    public function __construct($dB_Connection) {
-        $this->dB_Connection = $dB_Connection;
+    public function __construct($dbConnection) {
+        $this->dbConnection = $dbConnection;
     }
 
     public function createVideoUploadForm() {
@@ -76,7 +76,7 @@ class VideoDetailsFormProvider {
     }
 
     private function createCategoriesInput() {
-        $query = $this->dB_Connection->prepare("SELECT * FROM categories");    
+        $query = $this->dbConnection->prepare("SELECT * FROM categories");    
         $query->execute();
         
         $html = "<div class='form-group'>

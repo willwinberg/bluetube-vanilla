@@ -9,4 +9,5 @@
 - custom profile picture
 - SASS or styled-components
 - PDO class in /classes
-  -FormProvider naming
+- FormProvider naming
+  videoProcessor, separate into validation and insert

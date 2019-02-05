@@ -1,6 +1,6 @@
 <?php
 class VideoProcessor {
-   private $dB_Connection;
+   private $dbConnection;
    private $sizeLimit = 500000000; // 500mb
    private $allowedTypes = array(
       "avi",
@@ -17,14 +17,14 @@ class VideoProcessor {
       "wmv",
    );
 
-   public function __construct($dB_Connection) {
-      $this->dB_Connection = $dB_Connection;
+   public function __construct($dbConnection) {
+      $this->dbConnection = $dbConnection;
    }
 
    // TODO: deconstruct this
-   public function upload($videoUploadData) {
+   public function upload($cleanVideoData) {
       $targetDirectory = "uploads/videos/";
-      $videoDataArray = $videoUploadData->getVideoDataArray();
+      $videoDataArray = $cleanVideoData->getVideoDataArray();
 
       $tempFilePath = $targetDirectory . uniqid() . basename($videoDataArray["name"]);
       $tempFilePath = str_replace(" ", "_", $tempFilePath);
@@ -38,17 +38,37 @@ class VideoProcessor {
       if (move_uploaded_file($videoDataArray["tmp_name"], $tempFilePath)) {
          $finalFilePath = $targetDirectory . uniqid() . ".mp4";
 
-         if (!$this->insertVideoData($videoUploadData, $finalFilePath)) {
+         if (!$this->insertVideoData($cleanVideoData, $finalFilePath)) {
                echo "Insert query failed\n";
                return false;
-         } return;
-
-      
+         } 
 
          return true;
       }
    }
    
+   private function insertVideoData($cleanVideoData, $filePath) {
+      $query = $this->dbConnection->prepare(
+         "INSERT INTO videos(title, uploadedBy, description, privacy, category, filePath)
+         VALUES(:title, :uploadedBy, :description, :privacy, :category, :filePath)"
+      );
+
+      $title = $cleanVideoData->getTitle();
+      $uploadedBy = $cleanVideoData->getUploadedBy();
+      $description = $cleanVideoData->getDescription();
+      $privacy = $cleanVideoData->getPrivacy();
+      $category = $cleanVideoData->getCategory();
+
+      $query->bindParam(":title", $title);
+      $query->bindParam(":uploadedBy", $uploadedBy);
+      $query->bindParam(":description", $description);
+      $query->bindParam(":privacy", $privacy);
+      $query->bindParam(":category", $category);
+
+      $query->bindParam(":filePath", $filePath);
+
+      return $query->execute();
+    }
 
    private function videoFileIsValid($videoData, $filePath) {
       $videoType = pathInfo($filePath, PATHINFO_EXTENSION);
