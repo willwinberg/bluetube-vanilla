@@ -43,8 +43,7 @@
          </div>
       </div>
       <div id="sideNavContainer" style="display: none">
-         hi
       </div>
       <div id="mainSectionContainer">
          <div id="mainContentContainer">
-            Yoyos are so cool
+            
