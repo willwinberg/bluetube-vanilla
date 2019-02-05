@@ -9,3 +9,4 @@
 - custom profile picture
 - SASS or styled-components
 - PDO class in /classes
+  -FormProvider naming

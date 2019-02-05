@@ -1,10 +1,10 @@
 <?php
 class VideoDetailsFormProvider {
-    public function __construct($connection) {
-        $this->connection = $connection;
+    public function __construct($dB_Connection) {
+        $this->dB_Connection = $dB_Connection;
     }
 
-    public function createUploadForm() {
+    public function createVideoUploadForm() {
         $fileInput = $this->createFileInput();
         $titleInput = $this->createTitleInput();
         $descriptionInput = $this->createDescriptionInput();
@@ -13,7 +13,11 @@ class VideoDetailsFormProvider {
         $uploadButton = $this->createUploadButton();
 
         return ("
-            <form action='processing.php' method='POST'>
+            <form
+                action='processing.php'
+                method='POST'
+                enctype='multipart/form-data'
+            >
                 $fileInput
                 $titleInput
                 $descriptionInput
@@ -72,7 +76,7 @@ class VideoDetailsFormProvider {
     }
 
     private function createCategoriesInput() {
-        $query = $this->connection->prepare("SELECT * FROM categories");    
+        $query = $this->dB_Connection->prepare("SELECT * FROM categories");    
         $query->execute();
         
         $html = "<div class='form-group'>

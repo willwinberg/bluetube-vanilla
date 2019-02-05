@@ -1,6 +1,6 @@
 <?php 
 require_once("includes/header.php");
-require_once("includes/classes/VideoUploadData.php");
+require_once("includes/classes/UploadedVideoData.php");
 require_once("includes/classes/VideoProcessor.php");
 
 if (!isset($_POST["uploadButton"])) {
@@ -8,7 +8,7 @@ if (!isset($_POST["uploadButton"])) {
     exit();
 }
 
-$videoUploadData = new VideoUploadData(
+$uploadedVideoData = new UploadedVideoData(
    $_FILES["fileInput"], 
    $_POST["titleInput"],
    $_POST["descriptionInput"],
@@ -17,8 +17,9 @@ $videoUploadData = new VideoUploadData(
    "REPLACE-THIS"    
 );
 
-$videoProcessor = new VideoProcessor($connection);
-$wasSuccessful = $videoProcessor->upload($videoUploadData);
+$videoProcessor = new VideoProcessor($dB_Connection);
+
+$wasSuccessful = $videoProcessor->upload($uploadedVideoData);
 
 if ($wasSuccessful) {
     echo "Video upload successful";
