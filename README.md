@@ -11,6 +11,7 @@
 - PDO class in /classes
 - FormProvider naming
 - videoProcessor, separate into validation and insert
+- break thumbnails in to separate class
 
 ## php.ini
 

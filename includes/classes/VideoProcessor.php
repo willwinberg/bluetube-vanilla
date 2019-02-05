@@ -16,6 +16,7 @@ class VideoProcessor {
       "webm",
       "wmv",
    );
+
    private $ffmpegPath = "assets/ffmpeg/ffmpeg";
    private $ffprobePath = "assets/ffmpeg/ffprobe";
 
@@ -41,16 +42,26 @@ class VideoProcessor {
          $finalFilePath = $targetDirectory . uniqid() . ".mp4";
 
          if (!$this->insertVideoIntoDB($cleanVideoData, $finalFilePath)) {
-               echo "Insert query failed\n";
-               return false;
+            echo "Insert query failed\n";
+            return false;
          } 
 
          if (!$this->convertVideoToMp4($tempFilePath, $finalFilePath)) {
-               echo "Upload failed\n";
-               return false;
-         }  return true; // remove
+            echo "Converting video to mp4 failed\n";
+            return false;
+         }  
 
-         
+         if (!$this->deleteTempMovieFile($tempFilePath)) {
+            echo "Tempfile deletion failed\n";
+            return false;
+         }
+
+         if (!$this->generateVideoThumbnails($finalFilePath)) {
+            echo "Generating thumbnails failed\n";
+            return false;
+         }
+
+         return true;
       }
    }
    
@@ -92,6 +103,33 @@ class VideoProcessor {
       }
 
       return true;
+   }
+
+   private function deleteTempMovieFile($tempFilePath) {
+      if (!unlink($tempFilePath)) {
+         echo "Could not delete file\n";
+         return false;
+      }
+
+      return true;
+   }
+
+   public function generateVideoThumbnails($finalFilePath) {
+      $thumbnailSize = "210x118";
+      $thumbnailCount = 3;
+      $thumbnailPath = "uploads/videos/thumbnails";
+      
+      $duration = $this->getVideoDuration($finalFilePath);
+      echo $duration;
+
+      $videoId = $this->dbConnection->lastInsertId();
+      // $this->updateDuration($duration, $videoId);
+
+      return true;
+   }
+
+   private function getVideoDuration($finalFilePath) {
+      return shell_exec("$this->ffprobePath -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 $finalFilePath");
    }
 
    private function videoFileIsValid($videoData, $filePath) {
