@@ -10,4 +10,9 @@
 - SASS or styled-components
 - PDO class in /classes
 - FormProvider naming
-  videoProcessor, separate into validation and insert
+- videoProcessor, separate into validation and insert
+
+## php.ini
+
+- max_execution_time=3000
+- max_filesize=1024M

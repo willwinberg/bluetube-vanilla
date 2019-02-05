@@ -16,8 +16,8 @@ class VideoProcessor {
       "webm",
       "wmv",
    );
-   private $ffmpegPath = "assets/ffmpeg/mac/xampp-VM/ffmpeg";
-   private $ffprobePath = "assets/ffmpeg/mac/xampp-VM/ffprobe";
+   private $ffmpegPath = "assets/ffmpeg/ffmpeg";
+   private $ffprobePath = "assets/ffmpeg/ffprobe";
 
    public function __construct($dbConnection) {
       $this->dbConnection = $dbConnection;
@@ -43,14 +43,14 @@ class VideoProcessor {
          if (!$this->insertVideoIntoDB($cleanVideoData, $finalFilePath)) {
                echo "Insert query failed\n";
                return false;
-         }
+         } 
 
          if (!$this->convertVideoToMp4($tempFilePath, $finalFilePath)) {
                echo "Upload failed\n";
                return false;
          }  return true; // remove
 
-     
+         
       }
    }
    
@@ -83,7 +83,7 @@ class VideoProcessor {
 
       exec($bashCommand, $outputLog, $returnCode);
       
-      if ($returnCode !== 0) { // command failed
+      if ($returnCode !== 0) { // if command failed
          foreach($outputLog as $line) {
             echo $line . "<br>";
          }
