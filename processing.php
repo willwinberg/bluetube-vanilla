@@ -17,9 +17,11 @@ $uploadedVideoData = new UploadedVideoData(
    "REPLACE-THIS"    
 );
 
+// $validatedVideoData = videoDataValidator($uploadedVideoData);
+
 $videoProcessor = new VideoProcessor($dbConnection);
 
-$wasSuccessful = $videoProcessor->upload($uploadedVideoData);
+$wasSuccessful = $videoProcessor->uploadVideo($uploadedVideoData); // TODO: pass $validatedVideoData
 
 if ($wasSuccessful) {
     echo "Video upload successful";

@@ -16,13 +16,15 @@ class VideoProcessor {
       "webm",
       "wmv",
    );
+   private $ffmpegPath = "assets/ffmpeg/mac/xampp-VM/ffmpeg";
+   private $ffprobePath = "assets/ffmpeg/mac/xampp-VM/ffprobe";
 
    public function __construct($dbConnection) {
       $this->dbConnection = $dbConnection;
    }
 
    // TODO: deconstruct this
-   public function upload($cleanVideoData) {
+   public function uploadVideo($cleanVideoData) {
       $targetDirectory = "uploads/videos/";
       $videoDataArray = $cleanVideoData->getVideoDataArray();
 
@@ -38,16 +40,21 @@ class VideoProcessor {
       if (move_uploaded_file($videoDataArray["tmp_name"], $tempFilePath)) {
          $finalFilePath = $targetDirectory . uniqid() . ".mp4";
 
-         if (!$this->insertVideoData($cleanVideoData, $finalFilePath)) {
+         if (!$this->insertVideoIntoDB($cleanVideoData, $finalFilePath)) {
                echo "Insert query failed\n";
                return false;
-         } 
+         }
 
-         return true;
+         if (!$this->convertVideoToMp4($tempFilePath, $finalFilePath)) {
+               echo "Upload failed\n";
+               return false;
+         }  return true; // remove
+
+     
       }
    }
    
-   private function insertVideoData($cleanVideoData, $filePath) {
+   private function insertVideoIntoDB($cleanVideoData, $filePath) {
       $query = $this->dbConnection->prepare(
          "INSERT INTO videos(title, uploadedBy, description, privacy, category, filePath)
          VALUES(:title, :uploadedBy, :description, :privacy, :category, :filePath)"
@@ -69,6 +76,23 @@ class VideoProcessor {
 
       return $query->execute();
     }
+
+   public function convertVideoToMp4($tempFilePath, $finalFilePath) {
+      $bashCommand = "$this->ffmpegPath -i $tempFilePath $finalFilePath 2>&1";
+      $outputLog = array();
+
+      exec($bashCommand, $outputLog, $returnCode);
+      
+      if ($returnCode !== 0) { // command failed
+         foreach($outputLog as $line) {
+            echo $line . "<br>";
+         }
+
+         return false;
+      }
+
+      return true;
+   }
 
    private function videoFileIsValid($videoData, $filePath) {
       $videoType = pathInfo($filePath, PATHINFO_EXTENSION);
