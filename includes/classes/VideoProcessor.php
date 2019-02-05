@@ -123,13 +123,73 @@ class VideoProcessor {
       echo $duration;
 
       $videoId = $this->dbConnection->lastInsertId();
-      // $this->updateDuration($duration, $videoId);
+      $this->updateVideoDurationInDB($duration, $videoId);
+
+      for ($num = 1; $num <= $thumbnailCount; $num++) {
+         $imageName = uniqid() . ".jpg";
+         $interval = ($duration * 0.8) / ($thumbnailCount * $num);
+         $finalThumbnailPath = "$thumbnailPath/$videoId-$imageName";
+
+         $bashCommand = "$this->ffmpegPath -i $finalFilePath -ss $interval -s $thumbnailSize -vframes 1 $finalThumbnailPath 2>&1";
+
+         $outputLog = array();
+         exec($bashCommand, $outputLog, $returnCode);
+         
+         if ($returnCode != 0) { // if command failed
+            foreach($outputLog as $line) {
+               echo $line . "<br>";
+            }
+         }
+
+         $query = $this->dbConnection->prepare(
+            "INSERT INTO thumbnails (videoId, filePath, selected)
+            VALUES (:videoId, :filePath, :selected)"
+         );
+
+         $query->bindParam(":videoId", $videoId);
+         $query->bindParam(":filePath", $finalThumbnailPath);
+         $query->bindParam(":selected", $selected);
+
+         $selected = $num == 1 ? 1 : 0;
+
+         $success = $query->execute();
+
+         if (!$success) {
+            echo "Error inserting thumnails into database\n";
+            return false;
+         }
+      }
 
       return true;
    }
 
    private function getVideoDuration($finalFilePath) {
-      return shell_exec("$this->ffprobePath -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 $finalFilePath");
+      return (int)shell_exec("$this->ffprobePath -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 $finalFilePath");
+   }
+
+   private function updateVideoDurationInDB($duration, $videoId) {   
+      $durationString = $this->convertDurationToString($duration);
+
+      $query = $this->dbConnection->prepare("UPDATE videos SET duration=:durationString WHERE id=:videoId");
+
+      $query->bindParam(":durationString", $durationString);
+      $query->bindParam(":videoId", $videoId);
+
+      $query->execute();
+   }
+
+   private function convertDurationToString($duration) {
+      $hours = floor($duration / 3600);
+      $mins = floor(($duration - ($hours*3600)) / 60);
+      $secs = floor($duration % 60);
+      
+      $hoursString = ($hours < 1) ? "" : $hours . ":";
+      $minsString = ($mins < 10) ? "0" . $mins . ":" : $mins . ":";
+      $secsString = ($secs < 10) ? "0" . $secs : $secs . "";
+
+      $durationString = $hours . $mins . $secs;
+
+      return $durationString;
    }
 
    private function videoFileIsValid($videoData, $filePath) {
