@@ -12,6 +12,7 @@
 - FormProvider naming
 - videoProcessor, separate into validation and insert
 - break thumbnails in to separate class
+- clean up upload.php
 
 ## php.ini
 
