@@ -1,4 +1,10 @@
-<?php require_once("includes/config.php"); ?>
+<?php
+require_once("includes/config.php");
+
+if (isset($_POST["submitRegisterForm"])) {
+   var_dump($_POST);
+}
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -71,7 +77,7 @@
                   name="confirmPassword"
                   placeholder="Confirm password"
                 >
-                <input type="submit" name="submitButton" value="SUBMIT">
+                <input type="submit" name="submitRegisterForm" value="SUBMIT">
             </form>
          </div>
          <a class="entryMessage" href="login.php">Already have an account? Log in here.</a>

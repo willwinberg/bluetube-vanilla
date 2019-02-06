@@ -39,7 +39,7 @@
                   name="password"
                   placeholder="Password"
                >
-               <input type="submit" name="submitButton" value="SUBMIT">
+               <input type="submit" name="submitLoginForm" value="SUBMIT">
             </form>
          </div>
          <a class="entryMessage" href="register.php">Don't have an account yet? Register here!</a>   
