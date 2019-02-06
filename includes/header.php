@@ -25,7 +25,7 @@
             <img src="assets/images/icons/menu.png" />
          </button>
          <a class="logoContainer" href="index.php">
-            <img src="assets/images/logo.png" />
+            <img src="assets/images/logo.png" title="logo" alt="BlueTube Logo"/>
          </a>
          <div class="searchBarContainer">
             <form action="search.php" method="GET">

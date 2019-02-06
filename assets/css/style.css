@@ -126,9 +126,84 @@ a:hover {
 }
 
 .column {
-  flex: 1;
+  flex-grow: 1;
   background-color: #fff;
   min-height: 300px;
   padding: 20px;
   box-shadow: rgba(0, 0, 0, 0.1) 0 1px 2px;
+}
+
+/* REGISTER/LOGIN */
+
+.signInContainer {
+  background-color: #efefee;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.signInContainer .column .header img {
+  width: 100px;
+}
+
+.signInContainer .column {
+  flex-grow: 0;
+  width: 450px;
+  padding: 20px 35px;
+  max-height: 100%;
+  overflow-y: auto;
+}
+
+.signInContainer .column .header {
+  padding: 20px 0;
+}
+
+.signInContainer .column .header h3 {
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 32px;
+  margin: 0;
+  padding-bottom: 0;
+  padding-top: 16px;
+}
+
+.signInContainer .column .header span {
+  font-size: 14px;
+}
+
+.signInContainer .column .loginForm {
+  padding-top: 24px;
+}
+
+.signInContainer .column form {
+  display: flex;
+  flex-direction: column;
+}
+
+.signInContainer .column form input[type="text"],
+.signInContainer .column form input[type="email"],
+.signInContainer .column form input[type="password"] {
+  font-size: 14px;
+  margin: 10px 0;
+  border: none;
+  border-bottom: 1px solid #dedede;
+}
+
+.signInContainer .column form input[type="submit"] {
+  background: #4285f4;
+  color: #fff;
+  height: 36px;
+  width: 88px;
+  border: none;
+  border-radius: 3px;
+  font-weight: 500;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.signInMessage {
+  font-size: 14px;
+  font-weight: 400;
+  color: 212529;
 }
