@@ -21,60 +21,28 @@
    <div class="entryContainer">
       <div class="column">
          <div class="entryHeader">
-            <img src="assets/images/logo.png" title="logo" alt="BlueTube Logo"/>
-            <h3>Sign Up</h3>
+            <img src="assets/images/logo.png" title="logo" alt="Site logo">
+            <h3>Log in</h3>
             <span>to continue to VideoTube</span>
          </div>
          <div class="entryForm">
-            <form action="register.php" method="POST">
+            <form action="login.php">
                <input
-                  required
-                  type="text"
-                  name="firstName"
-                  placeholder="First name"
-               >
-                <input
-                  required
-                  type="text"
-                  name="lastName"
-                  placeholder="Last name"
-                >
-                <input
                   required
                   type="text"
                   name="username"
                   placeholder="Username"
-                >
-
-                <input
-                  required
-                  type="email"
-                  name="email"
-                  placeholder="Email"
-                >
-                <input
-                  required
-                  type="email"
-                  name="confirmEmail"
-                  placeholder="Confirm email"
-                >
-
-                <input
+               >
+               <input
                   required
                   type="password"
                   name="password"
                   placeholder="Password"
-                >
-                <input
-                  required
-                  type="password"
-                  name="confirmPassword"
-                  placeholder="Confirm password"
-                >
-                <input type="submit" name="submitButton" value="SUBMIT">
+               >
+               <input type="submit" name="submitButton" value="SUBMIT">
             </form>
          </div>
-         <a class="entryMessage" href="login.php">Already have an account? Log in here.</a>
+         <a class="entryMessage" href="register.php">Don't have an account yet? Register here!</a>   
       </div>
    </div>
 </body>
