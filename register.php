@@ -1,27 +1,22 @@
 <?php
+
 require_once("includes/config.php");
 require_once("includes/classes/FormInputSanitizer.php"); 
+require_once("includes/classes/FormInputValidator.php"); 
+require_once("includes/classes/ErrorMessage.php"); 
+
+$newUserDataSanitizer = new FormInputSanitizer;
+$newUserDataValidator = new formInputValidator($dbConnection);
 
 if (isset($_POST["submitRegisterForm"])) {
-   $firstName = FormInputSanitizer::sanitizeString($_POST["firstName"]);
-   $lastName = FormInputSanitizer::sanitizeString($_POST["lastName"]);
 
-   $username = FormInputSanitizer::sanitizeUsername($_POST["username"]);
+   $sanitizedUserData = $newUserDataSanitizer->sanitizeNewUserData($_POST);
 
-   $email = FormInputSanitizer::sanitizeEmail($_POST["email"]);
-   $emailConfirm = FormInputSanitizer::sanitizeEmail($_POST["emailConfirm"]);
+   $newUserDataValidator->validateNewUserData($sanitizedUserData);
 
-   $password = FormInputSanitizer::sanitizePassword($_POST["password"]);
-   $passwordConfirm = FormInputSanitizer::sanitizePassword($_POST["passwordConfirm"]);
-
-   echo $firstName . "\n";
-   echo $lastName . "\n";
-   echo $username . "\n";
-   echo $email . "\n";
-   echo $emailConfirm . "\n";
-   echo $password . "\n";
-   echo $passwordConfirm . "\n";
+   var_dump($sanitizedUserData); // REMOVE
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -51,49 +46,67 @@ if (isset($_POST["submitRegisterForm"])) {
          </div>
          <div class="entryForm">
             <form action="register.php" method="POST">
+
                <input
                   required
                   type="text"
                   name="firstName"
                   placeholder="First name"
                >
-                <input
+               <?php echo $newUserDataValidator->getError(ErrorMessage::$firstNameLength); ?>
+
+               <input
                   required
                   type="text"
                   name="lastName"
                   placeholder="Last name"
-                >
-                <input
+               >
+               <?php echo $newUserDataValidator->getError(ErrorMessage::$lastNameLength); ?>
+
+               <input
                   required
                   type="text"
                   name="username"
                   placeholder="Username"
-                >
-                <input
+               >
+               <?php echo $newUserDataValidator->getError(ErrorMessage::$usernameLength); ?>
+               <?php echo $newUserDataValidator->getError(ErrorMessage::$usernameTaken); ?>
+
+               <input
                   required
                   type="email"
                   name="email"
                   placeholder="Email"
-                >
-                <input
+               >
+               <?php echo $newUserDataValidator->getError(ErrorMessage::$emailInvalid); ?>
+               <?php echo $newUserDataValidator->getError(ErrorMessage::$emailTaken); ?>
+
+               <input
                   required
                   type="email"
                   name="emailConfirm"
                   placeholder="Confirm email"
-                >
-                <input
+               >
+               <?php echo $newUserDataValidator->getError(ErrorMessage::$emailsDoNotMatch); ?>
+
+               <input
                   required
                   type="password"
                   name="password"
                   placeholder="Password"
-                >
-                <input
+               >
+               <?php echo $newUserDataValidator->getError(ErrorMessage::$passwordNotAlphanumeric); ?>
+               <?php echo $newUserDataValidator->getError(ErrorMessage::$passwordLength); ?>
+
+               <input
                   required
                   type="password"
                   name="passwordConfirm"
                   placeholder="Confirm password"
-                >
-                <input type="submit" name="submitRegisterForm" value="SUBMIT">
+               >
+               <?php echo $newUserDataValidator->getError(ErrorMessage::$passwordsDoNotMatch); ?>
+
+               <input type="submit" name="submitRegisterForm" value="SUBMIT">
             </form>
          </div>
          <a class="entryMessage" href="login.php">Already have an account? Log in here.</a>
