@@ -3,7 +3,7 @@
 class formInputValidator {
 
    private $dbConnection;
-   private $errorArray = array();
+   public $errorArray = array();
 
    public function __construct($dbConnection) {
       $this->dbConnection = $dbConnection;

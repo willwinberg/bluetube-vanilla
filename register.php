@@ -17,6 +17,8 @@ if (isset($_POST["submitRegisterForm"])) {
    $newUserDataValidator->validateNewUserData($sanitizedUserData);
 
    $noErrors = empty($newUserDataValidator->errorArray);
+   echo "no errors: $noErrors";
+   var_dump($newUserDataValidator->errorArray); 
 
    if ($noErrors) {
       $newUserAccount->registerNewUser($sanitizedUserData);
