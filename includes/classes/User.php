@@ -31,6 +31,5 @@ class User {
    public static function isLoggedIn() {
       return isset($_SESSION["loggedIn"]);
    }
-
 }
 ?>

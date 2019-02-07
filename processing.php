@@ -14,7 +14,7 @@ $uploadedVideoData = new UploadedVideoData(
    $_POST["descriptionInput"],
    $_POST["privacyInput"],
    $_POST["categoryInput"],
-   "REPLACE-THIS"    
+   $user->username   
 );
 
 // $validatedVideoData = videoDataValidator($uploadedVideoData);
