@@ -13,9 +13,10 @@
 - videoProcessor, separate into validation and insert
 - break thumbnails in to separate class
 - clean up upload.php
-  brak video processor in to separate classes
+- break video processor in to separate classes
+- decompose login and register forms with FormProvider class
 
-## php.ini
+## php.ini fine in XAMPP
 
 - max_execution_time=3000
 - max_filesize=1024M

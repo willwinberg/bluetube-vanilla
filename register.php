@@ -1,8 +1,26 @@
 <?php
 require_once("includes/config.php");
+require_once("includes/classes/FormInputSanitizer.php"); 
 
 if (isset($_POST["submitRegisterForm"])) {
-   var_dump($_POST);
+   $firstName = FormInputSanitizer::sanitizeString($_POST["firstName"]);
+   $lastName = FormInputSanitizer::sanitizeString($_POST["lastName"]);
+
+   $username = FormInputSanitizer::sanitizeUsername($_POST["username"]);
+
+   $email = FormInputSanitizer::sanitizeEmail($_POST["email"]);
+   $emailConfirm = FormInputSanitizer::sanitizeEmail($_POST["emailConfirm"]);
+
+   $password = FormInputSanitizer::sanitizePassword($_POST["password"]);
+   $passwordConfirm = FormInputSanitizer::sanitizePassword($_POST["passwordConfirm"]);
+
+   echo $firstName . "\n";
+   echo $lastName . "\n";
+   echo $username . "\n";
+   echo $email . "\n";
+   echo $emailConfirm . "\n";
+   echo $password . "\n";
+   echo $passwordConfirm . "\n";
 }
 ?>
 
@@ -51,7 +69,6 @@ if (isset($_POST["submitRegisterForm"])) {
                   name="username"
                   placeholder="Username"
                 >
-
                 <input
                   required
                   type="email"
@@ -61,10 +78,9 @@ if (isset($_POST["submitRegisterForm"])) {
                 <input
                   required
                   type="email"
-                  name="confirmEmail"
+                  name="emailConfirm"
                   placeholder="Confirm email"
                 >
-
                 <input
                   required
                   type="password"
@@ -74,7 +90,7 @@ if (isset($_POST["submitRegisterForm"])) {
                 <input
                   required
                   type="password"
-                  name="confirmPassword"
+                  name="passwordConfirm"
                   placeholder="Confirm password"
                 >
                 <input type="submit" name="submitRegisterForm" value="SUBMIT">
