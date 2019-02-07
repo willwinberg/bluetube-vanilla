@@ -3,28 +3,27 @@
 class UserAccountHandler {
 
    private $dbConnection;
+   public $error;
 
    public function __construct($dbConnection) {
       $this->dbConnection = $dbConnection;
    }
 
-   public function login($username, $password) {
-      $password = hash("sha512", $password);
+   public function login($loginData) {
+      $username = $loginData["username"];
+      $password = hash("sha512", $loginData["password"]);
+
       $query = $this->dbConnection->prepare(
          "SELECT * FROM users WHERE username=:username AND password=:password"
       );
-
       $query->bindParam(":username", $username);
       $query->bindParam(":password", $password);
       $query->execute();
 
-      if ($query->rowCount() == 1) {
-         return true;
+      if ($query->rowCount() !== 1) {
+         $this->error = ErrorMessage::$loginFailed;
       }
-      else {
-         array_push($this->errorArray, ErrorMessage::$loginFailed);
-         return false;
-      }
+      return;
    }
 
    public function registerNewUser($userData) {
@@ -48,6 +47,12 @@ class UserAccountHandler {
       $query->bindParam(":image", $image);
       
       return $query->execute();
+   }
+
+   public function getError($errorMessage) {
+      if ($this->error) {
+         return "<span class='errorMessage'>$errorMessage</span>";
+      }
    }
 }
 ?>

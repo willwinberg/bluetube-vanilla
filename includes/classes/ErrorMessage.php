@@ -12,7 +12,7 @@ class ErrorMessage {
    public static $passwordsDoNotMatch = "Passwords do not match";
    public static $passwordInsecure= "Password must contain at least one lower case letter, one upper case letter and one digit";
    public static $passwordLength = "Password must be between 8 and 30 characters";
-   public static $loginFailed = "Username or password incorrect";
+   public static $loginFailed = "Username or password is incorrect";
 
 }
 

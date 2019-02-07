@@ -27,6 +27,11 @@ if (isset($_POST["submitRegisterForm"])) {
    }
 }
 
+function getValue($key) {
+   if (isset($_POST[$key])) {
+      echo $_POST[$key];
+   }
+}
 ?>
 
 <!DOCTYPE html>
@@ -52,33 +57,33 @@ if (isset($_POST["submitRegisterForm"])) {
          <div class="entryHeader">
             <img src="assets/images/logo.png" title="logo" alt="BlueTube Logo"/>
             <h3>Sign Up</h3>
-            <span>to continue to VideoTube</span>
+            <span>to continue to BlueTube</span>
          </div>
          <div class="entryForm">
             <form action="register.php" method="POST">
 
-               <input required type="text" name="firstName" value=<?php echo $_POST["firstName"]; ?> placeholder="First name">
+               <input required type="text" name="firstName" value="<?php getValue('firstName'); ?>" placeholder="First name">
                <?php echo $newUserDataValidator->getError(ErrorMessage::$firstNameLength); ?>
 
-               <input required type="text" name="lastName" value=<?php echo $_POST["lastName"]; ?> placeholder="Last name">
+               <input required type="text" name="lastName" value="<?php getValue('lastName'); ?>" placeholder="Last name">
                <?php echo $newUserDataValidator->getError(ErrorMessage::$lastNameLength); ?>
 
-               <input required type="text" name="username" value=<?php echo $_POST["username"]; ?> placeholder="Username">
+               <input required type="text" name="username" value="<?php getValue('username'); ?>" placeholder="Username">
                <?php echo $newUserDataValidator->getError(ErrorMessage::$usernameLength); ?>
                <?php echo $newUserDataValidator->getError(ErrorMessage::$usernameTaken); ?>
 
-               <input required type="email" name="email" value=<?php echo $_POST["email"]; ?> placeholder="Email">
+               <input required type="email" name="email" value="<?php getValue('email'); ?>" placeholder="Email">
                <?php echo $newUserDataValidator->getError(ErrorMessage::$emailInvalid); ?>
                <?php echo $newUserDataValidator->getError(ErrorMessage::$emailTaken); ?>
 
-               <input required type="email" name="emailConfirm" value=<?php echo $_POST["emailConfirm"]; ?> placeholder="Confirm email">
+               <input required type="email" name="emailConfirm" value="<?php getValue('emailConfirm'); ?>" placeholder="Confirm email">
                <?php echo $newUserDataValidator->getError(ErrorMessage::$emailsDoNotMatch); ?>
 
-               <input required type="password" name="password" value=<?php echo $_POST["password"]; ?> placeholder="Password">
+               <input required type="password" name="password" value="<?php getValue('password'); ?>" placeholder="Password">
                <?php echo $newUserDataValidator->getError(ErrorMessage::$passwordInsecure); ?>
                <?php echo $newUserDataValidator->getError(ErrorMessage::$passwordLength); ?>
 
-               <input required type="password" name="passwordConfirm" value=<?php echo $_POST["passwordConfirm"]; ?> placeholder="Confirm password">
+               <input required type="password" name="passwordConfirm" value="<?php getValue('passwordConfirm'); ?>" placeholder="Confirm password">
                <?php echo $newUserDataValidator->getError(ErrorMessage::$passwordsDoNotMatch); ?>
 
                <input type="submit" name="submitRegisterForm" value="SUBMIT">

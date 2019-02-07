@@ -41,7 +41,7 @@ class formInputValidator {
       $query->bindParam(":username", $username);
       $query->execute();
 
-      if ($query->rowCount() != 0) {
+      if ($query->rowCount() !== 0) {
          array_push($this->errorArray, ErrorMessage::$usernameTaken);
       }
    }
@@ -63,7 +63,7 @@ class formInputValidator {
       $query->bindParam(":email", $email);
       $query->execute();
 
-      if ($query->rowCount() != 0) {
+      if ($query->rowCount() !== 0) {
          array_push($this->errorArray, ErrorMessage::$emailTaken);
       }
    }

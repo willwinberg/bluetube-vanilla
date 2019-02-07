@@ -16,6 +16,15 @@ class FormInputSanitizer {
         return $sanitizedData;
     }
 
+    public function sanitizeLoginData($postData) {
+        $sanitizedData = $postData;
+
+        $sanitizedData["username"] = $this->sanitizeUsername($postData["username"]);
+        $sanitizedData["password"] = $this->sanitizePassword($postData["password"]);
+
+        return $sanitizedData;
+    }
+
     private function sanitizeString($textInput) {
         $textInput = strip_tags($textInput);
         $textInput = str_replace(" ", "", $textInput);
