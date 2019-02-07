@@ -74,8 +74,8 @@ class formInputValidator {
          return;
       }
 
-      if (preg_match("/[^A-Za-z0-9]/", $password)) {
-         array_push($this->errorArray, ErrorMessage::$passwordNotAlphanumeric);
+      if (preg_match("/^.*(?=.{8,})(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).*$/", $password)) {
+         array_push($this->errorArray, ErrorMessage::$passwordInsecure);
          return;
       }
 
@@ -84,9 +84,9 @@ class formInputValidator {
       }
    }
    
-   public function getError($error) {
-      if (in_array($error, $this->errorArray)) {
-         return "<span class='errorMessage'>$error</span>";
+   public function getError($errorMessage) {
+      if (in_array($errorMessage, $this->errorArray)) {
+         return "<span class='errorMessage'>$errorMessage</span>";
       }
    }
 }
