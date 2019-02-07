@@ -1,6 +1,6 @@
 <?php
 
-class UserAccountHandler {
+class UserEntryHandler {
 
    private $dbConnection;
    public $error;

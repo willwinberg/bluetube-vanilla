@@ -21,9 +21,9 @@ $uploadedVideoData = new UploadedVideoData(
 
 $videoProcessor = new VideoProcessor($dbConnection);
 
-$wasSuccessful = $videoProcessor->uploadVideo($uploadedVideoData); // TODO: pass $validatedVideoData
+$uploadSuccessful = $videoProcessor->uploadVideo($uploadedVideoData); // TODO: pass $validatedVideoData
 
-if ($wasSuccessful) {
+if ($uploadSuccessful) {
     echo "Video upload successful";
 }
 ?>

@@ -3,12 +3,12 @@
 require_once("includes/config.php");
 require_once("includes/classes/FormInputSanitizer.php"); 
 require_once("includes/classes/FormInputValidator.php");
-require_once("includes/classes/UserAccountHandler.php");
+require_once("includes/classes/UserEntryHandler.php");
 require_once("includes/classes/ErrorMessage.php"); 
 
 $newUserDataSanitizer = new FormInputSanitizer;
 $newUserDataValidator = new formInputValidator($dbConnection);
-$newUserAccount = new UserAccountHandler($dbConnection);
+$newUserAccount = new UserEntryHandler($dbConnection);
 
 if (isset($_POST["submitRegisterForm"])) {
 
