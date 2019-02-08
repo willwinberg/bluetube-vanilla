@@ -21,7 +21,7 @@ if (isset($_POST["submitRegisterForm"])) {
    if ($noErrors) {
       $newUserAccount->registerNewUser($sanitizedUserData);
       $_SESSION["loggedIn"] = $sanitizedUserData["username"];
-      // header("Location: index.php");
+      header("Location: index.php");
    }
 }
 

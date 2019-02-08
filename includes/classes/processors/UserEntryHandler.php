@@ -12,8 +12,6 @@ class UserEntryHandler {
    public function login($loginData) {
       $username = $loginData["username"];
       $password = hash("sha256", $loginData["password"]);
-      echo $username;
-      echo $password;
       $query = $this->dbConnection->prepare(
          "SELECT * FROM users WHERE username=:username AND password=:password"
       );

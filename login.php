@@ -17,7 +17,7 @@ if (isset($_POST["submitLoginForm"])) {
 
    if ($noError) {
       $_SESSION["loggedIn"] = $sanitizedLoginData["username"];
-      // header("Location: index.php");
+      header("Location: index.php");
    }
 }
 
