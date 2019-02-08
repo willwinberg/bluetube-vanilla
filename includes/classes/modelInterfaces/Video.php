@@ -45,17 +45,6 @@ class Video {
       $this->uploadedBy = $video["uploadedBy"];
       $this->uploadDate = $video["uploadDate"];  
    }
-
-   public function generatePlayer($setAutoplay) {
-      $autoplay = $setAutoplay ? "autoplay" : "";
-
-      return ("
-         <video class='videoPlayer' controls $autoplay>
-            <source src='$this->filePath' type='video/mp4'>
-                  Your browser does not support the video tag
-         </video>
-      ");
-   }
    
    public function getUploadDate() {
       return date("M j, Y", strtotime($this->date));
@@ -73,6 +62,28 @@ class Video {
       $query->execute();
 
       $this->views++;
+   }
+
+   public function getLikes() {
+      $query = $this->dbConnection->prepare(
+         "SELECT count(*) as 'count' FROM likes WHERE videoId = :videoId"
+      );
+      $query->bindParam(":videoId", $this->id);
+      $query->execute();
+      $data = $query->fetch(PDO::FETCH_ASSOC);
+
+      return $data["count"];
+   }
+
+   public function getDislikes() {
+      $query = $this->dbConnection->prepare(
+         "SELECT count(*) as 'count' FROM dislikes WHERE videoId = :videoId"
+      );
+      $query->bindParam(":videoId", $this->id);
+      $query->execute();
+      $data = $query->fetch(PDO::FETCH_ASSOC);
+
+      return $data["count"];
    }
    
 }
