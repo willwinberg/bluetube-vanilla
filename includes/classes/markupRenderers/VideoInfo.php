@@ -1,4 +1,5 @@
 <?php
+
 class VideoInfo {
 
    private $dbConnection, $video, $user;
@@ -10,12 +11,12 @@ class VideoInfo {
       $this->user = $user;
    }
 
-   public function renderInfo() {
+   public function render() {
       return "
          <div class='videoInfo'>
             <h1>$this->title</h1>
-            <div class='bottomSection'>
-               <span class='viewCount'>$this->views views</span>
+            <div class='infoLower'>
+               <span class='views'>$this->views views</span>
             </div>
          </div>
       ";

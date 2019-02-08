@@ -17,8 +17,6 @@ $uploadedVideoData = new UploadedVideoData(
    $user->username   
 );
 
-var_dump($uploadedVideoData);
-
 // $validatedVideoData = videoDataValidator($uploadedVideoData);
 
 $videoProcessor = new VideoProcessor($dbConnection);

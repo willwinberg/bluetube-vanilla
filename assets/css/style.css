@@ -229,3 +229,26 @@ a:hover {
   height: 100%;
   padding-left: 24px;
 }
+
+.videoInfo {
+  width: 100%;
+  padding: 18px 0 8px 0;
+}
+
+.videoInfo h1 {
+  display: block;
+  overflow: hidden;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 22px;
+}
+
+.videoInfo .infoLower {
+  display: flex;
+}
+
+.videoInfo .bottomSection .views {
+  color: rgba(16, 16, 16, 0.6);
+  font-size: 16px;
+  flex: 1;
+}
