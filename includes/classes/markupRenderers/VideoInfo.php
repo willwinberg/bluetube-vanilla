@@ -1,4 +1,5 @@
 <?php
+require_once("Button.php");
 
 class VideoInfo {
 
@@ -11,7 +12,8 @@ class VideoInfo {
       $this->id = $id;
       $this->title = $video->title;
       $this->views = $video->views;
-      $this->likes = $video->likes;
+      // $this->likes = $video->likes;
+      // $this->likes = $video->dislikes;
 
       $this->likeButton = $this->likeButton();
       $this->dislikeButton = $this->dislikeButton();
@@ -33,31 +35,29 @@ class VideoInfo {
    }
 
    private function likeButton() {
+      // $text = $this->likes;
       // $action = "likeVideo(this, $this->id)";
+      $class = "likeButton";
       $src = "assets/images/icons/thumb-up.png";
 
       // if ($this->video->wasLiked()) {
       //    $src = "assets/images/icons/thumb-up-active.png";
       // }
 
-      return "
-      <button class='likeButton' onclick=''>
-         <img src='$src' name='like' alt='like'/>
-      </button>";
+      return Button::regular(null, null, $class, $src);
    }
 
    private function dislikeButton() {
+      // $text = $this->dislikes;
       // $action = "dislikeVideo(this, $this->id)";
+      $class = "dislikeButton";
       $src = "assets/images/icons/thumb-down.png";
 
       // if ($this->video->wasDisliked()) {
       //    $src = "assets/images/icons/thumb-down-active.png";
       // }
 
-      return "
-      <button class='dislikeButton' onclick=''>
-         <img src='$src' name='dislike' alt='dislike'/>
-      </button>";
+      return Button::regular(null, null, $class, $src);
    }
 
 }
