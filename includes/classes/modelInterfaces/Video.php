@@ -18,7 +18,6 @@ class Video {
       $uploadedDate
    ;
 
-
    public function __construct($dbConnection, $input, $user) {
       $this->dbConnection = $dbConnection;
       $this->user = $user;

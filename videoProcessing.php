@@ -1,7 +1,7 @@
 <?php 
 require_once("includes/header.php");
 require_once("includes/classes/modelInterfaces/UploadedVideoData.php");
-require_once("includes/classes/processors/VideoProcessor.php");
+require_once("includes/classes/dataProcessors/VideoProcessor.php");
 
 if (!isset($_POST["uploadButton"])) {
     echo "No file has been selected.";
