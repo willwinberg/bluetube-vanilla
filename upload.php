@@ -1,6 +1,6 @@
 <?php
 require_once("includes/header.php");
-require_once("includes/classes/VideoDetailsFormProvider.php");
+require_once("includes/classes/markupRenderers/VideoDetailsFormProvider.php");
 ?>
 
 <div class="column">

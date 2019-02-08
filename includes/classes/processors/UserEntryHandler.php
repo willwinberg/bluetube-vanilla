@@ -11,8 +11,9 @@ class UserEntryHandler {
 
    public function login($loginData) {
       $username = $loginData["username"];
-      $password = hash("sha512", $loginData["password"]);
-
+      $password = hash("sha256", $loginData["password"]);
+      echo $username;
+      echo $password;
       $query = $this->dbConnection->prepare(
          "SELECT * FROM users WHERE username=:username AND password=:password"
       );
@@ -31,7 +32,7 @@ class UserEntryHandler {
       $lastName = $userData["lastName"];
       $username = $userData["username"];
       $email = $userData["email"];
-      $password = hash("sha512", $userData["password"]);
+      $password = hash("sha256", $userData["password"]);
       $image = "assets/images/profilePictures/default.png";
 
       $query = $this->dbConnection->prepare(

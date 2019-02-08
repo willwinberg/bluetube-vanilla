@@ -1,7 +1,7 @@
 <?php 
 require_once("includes/header.php");
-require_once("includes/classes/UploadedVideoData.php");
-require_once("includes/classes/VideoProcessor.php");
+require_once("includes/classes/modelInterfaces/UploadedVideoData.php");
+require_once("includes/classes/processors/VideoProcessor.php");
 
 if (!isset($_POST["uploadButton"])) {
     echo "No file has been selected.";
@@ -26,4 +26,6 @@ $uploadSuccessful = $videoProcessor->uploadVideo($uploadedVideoData); // TODO: p
 if ($uploadSuccessful) {
     echo "Video upload successful";
 }
+
+require_once("includes/footer.php");
 ?>

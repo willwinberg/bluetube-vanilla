@@ -15,8 +15,11 @@
 - clean up upload.php
 - break video processor in to separate classes
 - decompose login and register forms with FormProvider class
+- foreign key constraints on privacy and category db attrs
 
 ## php.ini fine in XAMPP
 
 - max_execution_time=3000
 - max_filesize=1024M
+
+### Must include ffmpeg, see .gitignore

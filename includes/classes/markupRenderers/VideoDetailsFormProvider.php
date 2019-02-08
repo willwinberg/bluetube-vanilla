@@ -14,7 +14,7 @@ class VideoDetailsFormProvider {
 
         return ("
             <form
-                action='processing.php'
+                action='videoProcessing.php'
                 method='POST'
                 enctype='multipart/form-data'
             >

@@ -1,6 +1,8 @@
 <?php
+// $rootPath = $_SERVER['DOCUMENT_ROOT'] . "/bluetube";
+
 require_once("includes/config.php");
-require_once("includes/classes/User.php");
+require_once("includes/classes/modelInterfaces/User.php");
 
 $loggedInUsername = isset($_SESSION["loggedIn"]) ? $_SESSION["loggedIn"] : "";
 $user = new User($dbConnection, $loggedInUsername);

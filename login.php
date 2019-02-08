@@ -1,8 +1,8 @@
 <?php
 require_once("includes/config.php");
-require_once("includes/classes/FormInputSanitizer.php");
-require_once("includes/classes/UserEntryHandler.php");
-require_once("includes/classes/ErrorMessage.php");
+require_once("includes/classes/processors/FormInputSanitizer.php");
+require_once("includes/classes/processors/UserEntryHandler.php");
+require_once("includes/classes/processors/ErrorMessage.php");
 
 $loginDataSanitizer = new FormInputSanitizer;
 $userAccount = new UserEntryHandler($dbConnection);
@@ -17,7 +17,7 @@ if (isset($_POST["submitLoginForm"])) {
 
    if ($noError) {
       $_SESSION["loggedIn"] = $sanitizedLoginData["username"];
-      header("Location: index.php");
+      // header("Location: index.php");
    }
 }
 
@@ -60,4 +60,4 @@ function getValue($key) {
    </div>
 </div>
 
-<?php require_once("includes/entryHeader.php"); ?>
+<?php require_once("includes/entryFooter.php"); ?>

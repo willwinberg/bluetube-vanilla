@@ -1,10 +1,10 @@
 <?php
 
 require_once("includes/config.php");
-require_once("includes/classes/FormInputSanitizer.php"); 
-require_once("includes/classes/FormInputValidator.php");
-require_once("includes/classes/UserEntryHandler.php");
-require_once("includes/classes/ErrorMessage.php"); 
+require_once("includes/classes/processors/FormInputSanitizer.php"); 
+require_once("includes/classes/processors/FormInputValidator.php");
+require_once("includes/classes/processors/UserEntryHandler.php");
+require_once("includes/classes/processors/ErrorMessage.php"); 
 
 $newUserDataSanitizer = new FormInputSanitizer;
 $newUserDataValidator = new formInputValidator($dbConnection);
@@ -21,7 +21,7 @@ if (isset($_POST["submitRegisterForm"])) {
    if ($noErrors) {
       $newUserAccount->registerNewUser($sanitizedUserData);
       $_SESSION["loggedIn"] = $sanitizedUserData["username"];
-      header("Location: index.php");
+      // header("Location: index.php");
    }
 }
 
@@ -95,7 +95,7 @@ function getValue($key) {
                required
                type="password"
                name="password"
-               value="<?php getValue('password'); ?>" placeholder="Password"
+               placeholder="Password"
             >
             <?php echo $newUserDataValidator->getError(ErrorMessage::$passwordInsecure); ?>
             <?php echo $newUserDataValidator->getError(ErrorMessage::$passwordLength); ?>
@@ -104,7 +104,7 @@ function getValue($key) {
                required
                type="password"
                name="passwordConfirm"
-               value="<?php getValue('passwordConfirm'); ?>" placeholder="Confirm password"
+               placeholder="Confirm password"
             >
             <?php echo $newUserDataValidator->getError(ErrorMessage::$passwordsDoNotMatch); ?>
 

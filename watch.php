@@ -1,11 +1,10 @@
 <?php 
 require_once("includes/header.php"); 
-require_once("includes/classes/Video.php"); 
+require_once("includes/classes/modelInterfaces/Video.php"); 
 
 if (!isset($_GET["id"])) {
     echo "Video URL missing";
     exit();
-   //  header("Location: index.php");
 }
 
 $video = new Video($dbConnection, $_GET["id"], $user);
