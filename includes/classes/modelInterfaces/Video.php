@@ -55,7 +55,7 @@ class Video {
                   Your browser does not support the video tag
          </video>
       ");
-    }
+   }
    
    public function getUploadDate() {
       return date("M j, Y", strtotime($this->date));
