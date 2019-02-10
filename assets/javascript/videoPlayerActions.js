@@ -1,31 +1,19 @@
 
 function likeVideo(button, videoId) {
-   console.log(button);
-   $.post("ajax/likeVideo.php", { videoId: videoId })
+   // console.log(button);
+   $.post("ajax/videoPlayerActions.php", { videoId, action: "like" })
       .done(function (response) {
          console.log("likeVideo called");
-         // console.log(response);
 
-         // const likeButton = $(button);
-         // const dislikeButton = $(button).siblings(".dislikeButton");
+      });
+}
 
-         // likeButton.addClass("active");
-         // dislikeButton.removeClass("active");
+function dislikeVideo(button, videoId) {
+   // console.log(button);
+   $.post("ajax/videoPlayerActions.php", { videoId, action: "dislike" })
+      .done(function (response) {
+         console.log("dislikeVideo called");
 
-         // var result = JSON.parse(response);
-         // console.log(result);
-         // updateLikesValue(likeButton.find(".text"), result.likes);
-         // updateLikesValue(dislikeButton.find(".text"), result.dislikes);
-
-         // if (result.likes < 0) {
-         //    likeButton.removeClass("active");
-         //    likeButton.find("img:first").attr("src", "assets/images/icons/thumb-up.png");
-         // }
-         // else {
-         //    likeButton.find("img:first").attr("src", "assets/images/icons/thumb-up-active.png")
-         // }
-
-         // dislikeButton.find("img:first").attr("src", "assets/images/icons/thumb-down.png");
       });
 }
 

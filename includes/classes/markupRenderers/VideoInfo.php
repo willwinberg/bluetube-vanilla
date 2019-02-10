@@ -49,7 +49,7 @@ class VideoInfo {
 
    private function dislikeButton() {
       $text = $this->dislikes;
-      // $action = "dislikeVideo(this, $this->id)";
+      $action = "dislikeVideo(this, $this->id)";
       $class = "dislikeButton";
       $src = "assets/images/icons/thumb-down.png";
 
@@ -57,22 +57,8 @@ class VideoInfo {
       //    $src = "assets/images/icons/thumb-down-active.png";
       // }
 
-      return Button::regular($text, null, $class, $src);
+      return Button::regular($text, $action, $class, $src);
    }
 
 }
-?>
-
-<?php
-// require_once("../includes/config.php"); 
-// require_once("../includes/classes/Video.php"); 
-// require_once("../includes/classes/User.php"); 
-
-// $username = $_SESSION["userLoggedIn"];
-// $videoId = $_POST["videoId"];
-
-// $userLoggedInObj = new User($con, $username);
-// $video = new Video($con, $videoId, $userLoggedInObj);
-
-// echo $user->likeVideo();
 ?>

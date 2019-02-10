@@ -34,7 +34,6 @@ class User {
 
    public function likeVideo($video) {
       if (in_array($this->username, $video->likedArray)) {
-         // User has already liked
          $query = $this->dbConnection->prepare(
             "DELETE FROM likes WHERE username=:username AND videoId=:videoId"
          );
@@ -73,8 +72,44 @@ class User {
       }
    }
 
-   public function dislikeVideo() {
-   
+   public function dislikeVideo($video) {
+      if (in_array($this->username, $video->dislikedArray)) {
+         $query = $this->dbConnection->prepare(
+            "DELETE FROM dislikes WHERE username=:username AND videoId=:videoId"
+         );
+         $query->bindParam(":username", $this->username);
+         $query->bindParam(":videoId", $video->id);
+         $query->execute();
+
+         return json_encode(
+            array(
+               "dislikes" => -1,
+               "likes" => 0
+            )
+        );
+      }
+      else {
+         $query = $this->dbConnection->prepare(
+         "DELETE FROM likes WHERE username=:username AND videoId=:videoId"
+         );
+         $query->bindParam(":username", $this->username);
+         $query->bindParam(":videoId", $video->id);
+         $query->execute();
+         
+         $query = $this->dbConnection->prepare(
+            "INSERT INTO dislikes (username, videoId) VALUES(:username, :videoId)"
+         );
+         $query->bindParam(":username", $this->username);
+         $query->bindParam(":videoId", $video->id);
+         $query->execute();  
+
+         return json_encode(
+            array(
+               "dislikes" => 1,
+               "likes" => -1
+            )
+         );
+      }
    }
 
 }
