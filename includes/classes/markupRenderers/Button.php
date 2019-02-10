@@ -35,8 +35,9 @@ class Button {
       ";
     }
 
-   public static function userProfileButton($username, $image) {
+   public static function profileButton($username, $image) {
       $link = "profile.php?username=$username";
+      var_dump($username);
 
       return "
          <a href='$link'>
@@ -57,15 +58,15 @@ class Button {
     }
 
    public static function subscribeButton($uploader, $subscriber) {
-      $subscriptions = $subscriber->getSubscriptionsArray($uploader->username);
-      $isSubscribed = in_array($subscriber->username);
+      $subscriptions = $subscriber->subscriptionsArray($uploader->username);
+      $isSubscribed = in_array($subscriber->username, $subscriptions);
       $text = $isSubscribedTo ? "SUBSCRIBED" : "SUBSCRIBE";
-      $text .= " " . $uploader->getSubscriberCount();
+      $text .= " " . $uploader->subscriberCount();
 
       $class = $isSubscribedTo ? "unsubscribe button" : "subscribe button";
       $action = "subscribe(this, $uploader->username, $subscriber->username)";
 
-      $button = Button::createButton($text, $action, $class, NULL);
+      $button = Button::regular($text, $action, $class, NULL);
 
       return "
          <div class='subscribeButtonContainer'>

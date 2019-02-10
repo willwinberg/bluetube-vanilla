@@ -8,17 +8,15 @@ class VideoInfo {
    public function __construct($dbConnection, $video, $user) {
       $this->dbConnection = $dbConnection;
       $this->user = $user;
-
       $this->video = $video;
-      $this->id = $video->id;
-      $this->title = $video->title;
-      $this->description = $video->description;
-      $this->uploadDate = $video->getUploadDate();
-      $this->uploadedBy = $video->UploadedBy;
-      $this->views = $video->views;
    }
 
    public function render() {
+      $title = $this->video->title;
+      $uploader = $this->video->uploadedBy;
+      $views = $this->video->views;
+      $uploadDate = $this->video->getUploadDate();
+      $description = $this->video->description;
       $likeButton = $this->likeButton();
       $dislikeButton = $this->dislikeButton();
       $profileButton = $this->profileButton();
@@ -28,7 +26,7 @@ class VideoInfo {
          <div class='videoInfo'>
             <h1>$this->title</h1>
             <div class='infoLower'>
-               <span class='views'>$this->views views</span>
+               <span class='views'>$views views</span>
                <div class=likeButtons>
                   $likeButton
                   $dislikeButton
@@ -41,16 +39,16 @@ class VideoInfo {
                $profileButton
                <div class='uploadInfo'>
                   <span class='owner'>
-                     <a href='profile.php?username=$this->uploadedBy'>
-                        $this->uploadedBy
+                     <a href='profile.php?username=$uploader'>
+                        $uploader
                      </a>
                   </span>
-                  <span class='date'>Published on $this->uploadDate</span>
+                  <span class='date'>Published on $uploadDate</span>
                </div>
                   $actionButton
             </div>
             <div class='descriptionContainer'>
-               $this->description
+               $description
             </div>
          </div>
       ";
@@ -63,12 +61,12 @@ class VideoInfo {
    }
 
    private function actionButton() {
-      if ($this->uploadedBy === $this->user->username) {
-            $actionButton = Button::editVideoButton($this->id);
+      if ($this->video->uploadedBy === $this->user->username) {
+            $actionButton = Button::editVideoButton($this->video->id);
       } else {
-         $uploader = $this.getUploader();
+         $uploader = $this->getUploader();
 
-         $actionButton = Button::subscribeButton($this->dbConnection, $uploader, $this->user);
+         $actionButton = Button::subscribeButton($uploader, $this->user);
       }
 
       return $actionButton;
@@ -77,7 +75,8 @@ class VideoInfo {
    private function likeButton() {
       $likedUsers = $this->video->getLikedUsernameArray();
       $text = sizeof($likedUsers);
-      $action = "likeVideo(this, $this->id)";
+      $videoId = $this->video->id;
+      $action = "likeVideo(this, $videoId)";
       $class = "likeButton";
       $src = "assets/images/icons/thumb-up.png"; 
 
@@ -91,7 +90,8 @@ class VideoInfo {
    private function dislikeButton() {
       $dislikedUsers = $this->video->getDislikedUsernameArray();
       $text = sizeof($dislikedUsers);
-      $action = "dislikeVideo(this, $this->id)";
+      $videoId = $this->video->id;
+      $action = "dislikeVideo(this, $videoId)";
       $class = "dislikeButton";
       $src = "assets/images/icons/thumb-down.png";
 
@@ -104,7 +104,8 @@ class VideoInfo {
    }
 
    private function getUploader() {
-      return new User($this->dbConnection, $this->uploadedBy);
+      return new User($this->dbConnection, $this->video->uploadedBy);
+
    }
 
 }
