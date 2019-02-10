@@ -45,7 +45,7 @@ class Video {
       $this->uploadedBy = $video["uploadedBy"];
       $this->uploadDate = $video["uploadDate"];
 
-      $this->likesArray = $this->getLikeIdArray();
+      $this->likedArray = $this->getLikedUsernameArray();
       $this->dislikesArray = $this->getDislikeIdArray();
    }
    
@@ -67,7 +67,7 @@ class Video {
       $this->views++;
    }
 
-   public function getLikeIdArray() {
+   public function getLikedUsernameArray() {
       $query = $this->dbConnection->prepare(
          "SELECT * FROM likes WHERE videoId = :videoId"
       );
@@ -75,9 +75,13 @@ class Video {
       // echo "VIdeoId: $this->id";
       $query->execute();
       $likes = $query->fetchAll();
+      $array = array();
       
-      var_dump($likes);
-      return $likes;
+      foreach ($likes as $like) {
+         array_push($array, $like["username"]);
+      }
+      var_dump($array);
+      return $array;
    }
 
    public function getDislikeIdArray() {

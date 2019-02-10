@@ -33,7 +33,7 @@ class User {
    }
 
    public function likeVideo($video) {
-      if (in_array($this->username, $video->likes)) {
+      if (in_array($this->username, $video->likedArray)) {
          // User has already liked
          $query = $this->dbConnection->prepare(
             "DELETE FROM likes WHERE username=:username AND videoId=:videoId"
@@ -76,5 +76,6 @@ class User {
    public function dislikeVideo() {
    
    }
+
 }
 ?>
