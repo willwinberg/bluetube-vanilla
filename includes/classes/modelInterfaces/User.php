@@ -108,5 +108,30 @@ class User {
       }
    }
 
+   public function subscriberCount() {
+      $query = $this->dbConnection->prepare(
+         "SELECT * FROM subscribers WHERE to=:to"
+      );
+      $query->bindParam(":to", $this->username);
+      $query->execute();
+      return $query->rowCount();
+   }
+
+   public function subscriptionsArray() {
+      $query = $this->dbConnection->prepare(
+         "SELECT to FROM subscribers WHERE userFrom=:from"
+      );
+      $query->bindParam(":from", $this->username);
+      $query->execute();
+      
+      $subscribers = array();
+
+      foreach ($query->fetchAll() as $row) {
+         $subscriber = new User($this->dbConnection, $row["to"]);
+         array_push($subscribers, $subscriber);
+      }
+      return $subscribers;
+   }
+
 }
 ?>

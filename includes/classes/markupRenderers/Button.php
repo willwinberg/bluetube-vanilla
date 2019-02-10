@@ -70,7 +70,8 @@ class Button {
       return "
          <div class='subscribeButtonContainer'>
             $button
-      </div>";
+         </div>
+      ";
    }
 
 }
