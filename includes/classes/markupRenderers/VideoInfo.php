@@ -9,11 +9,11 @@ class VideoInfo {
       $this->dbConnection = $dbConnection;
       $this->user = $user;
 
-      $this->id = $id;
+      $this->id = $video->id;
       $this->title = $video->title;
       $this->views = $video->views;
-      $this->likes = $video->getLikes();
-      $this->dislikes = $video->getDislikes();
+      $this->likes = sizeof($video->likes);
+      $this->dislikes = sizeof($video->dislikes);
 
       $this->likeButton = $this->likeButton();
       $this->dislikeButton = $this->dislikeButton();
@@ -36,7 +36,7 @@ class VideoInfo {
 
    private function likeButton() {
       $text = $this->likes;
-      // $action = "likeVideo(this, $this->id)";
+      $action = "likeVideo(this, $this->id)";
       $class = "likeButton";
       $src = "assets/images/icons/thumb-up.png";
 
@@ -44,7 +44,7 @@ class VideoInfo {
       //    $src = "assets/images/icons/thumb-up-active.png";
       // }
 
-      return Button::regular($text, null, $class, $src);
+      return Button::regular($text, $action, $class, $src);
    }
 
    private function dislikeButton() {
@@ -61,4 +61,18 @@ class VideoInfo {
    }
 
 }
+?>
+
+<?php
+// require_once("../includes/config.php"); 
+// require_once("../includes/classes/Video.php"); 
+// require_once("../includes/classes/User.php"); 
+
+// $username = $_SESSION["userLoggedIn"];
+// $videoId = $_POST["videoId"];
+
+// $userLoggedInObj = new User($con, $username);
+// $video = new Video($con, $videoId, $userLoggedInObj);
+
+// echo $user->likeVideo();
 ?>
