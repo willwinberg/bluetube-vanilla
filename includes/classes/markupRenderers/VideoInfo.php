@@ -9,11 +9,14 @@ class VideoInfo {
       $this->dbConnection = $dbConnection;
       $this->user = $user;
 
+      $this->video = $vide;
       $this->id = $video->id;
       $this->title = $video->title;
       $this->views = $video->views;
       $this->likes = sizeof($video->likes);
       $this->dislikes = sizeof($video->dislikes);
+      $this->wasLikedBy = $video->wasLikedBy;
+      $this->wasDislikedBy = $video->wasDislikedBy;
 
       $this->likeButton = $this->likeButton();
       $this->dislikeButton = $this->dislikeButton();
@@ -40,9 +43,9 @@ class VideoInfo {
       $class = "likeButton";
       $src = "assets/images/icons/thumb-up.png";
 
-      // if ($this->video->wasLiked()) {
-      //    $src = "assets/images/icons/thumb-up-active.png";
-      // }
+      if ($this->video->wasLikedBy()) {
+         $src = "assets/images/icons/thumb-up-active.png";
+      }
 
       return Button::regular($text, $action, $class, $src);
    }
@@ -53,9 +56,9 @@ class VideoInfo {
       $class = "dislikeButton";
       $src = "assets/images/icons/thumb-down.png";
 
-      // if ($this->video->wasDisliked()) {
-      //    $src = "assets/images/icons/thumb-down-active.png";
-      // }
+      if ($this->video->wasDislikedBy()) {
+         $src = "assets/images/icons/thumb-down-active.png";
+      }
 
       return Button::regular($text, $action, $class, $src);
    }

@@ -33,6 +33,8 @@ class User {
    }
 
    public function likeVideo($video) {
+      $wasLiked;
+
       if (in_array($this->username, $video->likedArray)) {
          $query = $this->dbConnection->prepare(
             "DELETE FROM likes WHERE username=:username AND videoId=:videoId"
@@ -73,6 +75,8 @@ class User {
    }
 
    public function dislikeVideo($video) {
+      $wasDisliked;
+
       if (in_array($this->username, $video->dislikedArray)) {
          $query = $this->dbConnection->prepare(
             "DELETE FROM dislikes WHERE username=:username AND videoId=:videoId"

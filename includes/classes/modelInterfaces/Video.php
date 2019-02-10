@@ -47,6 +47,8 @@ class Video {
 
       $this->likedArray = $this->getLikedUsernameArray();
       $this->dislikedArray = $this->getDislikedUsernameArray();
+      // $this->wasLikedBy = $this->wasLikedBy();
+      // $this->wasDislikedBy = $this->wasDislikedBy();
    }
    
    public function getUploadDate() {
@@ -100,5 +102,25 @@ class Video {
 
       return $array;
    }
+
+   public function wasLikedBy() {
+        $query = $this->dbConnection->prepare("SELECT * FROM likes WHERE username=:username AND videoId=:videoId");
+        $query->bindParam(":username", $this->username);
+        $query->bindParam(":videoId", $this->id);
+
+        $query->execute();
+
+        return $query->rowCount() > 0;
+    }
+
+    public function wasDislikedBy() {
+        $query = $this->dbConnection->prepare("SELECT * FROM dislikes WHERE username=:username AND videoId=:videoId");
+        $query->bindParam(":username", $this->username);
+        $query->bindParam(":videoId", $this->id);
+
+        $query->execute();
+
+        return $query->rowCount() > 0;
+    }
 
 }
