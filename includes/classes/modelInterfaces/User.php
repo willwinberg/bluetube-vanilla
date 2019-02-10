@@ -24,6 +24,10 @@ class User {
       $this->signUpDate = $user["signUpDate"];
    }
    
+   public static function loggedIn() {
+      return isset($_SESSION["loggedIn"]);
+   }
+
    public function getFullName() {
       return $this->firstName . " " . $this->lastName;
    }
