@@ -37,11 +37,10 @@ class Button {
 
    public static function profileButton($username, $image) {
       $link = "profile.php?username=$username";
-      var_dump($username);
 
       return "
          <a href='$link'>
-            <img src='$image' class='profilePicture'>
+            <img src='$image' class='profileImg'>
          </a>
       ";
    }
@@ -51,7 +50,7 @@ class Button {
       $button = Button::hyperlink("EDIT VIDEO", $link, "edit button", NULL);
 
       return "
-         <div class='editVideoButtonContainer'>
+         <div class='buttonContainer'>
             $button
          </div>
       ";
@@ -69,7 +68,7 @@ class Button {
       $button = Button::regular($text, $action, $class, NULL);
 
       return "
-         <div class='subscribeButtonContainer'>
+         <div class='buttonContainer'>
             $button
          </div>
       ";

@@ -234,12 +234,12 @@ a:hover {
   padding-left: 24px;
 }
 
-.videoInfo {
+.upperInfo {
   width: 100%;
   padding: 18px 0 8px 0;
 }
 
-.videoInfo h1 {
+.upperInfo h1 {
   display: block;
   overflow: hidden;
   font-size: 20px;
@@ -247,22 +247,22 @@ a:hover {
   line-height: 22px;
 }
 
-.videoInfo .infoLower {
+.upperInfo .lower {
   display: flex;
 }
 
-.videoInfo .infoLower .views {
+.upperInfo .lower .views {
   color: rgba(16, 16, 16, 0.6);
-  font-size: 16px;
+  font-size: 15px;
   flex: 1;
 }
 
-.videoInfo .infoLower .likeButtons {
+.upperInfo .lower .likeButtons {
   flex: 1;
   text-align: right;
 }
 
-.videoInfo .infoLower .likeButtons button {
+.upperInfo .lower .likeButtons button {
   padding: 0;
   background-color: transparent;
   border: none;
@@ -272,8 +272,88 @@ a:hover {
   cursor: pointer;
 }
 
-.videoInfo .infoLower .likeButtons button img {
+.upperInfo .lower .likeButtons button img {
   height: 20px;
   width: 20px;
   margin: 4px 8px 8px 8px;
+}
+
+.lowerInfo .top {
+  display: flex;
+  margin-bottom: 12px;
+}
+
+.profilePicture {
+  height: 100%;
+}
+
+.lowerInfo .top .profileImg {
+  margin-right: 16px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+}
+
+.lowerInfo .top .uploadInfo {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  margin-right: 10px;
+}
+
+.lowerInfo .top .uploadInfo .date {
+  color: rgba(17, 17, 17, 0.6);
+  font-size: 13px;
+  font-weight: 400;
+}
+
+.lowerInfo .description {
+  margin-left: 64px;
+  max-width: 615px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 21px;
+}
+
+.lowerInfo {
+  border-bottom: 1px solid #dedede;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+}
+
+.lowerInfo .top .button {
+  padding: 6px 15px;
+  cursor: pointer;
+  font-weight: 500;
+  border-radius: 2px;
+  border: none;
+  font-size: 14px;
+}
+
+.lowerInfo .top .buttonContainer,
+.lowerInfo .top .buttonContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.buttonContainer .subscribe {
+  background-color: #f00;
+  color: #fff;
+}
+
+.buttonContainer .unsubscribe {
+  background-color: #eee;
+  color: rgba(17, 17, 17, 0.6);
+}
+
+.buttonContainer .edit {
+  background-color: #2692e6;
+  color: #fff;
+}
+
+.lowerInfo .top .uploadInfo .owner a {
+  font-size: 14px;
+  font-weight: 500;
+  color: #000;
 }

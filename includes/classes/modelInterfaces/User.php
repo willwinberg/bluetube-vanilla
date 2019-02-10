@@ -110,27 +110,27 @@ class User {
 
    public function subscriberCount() {
       $query = $this->dbConnection->prepare(
-         "SELECT * FROM subscribers WHERE to=:to"
+         "SELECT * FROM subscribes WHERE toUsername=:toUsername"
       );
-      $query->bindParam(":to", $this->username);
+      $query->bindParam(":toUsername", $this->username);
       $query->execute();
       return $query->rowCount();
    }
 
    public function subscriptionsArray() {
       $query = $this->dbConnection->prepare(
-         "SELECT to FROM subscribers WHERE userFrom=:from"
+         "SELECT toUsername FROM subscribes WHERE fromUsername=:fromUsername"
       );
-      $query->bindParam(":from", $this->username);
+      $query->bindParam(":fromUsername", $this->username);
       $query->execute();
       
-      $subscribers = array();
+      $subscribes = array();
 
       foreach ($query->fetchAll() as $row) {
-         $subscriber = new User($this->dbConnection, $row["to"]);
-         array_push($subscribers, $subscriber);
+         $subscriber = new User($this->dbConnection, $row["toUsername"]);
+         array_push($subscribes, $subscribe);
       }
-      return $subscribers;
+      return $subscribes;
    }
 
 }

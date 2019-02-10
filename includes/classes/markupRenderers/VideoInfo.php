@@ -23,9 +23,9 @@ class VideoInfo {
       $actionButton = $this->actionButton();
 
       return "
-         <div class='videoInfo'>
-            <h1>$this->title</h1>
-            <div class='infoLower'>
+         <div class='upperInfo'>
+            <h1>$title</h1>
+            <div class='lower'>
                <span class='views'>$views views</span>
                <div class=likeButtons>
                   $likeButton
@@ -34,8 +34,8 @@ class VideoInfo {
                </div>
             </div>
          </div>
-         <div class='secondaryInfo'>
-            <div class='topRow'>
+         <div class='lowerInfo'>
+            <div class='top'>
                $profileButton
                <div class='uploadInfo'>
                   <span class='owner'>
@@ -47,7 +47,7 @@ class VideoInfo {
                </div>
                   $actionButton
             </div>
-            <div class='descriptionContainer'>
+            <div class='description'>
                $description
             </div>
          </div>
