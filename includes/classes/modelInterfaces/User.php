@@ -33,9 +33,7 @@ class User {
    }
 
    public function likeVideo($video) {
-      $wasLiked;
-
-      if (in_array($this->username, $video->likedArray)) {
+      if (in_array($this->username, $video->getLikedUsernameArray())) {
          $query = $this->dbConnection->prepare(
             "DELETE FROM likes WHERE username=:username AND videoId=:videoId"
          );
@@ -43,12 +41,9 @@ class User {
          $query->bindParam(":videoId", $video->id);
          $query->execute();
 
-         return json_encode(
-            array(
-               "likes" => -1,
-               "dislikes" => 0
-            )
-        );
+         $result = array("likes" => -1, "dislikes" => 0);
+
+         return json_encode($result);
       }
       else {
          $query = $this->dbConnection->prepare(
@@ -57,6 +52,8 @@ class User {
          $query->bindParam(":username", $this->username);
          $query->bindParam(":videoId", $video->id);
          $query->execute();
+
+         $count = $query->rowCount();
          
          $query = $this->dbConnection->prepare(
             "INSERT INTO likes (username, videoId) VALUES(:username,   :videoId)"
@@ -65,19 +62,14 @@ class User {
          $query->bindParam(":videoId", $video->id);
          $query->execute();  
 
-         return json_encode(
-            array(
-               "likes" => 1,
-               "dislikes" => -1
-            )
-         );
+         $result = array("likes" => 1, "dislikes" => 0 - $count);
+
+         return json_encode($result);
       }
    }
 
    public function dislikeVideo($video) {
-      $wasDisliked;
-
-      if (in_array($this->username, $video->dislikedArray)) {
+      if (in_array($this->username, $video->getDislikedUsernameArray())) {
          $query = $this->dbConnection->prepare(
             "DELETE FROM dislikes WHERE username=:username AND videoId=:videoId"
          );
@@ -85,12 +77,9 @@ class User {
          $query->bindParam(":videoId", $video->id);
          $query->execute();
 
-         return json_encode(
-            array(
-               "dislikes" => -1,
-               "likes" => 0
-            )
-        );
+         $result = array("dislikes" => -1, "likes" => 0);
+
+         return json_encode($result);
       }
       else {
          $query = $this->dbConnection->prepare(
@@ -99,20 +88,19 @@ class User {
          $query->bindParam(":username", $this->username);
          $query->bindParam(":videoId", $video->id);
          $query->execute();
+
+         $count = $query->rowCount();
          
          $query = $this->dbConnection->prepare(
             "INSERT INTO dislikes (username, videoId) VALUES(:username, :videoId)"
          );
          $query->bindParam(":username", $this->username);
          $query->bindParam(":videoId", $video->id);
-         $query->execute();  
+         $query->execute(); 
 
-         return json_encode(
-            array(
-               "dislikes" => 1,
-               "likes" => -1
-            )
-         );
+         $result = array("dislikes" => 1, "likes" => 0 - $count);
+
+         return json_encode($result);
       }
    }
 

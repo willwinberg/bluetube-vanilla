@@ -9,15 +9,10 @@ class VideoInfo {
       $this->dbConnection = $dbConnection;
       $this->user = $user;
 
-      $this->video = $vide;
+      $this->video = $video;
       $this->id = $video->id;
       $this->title = $video->title;
       $this->views = $video->views;
-      $this->likes = sizeof($video->likes);
-      $this->dislikes = sizeof($video->dislikes);
-      $this->wasLikedBy = $video->wasLikedBy;
-      $this->wasDislikedBy = $video->wasDislikedBy;
-
       $this->likeButton = $this->likeButton();
       $this->dislikeButton = $this->dislikeButton();
    }
@@ -31,6 +26,7 @@ class VideoInfo {
                <div class=likeButtons>
                   $this->likeButton
                   $this->dislikeButton
+                  
                </div>
             </div>
          </div>
@@ -38,12 +34,13 @@ class VideoInfo {
    }
 
    private function likeButton() {
-      $text = $this->likes;
+      $likedUsers = $this->video->getLikedUsernameArray();
+      $text = sizeof($likedUsers);
       $action = "likeVideo(this, $this->id)";
       $class = "likeButton";
-      $src = "assets/images/icons/thumb-up.png";
+      $src = "assets/images/icons/thumb-up.png"; 
 
-      if ($this->video->wasLikedBy()) {
+      if (in_array($this->user->username, $likedUsers)) {
          $src = "assets/images/icons/thumb-up-active.png";
       }
 
@@ -51,14 +48,16 @@ class VideoInfo {
    }
 
    private function dislikeButton() {
-      $text = $this->dislikes;
+      $dislikedUsers = $this->video->getDislikedUsernameArray();
+      $text = sizeof($dislikedUsers);
       $action = "dislikeVideo(this, $this->id)";
       $class = "dislikeButton";
       $src = "assets/images/icons/thumb-down.png";
 
-      if ($this->video->wasDislikedBy()) {
+      if (in_array($this->user->username, $dislikedUsers)) {
          $src = "assets/images/icons/thumb-down-active.png";
       }
+      
 
       return Button::regular($text, $action, $class, $src);
    }
