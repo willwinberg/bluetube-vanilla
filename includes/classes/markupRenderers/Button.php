@@ -21,5 +21,32 @@ class Button {
       ";
    }
 
+   public static function userProfileButton($username, $image) {
+      $link = "profile.php?username=$username";
+
+      return "
+         <a href='$link'>
+            <img src='$image' class='profilePicture'>
+         </a>
+      ";
+   }
+
+   public static function subscribeButton($dbConnection, $uploader, $subscriber) {
+      $subscriptions = $subscriber->getSubscriptionsArray($uploader->username);
+      $isSubscribed = in_array($subscriber->username);
+      $text = $isSubscribedTo ? "SUBSCRIBED" : "SUBSCRIBE";
+      $text .= " " . $uploader->getSubscriberCount();
+
+      $class = $isSubscribedTo ? "unsubscribe button" : "subscribe button";
+      $action = "subscribe(this, $uploader->username, $subscriber->username)";
+
+      $button = Button::createButton($text, $action, $class, NULL);
+
+      return "
+         <div class='subscribeButtonContainer'>
+            $button
+      </div>";
+   }
+
 }
 ?>

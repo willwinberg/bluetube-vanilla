@@ -79,11 +79,11 @@ class Video {
    }
    
    public function getUploadDate() {
-      return date("M j, Y", strtotime($this->date));
+      return date("M j, Y", strtotime($this->uploadDate));
    }
 
    public function getTimeStamp() {
-      return date("M jS, Y", strtotime($this->date));
+      return date("M jS, Y", strtotime($this->uploadDate));
    }
 
    public function incrementViews() {
