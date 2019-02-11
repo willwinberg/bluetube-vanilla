@@ -1,10 +1,10 @@
 <?php
 
 require_once("includes/config.php");
-require_once("includes/classes/dataProcessors/FormInputSanitizer.php"); 
-require_once("includes/classes/dataProcessors/FormInputValidator.php");
-require_once("includes/classes/dataProcessors/UserEntryHandler.php");
-require_once("includes/classes/dataProcessors/ErrorMessage.php"); 
+require_once("includes/dataProcessors/FormInputSanitizer.php"); 
+require_once("includes/dataProcessors/FormInputValidator.php");
+require_once("includes/dataProcessors/UserEntryHandler.php");
+require_once("includes/dataProcessors/ErrorMessage.php"); 
 
 $newUserDataSanitizer = new FormInputSanitizer;
 $newUserDataValidator = new formInputValidator($db);

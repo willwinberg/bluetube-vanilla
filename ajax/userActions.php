@@ -1,6 +1,6 @@
 <?php
 require_once("../includes/config.php"); 
-require_once("../includes/classes/modelInterfaces/User.php"); 
+require_once("../includes/modelInterfaces/User.php"); 
 
 if (isset($_POST["toUsername"]) && isset($_POST["fromUsername"])) {
    $toUser = new User($db, $_POST["toUsername"]);

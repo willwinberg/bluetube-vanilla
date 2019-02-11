@@ -1,6 +1,6 @@
 <?php
 require_once("includes/config.php");
-require_once("includes/classes/modelInterfaces/User.php");
+require_once("includes/modelInterfaces/User.php");
 
 $loggedInUsername = User::loggedIn() ? $_SESSION["loggedIn"] : "";
 $user = new User($db, $loggedInUsername);

@@ -1,8 +1,8 @@
 <?php 
 require_once("includes/header.php"); 
-require_once("includes/classes/modelInterfaces/Video.php");
-require_once("includes/classes/markupRenderers/VideoPlayer.php");
-require_once("includes/classes/markupRenderers/VideoInfo.php");
+require_once("includes/modelInterfaces/Video.php");
+require_once("includes/markupRenderers/VideoPlayer.php");
+require_once("includes/markupRenderers/VideoInfo.php");
 ?>
 <script src="assets/javascript/videoPlayerActions.js"></script>
 <script src="assets/javascript/userActions.js"></script>
