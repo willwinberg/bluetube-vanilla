@@ -108,6 +108,24 @@ class User {
       }
    }
 
+   public function subscribe($toUsername) {
+      $query = $this->dbConnection->prepare(
+         "INSERT INTO subscribes (toUsername, fromUsername) VALUES (:toUsername, :fromUsername)"
+      );
+      $query->bindParam(":toUsername", $toUsername);
+      $query->bindParam(":fromUsername", $this->username);
+      $query->execute();
+   }
+
+   public function unSubscribe($toUsername) {
+      $query = $this->dbConnection->prepare(
+         "DELETE FROM subscribes WHERE (toUsername=:toUsername AND fromUsername=:fromUsername)"
+      );
+      $query->bindParam(":toUsername", $toUsername);
+      $query->bindParam(":fromUsername", $this->username);
+      $query->execute();
+   }
+
    public function subscriberCount() {
       $query = $this->dbConnection->prepare(
          "SELECT * FROM subscribes WHERE toUsername=:toUsername"
@@ -117,6 +135,7 @@ class User {
       return $query->rowCount();
    }
 
+   // Array of usernames to which user is subscribed
    public function subscriptionsArray() {
       $query = $this->dbConnection->prepare(
          "SELECT toUsername FROM subscribes WHERE fromUsername=:fromUsername"
@@ -124,13 +143,14 @@ class User {
       $query->bindParam(":fromUsername", $this->username);
       $query->execute();
       
-      $subscribes = array();
+      $subscribers = array();
 
-      foreach ($query->fetchAll() as $row) {
-         $subscriber = new User($this->dbConnection, $row["toUsername"]);
-         array_push($subscribes, $subscribe);
+      while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
+         $user = new User($this->dbConnection, $row["toUsername"]);
+         array_push($subscribers, $user->username);
       }
-      return $subscribes;
+      
+      return $subscribers;
    }
 
 }

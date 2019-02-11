@@ -5,6 +5,7 @@ require_once("includes/classes/markupRenderers/VideoPlayer.php");
 require_once("includes/classes/markupRenderers/VideoInfo.php");
 ?>
 <script src="assets/javascript/videoPlayerActions.js"></script>
+<script src="assets/javascript/userActions.js"></script>
 
 <?php
 if (!isset($_GET["id"])) {

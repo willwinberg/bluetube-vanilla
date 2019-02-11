@@ -57,13 +57,13 @@ class Button {
     }
 
    public static function subscribeButton($uploader, $subscriber) {
-      $subscriptions = $subscriber->subscriptionsArray($uploader->username);
+      $subscriptions = $uploader->subscriptionsArray();
       $isSubscribed = in_array($subscriber->username, $subscriptions);
-      $text = $isSubscribedTo ? "SUBSCRIBED" : "SUBSCRIBE";
-      $text .= " " . $uploader->subscriberCount();
+      $text = $isSubscribed ? "SUBSCRIBED" : "SUBSCRIBE";
+      $text .= " " . sizeof($subscriptions);
 
-      $class = $isSubscribedTo ? "unsubscribe button" : "subscribe button";
-      $action = "subscribe(this, $uploader->username, $subscriber->username)";
+      $class = $isSubscribed ? "unsubscribe button" : "subscribe button";
+      $action = "subscribe(this, \"$uploader->username\", \"$subscriber->username\")";
 
       $button = Button::regular($text, $action, $class, NULL);
 

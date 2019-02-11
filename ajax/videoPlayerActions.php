@@ -10,7 +10,7 @@ $action = $_POST["action"];
 $user = new User($dbConnection, $username);
 $video = new Video($dbConnection, $videoId, $user);
 
-if ($action == "like") {
+if ($action === "like") {
    echo $user->likeVideo($video);
 } else if ($action == "dislike") {
    echo $user->dislikeVideo($video);
