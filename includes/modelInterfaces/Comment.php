@@ -31,7 +31,11 @@ class Comment {
       return $this->videoId;
    }
 
-   public function getReplies() {
+   public function postedBy() {
+      return $this->comment["postedBy"];
+   }
+
+   public function getRepliesArray() {
       $id = $this->getId();
       $query = $this->db->prepare(
          "SELECT * FROM comments WHERE responseTo=:commentId ORDER BY datePosted ASC"
@@ -49,6 +53,39 @@ class Comment {
 
       return $comments;
    }
+
+   function getReplyCount() {
+      $id = $this->comment->id();
+
+      $query = $db->prepare(
+         "SELECT count(*) FROM comments WHERE responseTo=:responseTo"
+      );
+      $query->bindParam(':responseTo', $id);
+
+      return $query->fetchColumn();
+   }
+
+   public function totalLikes() {
+      $id = $this->id();
+
+      $query = $this->db->prepare(
+         "SELECT * FROM likes WHERE commentId=:commentId"
+      );
+      $query->bindParam(":commentId", $id);
+      $query->execute();
+
+      $likeCount = $query->rowCount();
+
+      $query = $this->db->prepare(
+         "SELECT * FROM dislikes WHERE commentId=:commentId"
+      );
+      $query->bindParam(":commentId", $id);
+      $query->execute();
+
+      $dislikeCount = $query.rowCount();
+      
+      return $likeCount - $dislikeCount;
+    }
 
    public function addLike() {
       if (in_array($this->user->username, $this->usersWhoLikedArray())) {
@@ -143,6 +180,7 @@ class Comment {
 
       return $array;
    }
+
 
 }
 ?>
