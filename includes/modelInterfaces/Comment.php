@@ -50,117 +50,98 @@ class Comment {
       return $comments;
    }
 
-   public function like() {
-      $id = $this->getId();
-      $username = $this->userLoggedInObj->getUsername();
-
-      if($this->wasLikedBy()) {
-         // User has already liked
-         $query = $this->db->prepare("DELETE FROM likes WHERE username=:username AND commentId=:commentId");
-         $query->bindParam(":username", $username);
-         $query->bindParam(":commentId", $id);
+   public function addLike() {
+      if (in_array($this->user->username, $this->usersWhoLikedArray())) {
+         $query = $this->db->prepare(
+            "DELETE FROM likes WHERE username=:username AND commentId=:commentId"
+         );
+         $query->bindParam(":username", $this->user->username);
+         $query->bindParam(":commentId", $this->id);
          $query->execute();
 
          return -1;
-      }
-      else {
-         $query = $this->db->prepare("DELETE FROM dislikes WHERE username=:username AND commentId=:commentId");
-         $query->bindParam(":username", $username);
-         $query->bindParam(":commentId", $id);
+      } else {
+         $query = $this->db->prepare(
+            "DELETE FROM dislikes WHERE username=:username AND commentId=:commentId"
+         );
+         $query->bindParam(":username", $this->user->username);
+         $query->bindParam(":commentId", $this->id);
          $query->execute();
          $count = $query->rowCount();
 
-         $query = $this->db->prepare("INSERT INTO likes(username, commentId) VALUES(:username, :commentId)");
-         $query->bindParam(":username", $username);
-         $query->bindParam(":commentId", $id);
+         $query = $this->db->prepare(
+            "INSERT INTO likes (username, commentId) VALUES (:username, :commentId)"
+         );
+         $query->bindParam(":username", $this->user->username);
+         $query->bindParam(":commentId", $this->id);
          $query->execute();
 
          return 1 + $count;
       }
    }
    
-   public function wasLikedBy() {
-      $query = $this->db->prepare("SELECT * FROM likes WHERE username=:username AND commentId=:commentId");
-      $query->bindParam(":username", $username);
-      $query->bindParam(":commentId", $id);
-
-      $id = $this->getId();
-
-      $username = $this->userLoggedInObj->getUsername();
+   public function usersWhoLikedArray() {
+     $query = $this->db->prepare(
+         "SELECT * FROM likes WHERE username=:username AND commentId=:commentId"
+      );
+      $query->bindParam(":username", $this->user->username);
+      $query->bindParam(":commentId", $this->id);
       $query->execute();
+      $users = $query->fetchAll();
+      $array = array();
 
-      return $query->rowCount() > 0;
+      foreach ($users as $user) {
+         array_push($array, $user["username"]);
+      }
+
+      return $array;
    }
 
-   public function dislike() {
-      $id = $this->getId();
-      $username = $this->userLoggedInObj->getUsername();
-
-      if($this->wasDislikedBy()) {
-         // User has already liked
-         $query = $this->db->prepare("DELETE FROM dislikes WHERE username=:username AND commentId=:commentId");
-         $query->bindParam(":username", $username);
-         $query->bindParam(":commentId", $id);
+   public function addDislike() {
+      if (in_array($this->user->username, $this->usersWhoDislikedArray())) {
+         $query = $this->db->prepare(
+            "DELETE FROM dislikes WHERE username=:username AND commentId=:commentId"
+         );
+         $query->bindParam(":username", $this->user->username);
+         $query->bindParam(":commentId", $this->id);
          $query->execute();
 
-         return 1;
-      }
-      else {
-         $query = $this->db->prepare("DELETE FROM likes WHERE username=:username AND commentId=:commentId");
-         $query->bindParam(":username", $username);
-         $query->bindParam(":commentId", $id);
+         return -1;
+      } else {
+         $query = $this->db->prepare(
+            "DELETE FROM likes WHERE username=:username AND commentId=:commentId"
+         );
+         $query->bindParam(":username", $this->user->username);
+         $query->bindParam(":commentId", $this->id);
          $query->execute();
          $count = $query->rowCount();
 
-         $query = $this->db->prepare("INSERT INTO dislikes(username, commentId) VALUES(:username, :commentId)");
-         $query->bindParam(":username", $username);
-         $query->bindParam(":commentId", $id);
+         $query = $this->db->prepare(
+            "INSERT INTO dislikes (username, commentId) VALUES (:username, :commentId)"
+         );
+         $query->bindParam(":username", $this->user->username);
+         $query->bindParam(":commentId", $this->id);
          $query->execute();
 
-         return -1 - $count;
+         return 1 + $count;
       }
    }
-
-   public function wasDislikedBy() {
-      $query = $this->db->prepare("SELECT * FROM dislikes WHERE username=:username AND commentId=:commentId");
-      $query->bindParam(":username", $username);
-      $query->bindParam(":commentId", $id);
-      
-      $id = $this->getId();
-      
-      $username = $this->userLoggedInObj->getUsername();
-      $query->execute();
-      
-      return $query->rowCount() > 0;
-   }
-
-   function time_elapsed_string($datetime, $full = false) {
-      $now = new DateTime;
-      $ago = new DateTime($datetime);
-      $diff = $now->diff($ago);
    
-      $diff->w = floor($diff->d / 7);
-      $diff->d -= $diff->w * 7;
-   
-      $string = array(
-         'y' => 'year',
-         'm' => 'month',
-         'w' => 'week',
-         'd' => 'day',
-         'h' => 'hour',
-         'i' => 'minute',
-         's' => 'second',
+   public function usersWhoDislikedArray() {
+     $query = $this->db->prepare(
+         "SELECT * FROM dislikes WHERE username=:username AND commentId=:commentId"
       );
-      foreach ($string as $k => &$v) {
-         if ($diff->$k) {
-               $v = $diff->$k . ' ' . $v . ($diff->$k > 1 ? 's' : '');
-         } else {
-               unset($string[$k]);
-         }
+      $query->bindParam(":username", $this->user->username);
+      $query->bindParam(":commentId", $this->id);
+      $query->execute();
+      $users = $query->fetchAll();
+      $array = array();
+
+      foreach ($users as $user) {
+         array_push($array, $user["username"]);
       }
-   
-      if (!$full) $string = array_slice($string, 0, 1);
-      return $string ? implode(', ', $string) . ' ago' : 'just now';
+
+      return $array;
    }
 
 }

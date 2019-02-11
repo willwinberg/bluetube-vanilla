@@ -175,11 +175,11 @@ class Video {
       $query->bindParam(":videoId", $this->id);
       $query->execute();
 
-      $likes = $query->fetchAll();
+      $users = $query->fetchAll();
       $array = array();
       
-      foreach ($likes as $like) {
-         array_push($array, $like["username"]);
+      foreach ($users as $user) {
+         array_push($array, $user["username"]);
       }
 
       return $array;
@@ -192,11 +192,11 @@ class Video {
       $query->bindParam(":videoId", $this->id);
       $query->execute();
 
-      $dislikes = $query->fetchAll();
+      $users = $query->fetchAll();
       $array = array();
       
-      foreach ($dislikes as $dislike) {
-         array_push($array, $dislike["username"]);
+      foreach ($users as $user) {
+         array_push($array, $user["username"]);
       }
 
       return $array;
