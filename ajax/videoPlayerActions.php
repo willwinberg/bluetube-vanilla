@@ -11,8 +11,8 @@ $user = new User($db, $username);
 $video = new Video($db, $videoId, $user);
 
 if ($action === "like") {
-   echo $user->likeVideo($video);
+   echo $video->addLike();
 } else if ($action == "dislike") {
-   echo $user->dislikeVideo($video);
+   echo $video->addDislike();
 }
 ?>
