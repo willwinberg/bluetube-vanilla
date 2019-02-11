@@ -19,7 +19,7 @@ $uploadedVideoData = new UploadedVideoData(
 
 // $validatedVideoData = videoDataValidator($uploadedVideoData);
 
-$videoProcessor = new VideoProcessor($dbConnection);
+$videoProcessor = new VideoProcessor($db);
 
 $uploadSuccessful = $videoProcessor->uploadVideo($uploadedVideoData); // TODO: pass $validatedVideoData
 

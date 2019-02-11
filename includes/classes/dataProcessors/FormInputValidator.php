@@ -2,11 +2,11 @@
 
 class formInputValidator {
 
-   private $dbConnection;
+   private $db;
    public $errorArray = array();
 
-   public function __construct($dbConnection) {
-      $this->dbConnection = $dbConnection;
+   public function __construct($db) {
+      $this->db = $db;
    }
 
    public function validateNewUserData($sanitizedData) {
@@ -35,7 +35,7 @@ class formInputValidator {
          return;
       }
 
-      $query = $this->dbConnection->prepare(
+      $query = $this->db->prepare(
          "SELECT username FROM users WHERE username=:username"
       );
       $query->bindParam(":username", $username);
@@ -57,7 +57,7 @@ class formInputValidator {
          return;
       }
 
-      $query = $this->dbConnection->prepare(
+      $query = $this->db->prepare(
          "SELECT email FROM users WHERE email=:email"
       );
       $query->bindParam(":email", $email);

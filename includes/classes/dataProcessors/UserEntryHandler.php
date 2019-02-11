@@ -2,17 +2,17 @@
 
 class UserEntryHandler {
 
-   private $dbConnection;
+   private $db;
    public $error;
 
-   public function __construct($dbConnection) {
-      $this->dbConnection = $dbConnection;
+   public function __construct($db) {
+      $this->db = $db;
    }
 
    public function login($loginData) {
       $username = $loginData["username"];
       $password = hash("sha256", $loginData["password"]);
-      $query = $this->dbConnection->prepare(
+      $query = $this->db->prepare(
          "SELECT * FROM users WHERE username=:username AND password=:password"
       );
       $query->bindParam(":username", $username);
@@ -33,7 +33,7 @@ class UserEntryHandler {
       $password = hash("sha256", $userData["password"]);
       $image = "assets/images/profilePictures/default.png";
 
-      $query = $this->dbConnection->prepare(
+      $query = $this->db->prepare(
          "INSERT INTO users (firstName, lastName, username, email, password, image)
          VALUES (:firstName, :lastName, :username, :email, :password, :image)"
       );

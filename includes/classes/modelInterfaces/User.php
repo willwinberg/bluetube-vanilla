@@ -2,13 +2,13 @@
 
 class User {
 
-   private $dbConnection;
+   private $db;
    public $firstName, $lastName, $username, $email, $image;
 
-   public function __construct($dbConnection, $username) {
-      $this->dbConnection = $dbConnection;
+   public function __construct($db, $username) {
+      $this->db = $db;
 
-      $query = $this->dbConnection->prepare(
+      $query = $this->db->prepare(
          "SELECT * FROM users WHERE username = :username"
       );
       $query->bindParam(":username", $username);
@@ -38,7 +38,7 @@ class User {
 
    public function likeVideo($video) {
       if (in_array($this->username, $video->getLikedUsernameArray())) {
-         $query = $this->dbConnection->prepare(
+         $query = $this->db->prepare(
             "DELETE FROM likes WHERE username=:username AND videoId=:videoId"
          );
          $query->bindParam(":username", $this->username);
@@ -50,7 +50,7 @@ class User {
          return json_encode($result);
       }
       else {
-         $query = $this->dbConnection->prepare(
+         $query = $this->db->prepare(
          "DELETE FROM dislikes WHERE username=:username AND videoId=:videoId"
          );
          $query->bindParam(":username", $this->username);
@@ -59,7 +59,7 @@ class User {
 
          $count = $query->rowCount();
          
-         $query = $this->dbConnection->prepare(
+         $query = $this->db->prepare(
             "INSERT INTO likes (username, videoId) VALUES(:username,   :videoId)"
          );
          $query->bindParam(":username", $this->username);
@@ -74,7 +74,7 @@ class User {
 
    public function dislikeVideo($video) {
       if (in_array($this->username, $video->getDislikedUsernameArray())) {
-         $query = $this->dbConnection->prepare(
+         $query = $this->db->prepare(
             "DELETE FROM dislikes WHERE username=:username AND videoId=:videoId"
          );
          $query->bindParam(":username", $this->username);
@@ -86,7 +86,7 @@ class User {
          return json_encode($result);
       }
       else {
-         $query = $this->dbConnection->prepare(
+         $query = $this->db->prepare(
          "DELETE FROM likes WHERE username=:username AND videoId=:videoId"
          );
          $query->bindParam(":username", $this->username);
@@ -95,7 +95,7 @@ class User {
 
          $count = $query->rowCount();
          
-         $query = $this->dbConnection->prepare(
+         $query = $this->db->prepare(
             "INSERT INTO dislikes (username, videoId) VALUES(:username, :videoId)"
          );
          $query->bindParam(":username", $this->username);
@@ -109,7 +109,7 @@ class User {
    }
 
    public function subscribe($toUsername) {
-      $query = $this->dbConnection->prepare(
+      $query = $this->db->prepare(
          "INSERT INTO subscribes (toUsername, fromUsername) VALUES (:toUsername, :fromUsername)"
       );
       $query->bindParam(":toUsername", $toUsername);
@@ -118,7 +118,7 @@ class User {
    }
 
    public function unSubscribe($toUsername) {
-      $query = $this->dbConnection->prepare(
+      $query = $this->db->prepare(
          "DELETE FROM subscribes WHERE (toUsername=:toUsername AND fromUsername=:fromUsername)"
       );
       $query->bindParam(":toUsername", $toUsername);
@@ -127,7 +127,7 @@ class User {
    }
 
    public function subscriberCount() {
-      $query = $this->dbConnection->prepare(
+      $query = $this->db->prepare(
          "SELECT * FROM subscribes WHERE toUsername=:toUsername"
       );
       $query->bindParam(":toUsername", $this->username);
@@ -135,9 +135,9 @@ class User {
       return $query->rowCount();
    }
 
-   // Array of usernames to which user is subscribed
+   // Array of usernames to which $this is subscribed
    public function subscriptionsArray() {
-      $query = $this->dbConnection->prepare(
+      $query = $this->db->prepare(
          "SELECT toUsername FROM subscribes WHERE fromUsername=:fromUsername"
       );
       $query->bindParam(":fromUsername", $this->username);
@@ -146,10 +146,10 @@ class User {
       $subscribers = array();
 
       while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
-         $user = new User($this->dbConnection, $row["toUsername"]);
+         $user = new User($this->db, $row["toUsername"]);
          array_push($subscribers, $user->username);
       }
-      
+
       return $subscribers;
    }
 

@@ -5,7 +5,7 @@ require_once("includes/classes/dataProcessors/UserEntryHandler.php");
 require_once("includes/classes/dataProcessors/ErrorMessage.php");
 
 $loginDataSanitizer = new FormInputSanitizer;
-$userAccount = new UserEntryHandler($dbConnection);
+$userAccount = new UserEntryHandler($db);
 
 if (isset($_POST["submitLoginForm"])) {
     

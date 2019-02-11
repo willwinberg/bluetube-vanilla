@@ -7,8 +7,8 @@ require_once("includes/classes/dataProcessors/UserEntryHandler.php");
 require_once("includes/classes/dataProcessors/ErrorMessage.php"); 
 
 $newUserDataSanitizer = new FormInputSanitizer;
-$newUserDataValidator = new formInputValidator($dbConnection);
-$newUserAccount = new UserEntryHandler($dbConnection);
+$newUserDataValidator = new formInputValidator($db);
+$newUserAccount = new UserEntryHandler($db);
 
 if (isset($_POST["submitRegisterForm"])) {
 

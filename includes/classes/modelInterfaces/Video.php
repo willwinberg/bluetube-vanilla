@@ -2,7 +2,7 @@
 
 class Video {
 
-   private $dbConnection;
+   private $db;
    private $user;
 
    public 
@@ -18,14 +18,14 @@ class Video {
       $uploadedDate
    ;
 
-   public function __construct($dbConnection, $input, $user) {
-      $this->dbConnection = $dbConnection;
+   public function __construct($db, $input, $user) {
+      $this->db = $db;
       $this->user = $user;
 
       if (is_array($input)) {
          $video = $input;
       } else {
-         $query = $this->dbConnection->prepare(
+         $query = $this->db->prepare(
             "SELECT * FROM videos WHERE id = :id"
          );
          $query->bindParam(":id", $input);
@@ -87,7 +87,7 @@ class Video {
    }
 
    public function incrementViews() {
-      $query = $this->dbConnection->prepare(
+      $query = $this->db->prepare(
          "UPDATE videos SET views=views+1 WHERE id=:id"
       );
       $query->bindParam(":id", $this->id);
@@ -97,7 +97,7 @@ class Video {
    }
 
    function getLikedUsernameArray() {
-      $query = $this->dbConnection->prepare(
+      $query = $this->db->prepare(
          "SELECT * FROM likes WHERE videoId = :videoId"
       );
       $query->bindParam(":videoId", $this->id);
@@ -114,7 +114,7 @@ class Video {
    }
 
    function getDislikedUsernameArray() {
-      $query = $this->dbConnection->prepare(
+      $query = $this->db->prepare(
          "SELECT * FROM dislikes WHERE videoId = :videoId"
       );
       $query->bindParam(":videoId", $this->id);

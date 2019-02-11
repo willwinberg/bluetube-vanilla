@@ -18,8 +18,8 @@ if (IS_LIVE) {
 }
 
 try {
-    $dbConnection = new PDO("mysql:dbname=$dbName;host=$host", "$root", "$password");
-    $dbConnection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
+    $db = new PDO("mysql:dbname=$dbName;host=$host", "$root", "$password");
+    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
 }
 
 catch (PDOException $error) {

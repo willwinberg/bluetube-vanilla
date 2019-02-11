@@ -3,10 +3,10 @@ require_once("Button.php");
 
 class VideoInfo {
 
-   private $dbConnection, $video, $user;
+   private $db, $video, $user;
 
-   public function __construct($dbConnection, $video, $user) {
-      $this->dbConnection = $dbConnection;
+   public function __construct($db, $video, $user) {
+      $this->db = $db;
       $this->user = $user;
       $this->video = $video;
    }
@@ -104,7 +104,7 @@ class VideoInfo {
    }
 
    private function getUploader() {
-      return new User($this->dbConnection, $this->video->uploadedBy);
+      return new User($this->db, $this->video->uploadedBy);
 
    }
 

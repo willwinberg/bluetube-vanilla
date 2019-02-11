@@ -3,7 +3,7 @@ require_once("includes/config.php");
 require_once("includes/classes/modelInterfaces/User.php");
 
 $loggedInUsername = User::loggedIn() ? $_SESSION["loggedIn"] : "";
-$user = new User($dbConnection, $loggedInUsername);
+$user = new User($db, $loggedInUsername);
 echo $user->firstName;
 ?>
 

@@ -14,11 +14,11 @@ if (!isset($_GET["id"])) {
 }
 
 // $user === new User from header
-$video = new Video($dbConnection, $_GET["id"], $user);
+$video = new Video($db, $_GET["id"], $user);
 $video->incrementViews();
 
 $videoPlayer = new VideoPlayer($video->filePath);
-$videoInfo = new VideoInfo($dbConnection, $video, $user);
+$videoInfo = new VideoInfo($db, $video, $user);
 ?>
 
 <div class="watchLeft">

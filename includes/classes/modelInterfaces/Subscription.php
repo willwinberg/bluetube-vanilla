@@ -4,11 +4,11 @@
 
 //    public $id, $toUsername, $fromUsername;
 
-//    public function __constructor($dbConnection, $input) {
+//    public function __constructor($db, $input) {
 //       if (is_array($input)) {
 //          $subscribe = $input;
 //       } else {
-//          $query = $this->dbConnection->prepare(
+//          $query = $this->db->prepare(
 //             "SELECT * FROM subscribes WHERE id = :id"
 //          );
 //          $query->bindParam(":id", $input);

@@ -1,6 +1,6 @@
 <?php
 class VideoProcessor {
-   private $dbConnection;
+   private $db;
    private $sizeLimit = 500000000; // 500mb
    private $allowedTypes = array(
       "avi",
@@ -20,8 +20,8 @@ class VideoProcessor {
    private $ffmpegPath = "assets/ffmpeg/ffmpeg";
    private $ffprobePath = "assets/ffmpeg/ffprobe";
 
-   public function __construct($dbConnection) {
-      $this->dbConnection = $dbConnection;
+   public function __construct($db) {
+      $this->db = $db;
    }
 
    // TODO: deconstruct this
@@ -66,7 +66,7 @@ class VideoProcessor {
    }
    
    private function insertVideoIntoDB($cleanVideoData, $filePath) {
-      $query = $this->dbConnection->prepare(
+      $query = $this->db->prepare(
          "INSERT INTO videos(title, uploadedBy, description, privacy, category, filePath)
          VALUES(:title, :uploadedBy, :description, :privacy, :category, :filePath)"
       );
@@ -122,7 +122,7 @@ class VideoProcessor {
       $duration = $this->getVideoDuration($finalFilePath);
       echo $duration;
 
-      $videoId = $this->dbConnection->lastInsertId();
+      $videoId = $this->db->lastInsertId();
       $this->updateVideoDurationInDB($duration, $videoId);
 
       for ($num = 1; $num <= $thumbnailCount; $num++) {
@@ -141,7 +141,7 @@ class VideoProcessor {
             }
          }
 
-         $query = $this->dbConnection->prepare(
+         $query = $this->db->prepare(
             "INSERT INTO thumbnails (videoId, filePath, selected)
             VALUES (:videoId, :filePath, :selected)"
          );
@@ -170,7 +170,7 @@ class VideoProcessor {
    private function updateVideoDurationInDB($duration, $videoId) {   
       $durationString = $this->convertDurationToString($duration);
 
-      $query = $this->dbConnection->prepare("UPDATE videos SET duration=:durationString WHERE id=:videoId");
+      $query = $this->db->prepare("UPDATE videos SET duration=:durationString WHERE id=:videoId");
 
       $query->bindParam(":durationString", $durationString);
       $query->bindParam(":videoId", $videoId);
