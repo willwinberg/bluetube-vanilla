@@ -15,7 +15,7 @@ class CommentMarkup {
       $videoId = $this->comment->videoId();
       $body = $this->comment->body();
       $postedBy = $this->comment->postedBy();
-      $profileButton = $this->profileButton;
+      $profileButton = $this->profileButton();
       $replyButton = $this->replyButton();
       $likeCount = $this->totalLikes();
       $likeButton = $this->likeButton($id, $videoId);
@@ -69,7 +69,7 @@ class CommentMarkup {
    }
 
    private function profileButton() {
-      $poster = new User($this->db, $this->comment->postedBy);
+      $poster = new User($this->db, $this->comment->postedBy());
 
       return Button::profileButton($poster->username, $poster->image);
    }

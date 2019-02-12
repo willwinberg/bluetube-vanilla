@@ -48,7 +48,8 @@ echo $user->firstName;
                <img class="upload" src="assets/images/icons/upload.png">
             </a>
             <a href="#">
-               <img class="upload" src="assets/images/profilePictures/default.png"> 
+               <img class="upload" src="assets/images/profilePictures/default.png">
+               <?php echo $loggedInUsername ?>
             </a>
          </div>
       </div>

@@ -215,10 +215,10 @@ class Video {
    }
 
    public function getCommentsArray() {
-      $id = $this->getId();
+      $id = $this->id();
 
       $query = $this->db->prepare(
-         "SELECT * FROM comments WHERE videoId=:videoId AND responseTo=0 ORDER BY datePosted DESC"
+         "SELECT * FROM comments WHERE videoId=:videoId AND replyTo=0 ORDER BY postDate DESC"
       );
       $query->bindParam(":videoId", $id);
       $query->execute();

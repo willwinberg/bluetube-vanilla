@@ -13,7 +13,7 @@ class VideoInfo {
 
    public function render() {
       $title = $this->video->title;
-      $uploader = $this->video->uploadedBy;
+      $uploadedBy = $this->video->uploadedBy;
       $views = $this->video->views;
       $uploadDate = $this->video->getUploadDate();
       $description = $this->video->description;
@@ -39,8 +39,8 @@ class VideoInfo {
                $profileButton
                <div class='uploadInfo'>
                   <span class='owner'>
-                     <a href='profile.php?username=$uploader'>
-                        $uploader
+                     <a href='profile.php?username=$uploadedBy'>
+                        $uploadedBy
                      </a>
                   </span>
                   <span class='date'>Published on $uploadDate</span>
@@ -55,18 +55,14 @@ class VideoInfo {
    }
 
    private function profileButton() {
-      $uploader = $this->getUploader();
-
-      return Button::profileButton($uploader->username, $uploader->image);
+      return Button::profileButton($this->db, $this->video->uploadedBy);
    }
 
    private function actionButton() {
       if ($this->video->uploadedBy === $this->user->username) {
             $actionButton = Button::editVideoButton($this->video->id);
       } else {
-         $uploader = $this->getUploader();
-
-         $actionButton = Button::subscribeButton($uploader, $this->user);
+         $actionButton = Button::subscribeButton($this->db, $this->user->username, $this->video->uploadedBy);
       }
 
       return $actionButton;
@@ -97,13 +93,15 @@ class VideoInfo {
 
       if (in_array($this->user->username, $dislikedUsers)) {
          $src = "assets/images/icons/thumb-down-active.png";
-      }     
+      }
+      
 
       return Button::regular($text, $action, $class, $src);
    }
 
    private function getUploader() {
       return new User($this->db, $this->video->uploadedBy);
+
    }
 
 }
