@@ -54,7 +54,7 @@ class Comment {
    }
    
    public function getRepliesArray() {
-      $id = $this->getId();
+      $id = $this->id();
       $query = $this->db->prepare(
          "SELECT * FROM comments WHERE replyTo=:commentId ORDER BY postDate ASC"
       );
@@ -73,9 +73,9 @@ class Comment {
    }
 
    function getReplyCount() {
-      $id = $this->comment->id();
+      $id = $this->id();
 
-      $query = $db->prepare(
+      $query = $this->db->prepare(
          "SELECT count(*) FROM comments WHERE replyTo=:replyTo"
       );
       $query->bindParam(':replyTo', $id);
@@ -87,31 +87,33 @@ class Comment {
       $id = $this->id();
 
       $query = $this->db->prepare(
-         "SELECT * FROM likes WHERE commentId=:commentId"
+         "SELECT count(*) as 'count' FROM likes WHERE commentId=:commentId"
       );
       $query->bindParam(":commentId", $id);
       $query->execute();
-
-      $likeCount = $query->rowCount();
+      $array = $query->fetch(PDO::FETCH_ASSOC);
+      $likeCount = $array["count"]; 
 
       $query = $this->db->prepare(
-         "SELECT * FROM dislikes WHERE commentId=:commentId"
+         "SELECT count(*) as 'count' FROM dislikes WHERE commentId=:commentId"
       );
       $query->bindParam(":commentId", $id);
       $query->execute();
-
-      $dislikeCount = $query.rowCount();
+      $array = $query->fetch(PDO::FETCH_ASSOC);
+      $dislikeCount = $array["count"]; 
       
       return $likeCount - $dislikeCount;
     }
 
    public function addLike() {
+      $id = $this->id();
+
       if (in_array($this->user->username, $this->usersWhoLikedArray())) {
          $query = $this->db->prepare(
             "DELETE FROM likes WHERE username=:username AND commentId=:commentId"
          );
          $query->bindParam(":username", $this->user->username);
-         $query->bindParam(":commentId", $this->id);
+         $query->bindParam(":commentId", $id);
          $query->execute();
 
          return -1;
@@ -120,7 +122,7 @@ class Comment {
             "DELETE FROM dislikes WHERE username=:username AND commentId=:commentId"
          );
          $query->bindParam(":username", $this->user->username);
-         $query->bindParam(":commentId", $this->id);
+         $query->bindParam(":commentId", $id);
          $query->execute();
          $count = $query->rowCount();
 
@@ -128,7 +130,7 @@ class Comment {
             "INSERT INTO likes (username, commentId) VALUES (:username, :commentId)"
          );
          $query->bindParam(":username", $this->user->username);
-         $query->bindParam(":commentId", $this->id);
+         $query->bindParam(":commentId", $id);
          $query->execute();
 
          return 1 + $count;
@@ -136,11 +138,13 @@ class Comment {
    }
    
    public function usersWhoLikedArray() {
+      $id = $this->id();
+
      $query = $this->db->prepare(
          "SELECT * FROM likes WHERE username=:username AND commentId=:commentId"
       );
       $query->bindParam(":username", $this->user->username);
-      $query->bindParam(":commentId", $this->id);
+      $query->bindParam(":commentId", $id);
       $query->execute();
       $users = $query->fetchAll();
       $array = array();
@@ -153,12 +157,14 @@ class Comment {
    }
 
    public function addDislike() {
+      $id = $this->id();
+
       if (in_array($this->user->username, $this->usersWhoDislikedArray())) {
          $query = $this->db->prepare(
             "DELETE FROM dislikes WHERE username=:username AND commentId=:commentId"
          );
          $query->bindParam(":username", $this->user->username);
-         $query->bindParam(":commentId", $this->id);
+         $query->bindParam(":commentId", $id);
          $query->execute();
 
          return -1;
@@ -167,7 +173,7 @@ class Comment {
             "DELETE FROM likes WHERE username=:username AND commentId=:commentId"
          );
          $query->bindParam(":username", $this->user->username);
-         $query->bindParam(":commentId", $this->id);
+         $query->bindParam(":commentId", $id);
          $query->execute();
          $count = $query->rowCount();
 
@@ -175,7 +181,7 @@ class Comment {
             "INSERT INTO dislikes (username, commentId) VALUES (:username, :commentId)"
          );
          $query->bindParam(":username", $this->user->username);
-         $query->bindParam(":commentId", $this->id);
+         $query->bindParam(":commentId", $id);
          $query->execute();
 
          return 1 + $count;
@@ -183,11 +189,13 @@ class Comment {
    }
    
    public function usersWhoDislikedArray() {
-     $query = $this->db->prepare(
+      $id = $this->id();
+
+      $query = $this->db->prepare(
          "SELECT * FROM dislikes WHERE username=:username AND commentId=:commentId"
       );
       $query->bindParam(":username", $this->user->username);
-      $query->bindParam(":commentId", $this->id);
+      $query->bindParam(":commentId", $id);
       $query->execute();
       $users = $query->fetchAll();
       $array = array();

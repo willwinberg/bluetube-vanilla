@@ -3,14 +3,13 @@ require_once("Button.php");
 
 class CommentMarkup {
 
-  private $db, $commentId, $user, $videoId;
+   private $db, $commentId, $user;
 
-   public function __construct($db, $commentId, $user, $videoId) {
+   public function __construct($db, $commentId, $user) {
 
       $this->comment = new Comment($db, $commentId, $user, $videoId);
       $this->db = $db;
       $this->user = $user;
-      $this->videoId = $videoId;
    }
 
    public function render() {
@@ -18,9 +17,10 @@ class CommentMarkup {
       $videoId = $this->comment->videoId();
       $body = $this->comment->body();
       $postedBy = $this->comment->postedBy();
+      $likeCount = $this->comment->totalLikes();
+
       $profileButton = $this->profileButton();
       $replyButton = $this->replyButton();
-      $likeCount = $this->totalLikes();
       $likeButton = $this->likeButton($id, $videoId);
       $dislikeButton = $this->dislikeButton($id, $videoId);
 
@@ -93,11 +93,11 @@ class CommentMarkup {
    private function dislikeButton($id, $videoId) {
       $usersWhoDisliked = $this->comment->usersWhoDislikedArray();
       $action = "dislikeComment(this, $id, $videoId)";
-      $class = "likeButton";
-      $src = "assets/images/icons/thumb-up.png";
+      $class = "dislikeButton";
+      $src = "assets/images/icons/thumb-down.png";
 
-      if (in_array($this->user->username, $usersWhoLiked)) {
-         $src = "assets/images/icons/thumb-up-active.png";
+      if (in_array($this->user->username, $usersWhoDisliked)) {
+         $src = "assets/images/icons/thumb-down-active.png";
       }
 
       return Button::regular("", $action, $class, $src);

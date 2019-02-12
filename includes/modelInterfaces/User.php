@@ -6,7 +6,6 @@ class User {
    public $firstName, $lastName, $username, $email, $image;
 
    public function __construct($db, $username) {
-            var_dump($db);
       $query = $db->prepare(
          "SELECT * FROM users WHERE username = :username"
       );
