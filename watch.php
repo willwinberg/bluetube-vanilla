@@ -23,7 +23,6 @@ $video->incrementViews();
 
 $videoPlayer = new VideoPlayer($video->filePath);
 $videoInfo = new VideoInfo($db, $video, $user);
-
 $commentSection = new CommentSection($db, $video, $user);
 ?>
 

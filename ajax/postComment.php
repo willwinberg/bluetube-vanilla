@@ -6,7 +6,6 @@ require_once("../includes/markupRenderers/CommentMarkup.php");
 
 if (isset($_POST['body']) && isset($_POST['postedBy']) && isset($_POST['videoId'])) {
    $user = new User($db, $_SESSION["loggedIn"]);
-
    $postedBy = $_POST['postedBy'];
    $videoId = $_POST['videoId'];
    $replyTo = isset($_POST['replyTo']) ? $_POST['replyTo'] : 0;
@@ -25,7 +24,7 @@ if (isset($_POST['body']) && isset($_POST['postedBy']) && isset($_POST['videoId'
 
    $commentId = $db->lastInsertId();
 
-   $commentMarkup = new CommentMarkup($db, 27, $user, $videoId);
+   $commentMarkup = new CommentMarkup($db, $commentId, $user, $videoId);
 
    echo $commentMarkup->render();
 } else {

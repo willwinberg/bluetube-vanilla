@@ -2,7 +2,7 @@
 
 class Comment {
 
-   private $db, $comment, $user, $videoId;
+   protected $db, $comment, $user, $videoId;
 
    public function __construct($db, $input, $user, $videoId) {
       if (is_array($input)) {
@@ -16,19 +16,23 @@ class Comment {
 
          $comment = $query->fetch(PDO::FETCH_ASSOC);
       }
-      
+
       $this->db = $db;
       $this->comment = $comment;
       $this->user = $user;
       $this->videoId = $videoId;
    }
-   
+
+   public function user() {
+      return $this->user;
+   }
+
    public function id() {
       return $this->comment["id"];
    }
-   
+
    public function videoId() {
-      return $this->videoId;
+      return $this->comment["videoId"];
    }
 
    public function postedBy() {
@@ -56,7 +60,7 @@ class Comment {
    public function addComment() {
       // in ajax for now...
    }
-   
+
    public function getRepliesArray() {
       $id = $this->id();
       $query = $this->db->prepare(
@@ -96,7 +100,7 @@ class Comment {
       $query->bindParam(":commentId", $id);
       $query->execute();
       $array = $query->fetch(PDO::FETCH_ASSOC);
-      $likeCount = $array["count"]; 
+      $likeCount = $array["count"];
 
       $query = $this->db->prepare(
          "SELECT count(*) as 'count' FROM dislikes WHERE commentId=:commentId"
@@ -104,10 +108,10 @@ class Comment {
       $query->bindParam(":commentId", $id);
       $query->execute();
       $array = $query->fetch(PDO::FETCH_ASSOC);
-      $dislikeCount = $array["count"]; 
-      
+      $dislikeCount = $array["count"];
+
       return $likeCount - $dislikeCount;
-    }
+   }
 
    public function addLike() {
       $id = $this->id();
@@ -140,11 +144,11 @@ class Comment {
          return 1 + $count;
       }
    }
-   
+
    public function usersWhoLikedArray() {
       $id = $this->id();
 
-     $query = $this->db->prepare(
+      $query = $this->db->prepare(
          "SELECT * FROM likes WHERE username=:username AND commentId=:commentId"
       );
       $query->bindParam(":username", $this->user->username);
@@ -191,7 +195,7 @@ class Comment {
          return 1 + $count;
       }
    }
-   
+
    public function usersWhoDislikedArray() {
       $id = $this->id();
 
@@ -210,7 +214,6 @@ class Comment {
 
       return $array;
    }
-
 
 }
 ?>

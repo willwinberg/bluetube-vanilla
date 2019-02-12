@@ -46,37 +46,37 @@ class Video {
       $this->uploadDate = $video["uploadDate"];
    }
 
-   public function id() {
-      return $this->video["id"];
-   }
+   // public function id() {
+   //    return $this->video["id"];
+   // }
    
-   public function title() {
+   // public function title() {
 
-   }
+   // }
    
-   public function description() {
+   // public function description() {
 
-   }
+   // }
    
-   public function privacy() {
+   // public function privacy() {
 
-   }
+   // }
    
-   public function category() {
+   // public function category() {
 
-   }
+   // }
    
-   public function views() {
-      $video["views"];
-   }
+   // public function views() {
+   //    $video["views"];
+   // }
    
-   public function duration() {
+   // public function duration() {
 
-   }
+   // }
    
-   public function filePath() {
+   // public function filePath() {
 
-   }
+   // }
    
    public function getUploadDate() {
       return date("M j, Y", strtotime($this->uploadDate));
@@ -203,29 +203,25 @@ class Video {
    }
 
    public function getCommentCount() {
-      $id = $this->id();
-
       $query = $this->db->prepare(
          "SELECT * FROM comments WHERE videoId=:videoId"
       );
-      $query->bindParam(":videoId", $id);
+      $query->bindParam(":videoId", $this->id);
       $query->execute();
 
       return $query->rowCount();
    }
 
    public function getCommentsArray() {
-      $id = $this->id();
-
       $query = $this->db->prepare(
          "SELECT * FROM comments WHERE videoId=:videoId AND replyTo=0 ORDER BY postDate DESC"
       );
-      $query->bindParam(":videoId", $id);
+      $query->bindParam(":videoId", $this->id);
       $query->execute();
       $comments = array();
 
       while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
-         $comment = new Comment($this->db, $row, $this->user, $id);
+         $comment = new CommentMarkup($this->db, $row, $this->user, $this->id);
          array_push($comments, $comment);
       }
 

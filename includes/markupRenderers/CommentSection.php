@@ -11,7 +11,7 @@ class CommentSection {
 
    public function render() {
       $CommentCount = $this->video->getCommentCount();
-      $videoId = $this->video->id();
+      $videoId = $this->video->id;
       $username = $this->user->username;
       $profileButton = Button::profileButton($this->db, $username);
       $commentAction = "postComment(this, \"$username\", \"$videoId\", null, \"comments\")";
@@ -21,8 +21,9 @@ class CommentSection {
       $commentsMarkup = "";
 
       foreach ($comments as $comment) {
-         $commentMarkup = new CommentMarkup($db, $comment, $this->user, $videoId);
-         $commentsMarkup .= $commentMarkup->render();
+         // $comment = new CommentMarkup($this->db, $comment, $this->user, $videoId);
+
+         $commentsMarkup .= $comment->render();
       }
 
       return "

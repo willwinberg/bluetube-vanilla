@@ -1,31 +1,31 @@
 <?php
 require_once("Button.php");
 
-class CommentMarkup {
+class CommentMarkup extends Comment {
 
-   private $db, $commentId, $user;
+   // private $db, $commentId, $user;
 
-   public function __construct($db, $commentId, $user) {
+   // public function __construct($db, $commentId, $user) {
 
-      $this->comment = new Comment($db, $commentId, $user, $videoId);
-      $this->db = $db;
-      $this->user = $user;
-   }
+   //    $this->comment = new Comment($db, $commentId, $user, $videoId);
+   //    $this->db = $db;
+   //    $this->user = $user;
+   // }
 
    public function render() {
-      $id = $this->comment->id();
-      $videoId = $this->comment->videoId();
-      $body = $this->comment->body();
-      $postedBy = $this->comment->postedBy();
-      $likeCount = $this->comment->totalLikes();
+      $id = $this->id();
+      $videoId = $this->videoId();
+      $body = $this->body();
+      $postedBy = $this->postedBy();
+      $likeCount = $this->totalLikes();
 
       $profileButton = $this->profileButton();
       $replyButton = $this->replyButton();
-      $likeButton = $this->likeButton($id, $videoId);
-      $dislikeButton = $this->dislikeButton($id, $videoId);
+      $likeButton = $this->likeButton();
+      $dislikeButton = $this->dislikeButton();
 
       $timestamp = $this->timeElapsed();
-      $replySection = $this->replySection($id, $videoId);
+      $replySection = $this->replySection();
       $repliesText = $this->getRepliesText();
       
       return "
@@ -65,7 +65,7 @@ class CommentMarkup {
    }
 
    private function likesCount() {
-      $totalLikes = $this->comment->totalLikes();
+      $totalLikes = $this->totalLikes();
 
       if ($totalLikes === 0) $text = "";
 
@@ -73,13 +73,16 @@ class CommentMarkup {
    }
 
    private function profileButton() {
-      $poster = $this->comment->postedBy();
+      $poster = $this->postedBy();
 
       return Button::profileButton($this->db, $poster);
    }
 
-   private function likeButton($id, $videoId) {
-      $usersWhoLiked = $this->comment->usersWhoLikedArray();
+   private function likeButton() {
+      $id = $this->id();
+      $videoId = $this->videoId();
+
+      $usersWhoLiked = $this->usersWhoLikedArray();
       $action = "likeComment(this, $id, $videoId)";
       $class = "likeButton";
       $src = "assets/images/icons/thumb-up.png";
@@ -91,8 +94,11 @@ class CommentMarkup {
       return Button::regular("", $action, $class, $src);
    }
 
-   private function dislikeButton($id, $videoId) {
-      $usersWhoDisliked = $this->comment->usersWhoDislikedArray();
+   private function dislikeButton() {
+      $id = $this->id();
+      $videoId = $this->videoId();
+
+      $usersWhoDisliked = $this->usersWhoDislikedArray();
       $action = "dislikeComment(this, $id, $videoId)";
       $class = "dislikeButton";
       $src = "assets/images/icons/thumb-down.png";
@@ -104,7 +110,10 @@ class CommentMarkup {
       return Button::regular("", $action, $class, $src);
    }
 
-    private function replySection($id, $videoId) {
+    private function replySection() {
+      $id = $this->id();
+      $videoId = $this->videoId();
+      
       $username = $this->user->username;
       $profileButton = Button::profileButton($this->db, $username); 
 
@@ -125,7 +134,7 @@ class CommentMarkup {
    }
 
    private function getRepliesText() {
-      $replyCount = $this->comment->getReplyCount();
+      $replyCount = $this->getReplyCount();
 
       if ($replyCount > 0) {
          $repliesText = "
@@ -145,7 +154,7 @@ class CommentMarkup {
 
    private function timeElapsed($full = false) {
       $now = new DateTime;
-      $ago = new DateTime($this->comment->postDate());
+      $ago = new DateTime($this->postDate());
       $difference = $now->diff($ago);
       $difference->w = floor($difference->d / 7);
       $difference->d -= $difference->w * 7;
