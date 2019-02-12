@@ -59,7 +59,7 @@ class CommentMarkup {
 
    private function replyButton() {
       $text = "REPLY";
-      $action = "toggleReplyButton(this)";
+      $action = "toggleReply(this)";
 
       return Button::regular($text, $action, null, null);
    }

@@ -1,14 +1,14 @@
 
 function likeVideo(button, videoId) {
    $.post("ajax/videoPlayerActions.php", { videoId, action: "like" })
-      .done(function (response) {
+      .done(function (likesUpdate) {
          const likeButton = $(button);
          const dislikeButton = $(button).siblings(".dislikeButton");
 
          likeButton.addClass("active");
          dislikeButton.removeClass("active");
 
-         const result = JSON.parse(response);
+         const result = JSON.parse(likesUpdate);
          updateValue(likeButton.find(".text"), result.likes);
          updateValue(dislikeButton.find(".text"), result.dislikes);
 
@@ -26,14 +26,14 @@ function likeVideo(button, videoId) {
 
 function dislikeVideo(button, videoId) {
    $.post("ajax/videoPlayerActions.php", { videoId, action: "dislike" })
-      .done(function (response) {
+      .done(function (dislikesUpdate) {
          const dislikeButton = $(button);
          const likeButton = $(button).siblings(".likeButton");
 
          dislikeButton.addClass("active");
          likeButton.removeClass("active");
 
-         const result = JSON.parse(response);
+         const result = JSON.parse(dislikesUpdate);
          updateValue(likeButton.find(".text"), result.likes);
          updateValue(dislikeButton.find(".text"), result.dislikes);
 
