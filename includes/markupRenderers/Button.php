@@ -37,7 +37,7 @@ class Button {
 
    public static function profileButton($username, $image) {
       $link = "profile.php?username=$username";
-
+      
       return "
          <a href='$link'>
             <img src='$image' class='profileImg'>

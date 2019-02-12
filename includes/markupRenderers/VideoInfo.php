@@ -97,15 +97,13 @@ class VideoInfo {
 
       if (in_array($this->user->username, $dislikedUsers)) {
          $src = "assets/images/icons/thumb-down-active.png";
-      }
-      
+      }     
 
       return Button::regular($text, $action, $class, $src);
    }
 
    private function getUploader() {
       return new User($this->db, $this->video->uploadedBy);
-
    }
 
 }

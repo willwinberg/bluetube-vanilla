@@ -35,10 +35,28 @@ class Comment {
       return $this->comment["postedBy"];
    }
 
+   public function replyTo() {
+      if ($this->comment["replyTo"]) {
+         return $this->comment["replyTo"];
+      } else {
+         return 0;
+      }
+   }
+
+   public function body() {
+      $text = $this->comment["body"];
+      $text = strip_tags($text);
+      return $text;
+   }
+
+   public function addComment() {
+      // in ajax for now...
+   }
+   
    public function getRepliesArray() {
       $id = $this->getId();
       $query = $this->db->prepare(
-         "SELECT * FROM comments WHERE responseTo=:commentId ORDER BY datePosted ASC"
+         "SELECT * FROM comments WHERE replyTo=:commentId ORDER BY postDate ASC"
       );
       $query->bindParam(":commentId", $id);
       $query->execute();
@@ -58,9 +76,9 @@ class Comment {
       $id = $this->comment->id();
 
       $query = $db->prepare(
-         "SELECT count(*) FROM comments WHERE responseTo=:responseTo"
+         "SELECT count(*) FROM comments WHERE replyTo=:replyTo"
       );
-      $query->bindParam(':responseTo', $id);
+      $query->bindParam(':replyTo', $id);
 
       return $query->fetchColumn();
    }

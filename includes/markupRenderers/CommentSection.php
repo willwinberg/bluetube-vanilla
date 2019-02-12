@@ -9,7 +9,7 @@ class CommentSection {
       $this->user = $user;
    }
 
-   private function render() {
+   public function render() {
       $CommentCount = $this->video->getCommentCount();
       $videoId = $this->video->id();
       $username = $this->user->username;
@@ -22,11 +22,12 @@ class CommentSection {
       $commentsMarkup = "";
 
       foreach ($comments as $comment) {
-         $commentsMarkup .= $comment->render();
+         $commentMarkup = new CommentMarkup($db, $comment, $this->user, $videoId);
+         $commentsMarkup .= $commentMarkup->render();
       }
 
       return "
-         <div class='commentsContainer'>
+         <div class='commentSection'>
             <div class='header'>
                <span class='commentCount'>$commentCount Comments</span>
                <div class='commentForm'>
