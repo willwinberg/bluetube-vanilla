@@ -24,6 +24,7 @@ class CommentMarkup {
       $likeButton = $this->likeButton($id, $videoId);
       $dislikeButton = $this->dislikeButton($id, $videoId);
 
+      $timestamp = $this->timeElapsed();
       $replySection = $this->replySection($id, $videoId);
       $repliesText = $this->getRepliesText();
       
@@ -36,7 +37,7 @@ class CommentMarkup {
                      <a href='profile.php?username=$postedBy'>
                         <span class='username'>$postedBy</span>
                      </a>
-                     <span class='timestamp'>timestamp</span>
+                     <span class='timestamp'>$timestamp</span>
                   </div>
                   <div class='body'>
                      $body
@@ -140,6 +141,37 @@ class CommentMarkup {
       }
 
       return $repliesText;
+   }
+
+   private function timeElapsed($full = false) {
+      $now = new DateTime;
+      $ago = new DateTime($this->comment->postDate());
+      $difference = $now->diff($ago);
+      $difference->w = floor($difference->d / 7);
+      $difference->d -= $difference->w * 7;
+
+      $timespans = array(
+         'y' => 'year',
+         'm' => 'month',
+         'w' => 'week',
+         'd' => 'day',
+         'h' => 'hour',
+         'i' => 'minute',
+         's' => 'second',
+      );
+      foreach ($timespans as $span => &$val) {
+         if ($difference->$span) {
+            $val = $difference->$span . ' ' . $val . ($difference->$span > 1 ? 's' : '');
+         } else {
+            unset($timespans[$span]);
+         }
+      }
+
+      if (!$full) {
+         $timespans = array_slice($timespans, 0, 1);
+      }
+
+      return $timespans ? implode(', ', $timespans) . ' ago' : 'just now';
    }
 
 }

@@ -35,6 +35,10 @@ class Comment {
       return $this->comment["postedBy"];
    }
 
+   public function postDate() {
+      return $this->comment["postDate"];
+   }
+
    public function replyTo() {
       if ($this->comment["replyTo"]) {
          return $this->comment["replyTo"];
