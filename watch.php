@@ -9,6 +9,7 @@ require_once("includes/markupRenderers/CommentMarkup.php");
 ?>
 <script src="assets/javascript/videoPlayerActions.js"></script>
 <script src="assets/javascript/userActions.js"></script>
+<script src="assets/javascript/commentActions.js"></script>
 
 <?php
 if (!isset($_GET["id"])) {

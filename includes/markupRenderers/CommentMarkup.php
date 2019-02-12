@@ -1,16 +1,19 @@
 <?php
+require_once("Button.php");
+
 class CommentMarkup {
 
-  private $db, $comment, $user, $videoId;
+  private $db, $commentId, $user, $videoId;
 
-   public function __construct($db, $comment, $user, $videoId) {
+   public function __construct($db, $commentId, $user, $videoId) {
+
+      $this->comment = new Comment($db, $commentId, $user, $videoId);
       $this->db = $db;
       $this->user = $user;
-      $this->comment = $comment;
       $this->videoId = $videoId;
    }
 
-   private function render() {
+   public function render() {
       $id = $this->comment->id();
       $videoId = $this->comment->videoId();
       $body = $this->comment->body();
@@ -69,9 +72,9 @@ class CommentMarkup {
    }
 
    private function profileButton() {
-      $poster = new User($this->db, $this->comment->postedBy());
+      $poster = $this->comment->postedBy();
 
-      return Button::profileButton($poster->username, $poster->image);
+      return Button::profileButton($this->db, $poster);
    }
 
    private function likeButton($id, $videoId) {

@@ -6,15 +6,16 @@ class User {
    public $firstName, $lastName, $username, $email, $image;
 
    public function __construct($db, $username) {
-      $this->db = $db;
-
-      $query = $this->db->prepare(
+            var_dump($db);
+      $query = $db->prepare(
          "SELECT * FROM users WHERE username = :username"
       );
       $query->bindParam(":username", $username);
       $query->execute();
 
       $user = $query->fetch(PDO::FETCH_ASSOC);
+
+      $this->db = $db;
 
       $this->firstName = $user["firstName"];
       $this->lastName = $user["lastName"];

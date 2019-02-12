@@ -1,15 +1,15 @@
-function postComment(button, username, videoId, replyComment, container) {
+function postComment(button, postedBy, videoId, replyTo, container) {
    const textarea = $(button).siblings("textarea");
-   const text = textarea.val();
+   const body = textarea.val();
 
    textarea.val("");
 
-   if (text) {
-      $.post("ajax/commentActions.php", {
-         text,
-         username,
+   if (body) {
+      $.post("ajax/postComment.php", {
+         body,
+         postedBy,
          videoId,
-         replyComment
+         replyTo
       })
          .done(function (comment) {
             if (replyTo) {
