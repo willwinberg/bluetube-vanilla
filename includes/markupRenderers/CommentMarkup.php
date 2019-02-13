@@ -101,18 +101,17 @@ class CommentMarkup extends Comment {
     private function replySection() {
       $id = $this->id();
       $videoId = $this->videoId();
-
       $username = $this->user->username;
+
       $profileButton = Button::profileButton($this->db, $username); 
 
       $cancelButtonAction = "toggleReply(this)";
       $cancelButton = Button::regular("Cancel", $cancelButtonAction, "cancelComment", NULL);
-
-      $postButtonAction = "postComment(this, $id, $videoId, $username, repliesSection)";
-      $postButton = Button::regular("Reply",$postButtonAction, "postComment", NULL);
+      $commentAction = "postComment(this, \"$username\", \"$videoId\", \"$id\", \"repliesSection\")";
+      $postButton = Button::regular("Reply",$commentAction, "postComment", NULL);
 
       return "
-         <div class='commentInput hidden'>
+         <div class='commentForm hidden'>
             $profileButton
             <textarea class='commentBody' placeholder='Add a comment'></textarea>
             $cancelButton
@@ -122,6 +121,8 @@ class CommentMarkup extends Comment {
    }
 
    private function getRepliesText() {
+      $id = $this->id();
+      $videoId = $this->videoId();
       $replyCount = $this->getReplyCount();
 
       if ($replyCount > 0) {
