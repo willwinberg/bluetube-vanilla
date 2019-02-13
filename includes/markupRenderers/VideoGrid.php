@@ -1,4 +1,5 @@
 <?php
+
 class VideoGrid {
 
    private $db, $user;
@@ -44,7 +45,8 @@ class VideoGrid {
       $html = "";
 
       while ($video = $query->fetch(PDO::FETCH_ASSOC)) {
-         $card = new VideoCard($this->db, $video, $this->user, $this->expanded);
+         $card = new VideoCard($this->db, $video, $this->user);
+         $card->toggleExpanded();
          $html .= $card->render();
       }
 

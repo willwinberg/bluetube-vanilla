@@ -358,7 +358,7 @@ a:hover {
   color: #000;
 }
 
-/* HEADER */
+/* COMMENTS */
 
 .commentSection .header {
   margin-top: 24px;
@@ -496,4 +496,85 @@ a:hover {
   cursor: pointer;
   font-size: 14px;
   font-weight: 500;
+}
+
+/* VIDEO GRID */
+
+.videoGrid {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.suggestions .videoCard {
+  display: flex;
+  height: auto;
+}
+
+.videoCard {
+  margin-right: 4px;
+  margin-bottom: 24px;
+}
+
+.videoCard .thumbnail {
+  width: 210px;
+  height: 118px;
+  position: relative;
+}
+
+.suggestions .videoCard .thumbnail {
+  margin-right: 8px;
+}
+
+.videoCard .thumbnail img {
+  width: 100%;
+  height: 100%;
+}
+
+.videoCard .thumbnail .duration {
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  margin: 4px;
+  color: #fff;
+  background-color: rgba(17, 17, 17, 0.8);
+  opacity: 0.8;
+  padding: 2px 4px;
+  border-radius: 2px;
+  letter-spacing: 0.5px;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 12px;
+}
+
+.videoCard .details {
+  padding-right: 24px;
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  width: 210px;
+}
+
+.suggestions .videoCard .details {
+  padding-right: 0;
+  flex: 1;
+}
+
+.videoCard .details .title {
+  margin: 8px 0;
+  max-height: 32px;
+  overflow: hidden;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 16px;
+  color: #212529;
+}
+
+.videoCard .details .uploadedBy,
+.videoCard .details .lower {
+  color: rgba(17, 17, 17, 0.6);
+  font-size: 13px;
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }

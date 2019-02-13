@@ -2,8 +2,8 @@
 
 class Video {
 
-   private $db;
-   private $user;
+   protected $db;
+   protected $user;
 
    public 
       $id,

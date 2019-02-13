@@ -60,7 +60,6 @@ class Button {
    public static function subscribeButton($db, $subscriber, $uploader) {
       $uploader = new User($db, $uploader);
       $existingSubs = $subscriber->subscriptionsArray();
-      var_dump($existingSubs);
       $alreadySubbed = in_array($uploader->username, $existingSubs);
       $text = $alreadySubbed ? "SUBSCRIBED" : "SUBSCRIBE";
       $text .= " " . sizeof($existingSubs);

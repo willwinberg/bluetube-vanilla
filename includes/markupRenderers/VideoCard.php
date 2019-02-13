@@ -1,17 +1,13 @@
 <?php
-class VideoGridItem extends Video{
+class VideoCard extends Video {
 
-   private $expanded;
-
-   public function __construct($expanded) {
-      $this->expanded = $expanded;
-   }
+   private $expanded = true;
 
    public function render() {
       $thumbnail = $this->makeThumbnail();
       $details = $this->makeDetails();
-      $url = "watch.php?id=" . $this->id();
-      //videoGridItem class
+      $url = "watch.php?id=" . $this->id;
+
       return "
          <a href='$url'>
             <div class='videoCard'>
@@ -22,6 +18,10 @@ class VideoGridItem extends Video{
       ";
    }
 
+   public function toggleExpanded() {
+      $this->expanded = !$this->expanded;
+   }
+
    private function makeThumbnail() {
       $thumbnail = $this->getThumbnailImg();
       return "
@@ -30,15 +30,15 @@ class VideoGridItem extends Video{
             <div class='duration'>
                <span>$this->duration</span>
             </div>
-         </div>";
-
+         </div>
+      ";
    }
 
    private function makeDetails() {
       $timestamp = $this->timestamp();
       $description = $this->makeDescription();
 
-      // username stats viewCount timeStamp
+      // viewCount timeStamp
       return "
          <div class='details'>
             <h3 class='title'>$this->title</h3>
