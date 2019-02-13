@@ -10,7 +10,6 @@ class VideoGridItem extends Video{
    public function render() {
       $thumbnail = $this->makeThumbnail();
       $details = $this->makeDetails();
-
       $url = "watch.php?id=" . $this->id();
 
       return "
@@ -36,18 +35,20 @@ class VideoGridItem extends Video{
    }
 
    private function makeDetails() {
-      $timestamp = $this->makeTimeStamp();
-      $timestamp = $this->makeDescription();
+      $timestamp = $this->timestamp();
+      $description = $this->makeDescription();
 
-      return "<div class='details'>
-                  <h3 class='title'>$this->title</h3>
-                  <span class='username'>$this->uploadedBy</span>
-                  <div class='child'>
-                     <span class='views'>$this->views views - </span>
-                     <span class='timestamp'>$timestamp</span>
-                  </div>
-                  $description
-               </div>";
+      return "
+         <div class='details'>
+            <h3 class='title'>$this->title</h3>
+            <span class='uploadedBy'>$this->uploadedBy</span>
+            <div class='lower'>
+               <span class='views'>$this->views views - </span>
+               <span class='timestamp'>$timestamp</span>
+            </div>
+            $description
+         </div>
+      ";
    }
 
    private function makeDescription() {
