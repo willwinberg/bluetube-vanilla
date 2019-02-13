@@ -3,21 +3,10 @@ require_once("Button.php");
 
 class CommentMarkup extends Comment {
 
-   // private $db, $commentId, $user;
-
-   // public function __construct($db, $commentId, $user) {
-
-   //    $this->comment = new Comment($db, $commentId, $user, $videoId);
-   //    $this->db = $db;
-   //    $this->user = $user;
-   // }
-
    public function render() {
-      $id = $this->id();
-      $videoId = $this->videoId();
       $body = $this->body();
       $postedBy = $this->postedBy();
-      $likeCount = $this->totalLikes();
+      $likeCount = $this->likeCount();
 
       $profileButton = $this->profileButton();
       $replyButton = $this->replyButton();
@@ -46,7 +35,7 @@ class CommentMarkup extends Comment {
             </div>
             <div class='controls'>
                $replyButton
-               $likesCount
+               $likeCount
                $likeButton
                $dislikeButton
             </div>
@@ -64,12 +53,11 @@ class CommentMarkup extends Comment {
       return Button::regular($text, $action, null, null);
    }
 
-   private function likesCount() {
-      $totalLikes = $this->totalLikes();
+   private function likeCount() {
+      $text = $this->totalLikes();
 
-      if ($totalLikes === 0) $text = "";
-
-      return "<span class='count'>$text</span>";
+      if ($text == 0) $text = "";
+      return "<span class='likeCount'>$text</span>";
    }
 
    private function profileButton() {
@@ -113,7 +101,7 @@ class CommentMarkup extends Comment {
     private function replySection() {
       $id = $this->id();
       $videoId = $this->videoId();
-      
+
       $username = $this->user->username;
       $profileButton = Button::profileButton($this->db, $username); 
 

@@ -123,7 +123,6 @@ class Comment {
          $query->bindParam(":username", $this->user->username);
          $query->bindParam(":commentId", $id);
          $query->execute();
-
          return -1;
       } else {
          $query = $this->db->prepare(
@@ -140,7 +139,6 @@ class Comment {
          $query->bindParam(":username", $this->user->username);
          $query->bindParam(":commentId", $id);
          $query->execute();
-
          return 1 + $count;
       }
    }
@@ -175,7 +173,7 @@ class Comment {
          $query->bindParam(":commentId", $id);
          $query->execute();
 
-         return -1;
+         return 1;
       } else {
          $query = $this->db->prepare(
             "DELETE FROM likes WHERE username=:username AND commentId=:commentId"
@@ -192,7 +190,7 @@ class Comment {
          $query->bindParam(":commentId", $id);
          $query->execute();
 
-         return 1 + $count;
+         return -1 - $count;
       }
    }
 

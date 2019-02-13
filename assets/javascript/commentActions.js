@@ -24,7 +24,8 @@ function postComment(button, postedBy, videoId, replyTo, container) {
 }
 
 function likeComment(button, commentId, videoId) {
-   $.post("ajax/likeComment.php", { commentId, videoId })
+   console.log(`likeComment(${button}, ${commentId}, ${videoId})`);
+   $.post("ajax/commentActions.php", { commentId, videoId, action: "like" })
       .done(function (likesUpdate) {
          const likeButton = $(button);
          const dislikeButton = $(button).siblings(".dislikeButton");
@@ -32,8 +33,8 @@ function likeComment(button, commentId, videoId) {
          likeButton.addClass("active");
          dislikeButton.removeClass("active");
 
-         const likesCount = $(button).siblings(".likesCount");
-         updateValue(likesCount, likesUpdate);
+         const likeCount = $(button).siblings(".likeCount");
+         updateValue(likeCount, likesUpdate);
 
          if (likesUpdate < 0) {
             likeButton.removeClass("active");
@@ -47,7 +48,8 @@ function likeComment(button, commentId, videoId) {
 }
 
 function dislikeComment(button, commentId, videoId) {
-   $.post("ajax/dislikeComment.php", { commentId, videoId })
+   console.log(`dislikeComment(${button}, ${commentId}, ${videoId})`);
+   $.post("ajax/commentActions.php", { commentId, videoId, action: "dislike" })
       .done(function (dislikesUpdate) {
          const dislikeButton = $(button);
          const likeButton = $(button).siblings(".likeButton");
@@ -55,8 +57,8 @@ function dislikeComment(button, commentId, videoId) {
          dislikeButton.addClass("active");
          likeButton.removeClass("active");
 
-         const likesCount = $(button).siblings(".likesCount");
-         updateValue(likesCount, dislikesUpdate);
+         const likeCount = $(button).siblings(".likeCount");
+         updateValue(likeCount, dislikesUpdate);
 
          if (dislikesUpdate > 0) {
             dislikeButton.removeClass("active");
@@ -75,7 +77,7 @@ function updateValue(element, num) {
 }
 
 function getReplies(button, commentId, videoId) {
-   $.post("ajax/getCommentReplies.php", { commentId, videoId })
+   $.post("ajax/commentActions.php", { commentId, videoId, action: "replies" })
       .done(function (commentsHTML) {
          const replies = $("<div>").addClass("repliesSection");
 

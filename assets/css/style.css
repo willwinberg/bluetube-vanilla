@@ -450,7 +450,7 @@ a:hover {
 }
 
 .itemContainer .controls button,
-.itemContainer .controls .likesCount {
+.itemContainer .controls .likeCount {
   height: 32px;
   background-color: transparent;
   border: none;
@@ -463,7 +463,7 @@ a:hover {
   cursor: pointer;
 }
 
-.itemContainer .controls .likesCount {
+.itemContainer .controls .likeCount {
   margin: 0 5px;
 }
 
