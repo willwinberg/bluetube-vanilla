@@ -21,8 +21,6 @@ class CommentSection {
       $commentsMarkup = "";
 
       foreach ($comments as $comment) {
-         // $comment = new CommentMarkup($this->db, $comment, $this->user, $videoId);
-
          $commentsMarkup .= $comment->render();
       }
 

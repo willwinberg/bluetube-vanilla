@@ -73,7 +73,9 @@ function dislikeComment(button, commentId, videoId) {
 
 function updateValue(element, num) {
    const count = element.text() || 0;
-   element.text(parseInt(count) + parseInt(num));
+   const newCount = parseInt(count) + parseInt(num);
+
+   element.text(newCount);
 }
 
 function getReplies(button, commentId, videoId) {

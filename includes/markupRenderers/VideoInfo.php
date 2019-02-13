@@ -62,7 +62,7 @@ class VideoInfo {
       if ($this->video->uploadedBy === $this->user->username) {
             $actionButton = Button::editVideoButton($this->video->id);
       } else {
-         $actionButton = Button::subscribeButton($this->db, $this->user->username, $this->video->uploadedBy);
+         $actionButton = Button::subscribeButton($this->db, $this->user, $this->video->uploadedBy);
       }
 
       return $actionButton;
@@ -97,11 +97,6 @@ class VideoInfo {
       
 
       return Button::regular($text, $action, $class, $src);
-   }
-
-   private function getUploader() {
-      return new User($this->db, $this->video->uploadedBy);
-
    }
 
 }
