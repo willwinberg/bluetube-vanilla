@@ -8,8 +8,8 @@ class VideoGridItem extends Video{
    }
 
    public function render() {
-      $thumbnail = $this->thumbnail();
-      $details = $this->getDetails();
+      $thumbnail = $this->makeThumbnail();
+      $details = $this->makeDetails();
 
       $url = "watch.php?id=" . $this->id();
 
@@ -23,10 +23,11 @@ class VideoGridItem extends Video{
       ";
    }
 
-   private function getThumbnail() {
+   private function makeThumbnail() {
+      $thumbnail = $this->getThumbnailImg();
       return "
          <div class='thumbnail'>
-            <img src='$this->thumbnail'>
+            <img src='$thumbnail'>
             <div class='duration'>
                <span>$this->duration</span>
             </div>
@@ -34,9 +35,9 @@ class VideoGridItem extends Video{
 
    }
 
-   private function getDetails() {
-      $timestamp = $this->getTimeStamp();
-      $timestamp = $this->getDescription();
+   private function makeDetails() {
+      $timestamp = $this->makeTimeStamp();
+      $timestamp = $this->makeDescription();
 
       return "<div class='details'>
                   <h3 class='title'>$this->title</h3>
@@ -49,7 +50,7 @@ class VideoGridItem extends Video{
                </div>";
    }
 
-   private function getDescription() {
+   private function makeDescription() {
       if ($this->expanded) {
          $description = $this->description;
          
