@@ -10,6 +10,7 @@
 - SASS or styled-components
 - PDO class in /classes
 - FormProvider naming
+- make Video class properties private, only functions public
 - videoProcessor, separate into validation and insert
 - break thumbnails in to separate class
 - clean up upload.php

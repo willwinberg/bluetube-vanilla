@@ -4,14 +4,14 @@ class VideoGridItem extends Video{
    private $expanded;
 
    public function __construct($expanded) {
-      $this->largeMode = $largeMode;
+      $this->expanded = $expanded;
    }
 
    public function render() {
       $thumbnail = $this->makeThumbnail();
       $details = $this->makeDetails();
       $url = "watch.php?id=" . $this->id();
-
+      //videoGridItem class
       return "
          <a href='$url'>
             <div class='videoCard'>
@@ -38,6 +38,7 @@ class VideoGridItem extends Video{
       $timestamp = $this->timestamp();
       $description = $this->makeDescription();
 
+      // username stats viewCount timeStamp
       return "
          <div class='details'>
             <h3 class='title'>$this->title</h3>

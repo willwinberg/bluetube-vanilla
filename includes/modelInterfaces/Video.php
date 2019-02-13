@@ -82,7 +82,7 @@ class Video {
       return date("M j, Y", strtotime($this->uploadDate));
    }
 
-   public function getTimeStamp() {
+   public function timestamp() {
       return date("M jS, Y", strtotime($this->uploadDate));
    }
 
