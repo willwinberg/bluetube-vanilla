@@ -2,13 +2,13 @@
 
 class VideoGrid {
 
-   private $db, $user;
-   private $expanded = false;
+   private $db, $user, $expanded;
    private $cssClass = "videoGrid";
 
-   public function __construct($db, $user) {
+   public function __construct($db, $user, $expanded) {
       $this->db = $db;
       $this->user = $user;
+      $this->expanded = $expanded;
    }
 
    public function render($title, $filter) {
@@ -46,7 +46,7 @@ class VideoGrid {
 
       while ($video = $query->fetch(PDO::FETCH_ASSOC)) {
          $card = new VideoCard($this->db, $video, $this->user);
-         $card->toggleExpanded();
+         $card->setExpanded($this->expanded);
          $html .= $card->render();
       }
 

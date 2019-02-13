@@ -1,8 +1,6 @@
 <?php
 class VideoCard extends Video {
 
-   private $expanded = true;
-
    public function render() {
       $thumbnail = $this->makeThumbnail();
       $details = $this->makeDetails();
@@ -18,8 +16,8 @@ class VideoCard extends Video {
       ";
    }
 
-   public function toggleExpanded() {
-      $this->expanded = !$this->expanded;
+   public function setExpanded($bool) {
+      $this->expanded = $bool;
    }
 
    private function makeThumbnail() {
