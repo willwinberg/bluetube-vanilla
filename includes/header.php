@@ -9,7 +9,6 @@ require_once("includes/markupRenderers/VideoCard.php");
 
 $loggedInUsername = User::isLoggedIn() ? $_SESSION["loggedIn"] : "";
 $user = new User($db, $loggedInUsername);
-echo $user->firstName;
 ?>
 
 <!DOCTYPE html>
@@ -53,7 +52,7 @@ echo $user->firstName;
             <a href="upload.php">
                <img class="upload" src="assets/images/icons/upload.png">
             </a>
-            <?php echo Button::profileNavButton($db, $loggedInUsername); ?>
+            <?php echo Button::profileNavButton($db, $loggedInUsername); echo $loggedInUsername ?>
          </div>
       </div>
       <div id="sideNavContainer" style="display: none">
