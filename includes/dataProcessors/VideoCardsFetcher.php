@@ -92,5 +92,23 @@ class VideoCardsFetcher {
       return $cards;
    }
 
+   public function getLiked() {
+      $query = $this->db->prepare(
+         "SELECT videoId FROM likes WHERE username=:username AND commentId=0
+         ORDER BY id DESC"
+      );
+      $query->bindParam(":username", $this->user->username);
+      $query->execute();
+
+      $cards = array();
+
+      while ($like = $query->fetch(PDO::FETCH_ASSOC)) {
+         $card = new VideoCard($this->db, $like["videoId"], $this->user);
+         array_push($cards, $card);
+      }
+
+      return $cards;
+   }
+
 }
 ?>

@@ -11,7 +11,7 @@ class NavigationMenu {
       $html = $this->makeNavLink("Home", "assets/images/icons/home.png", "index.php");
       $html .= $this->makeNavLink("Trending", "assets/images/icons/trending.png", "trending.php");
       $html .= $this->makeNavLink("Subscriptions", "assets/images/icons/subscriptions.png", "subscriptions.php");
-      $html .= $this->makeNavLink("Liked Videos", "assets/images/icons/thumb-up.png", "likedVideos.php");
+      $html .= $this->makeNavLink("Liked Videos", "assets/images/icons/thumb-up.png", "liked.php");
 
       if (User::isLoggedIn()) {
          $html .= $this->makeNavLink("Settings", "assets/images/icons/settings.png", "settings.php");

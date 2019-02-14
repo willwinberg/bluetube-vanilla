@@ -6,13 +6,13 @@ if (!User::isLoggedIn()) {
 }
 ?>
 
-<div class="subscriptionsContainer">
+<div class="likedContainer">
    <?php
    $cardFetcher = new VideoCardsFetcher($db, $user);
    
-   $subscriptionCards = $cardFetcher->getSubscribed();
-   $subscriptionGrid = new VideoGrid($subscriptionCards, true);
-   echo $subscriptionGrid->render("Subscriptions");
+   $likedCards = $cardFetcher->getLiked();
+   $likedGrid = new VideoGrid($likedCards, true);
+   echo $likedGrid->render("Videos You Liked");
    ?>
 </div>
 
