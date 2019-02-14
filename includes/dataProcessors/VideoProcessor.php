@@ -94,7 +94,7 @@ class VideoProcessor {
 
       exec($bashCommand, $outputLog, $returnCode);
       
-      if ($returnCode !== 0) { // if command failed
+      if ($returnCode !== 0) { 
          foreach($outputLog as $line) {
             echo $line . "<br>";
          }
@@ -187,7 +187,7 @@ class VideoProcessor {
       $minsString = ($mins < 10) ? "0" . $mins . ":" : $mins . ":";
       $secsString = ($secs < 10) ? "0" . $secs : $secs . "";
 
-      $durationString = $hours . $mins . $secs;
+      $durationString = $hoursString . $minsString . $secsString;
 
       return $durationString;
    }

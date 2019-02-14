@@ -10,7 +10,7 @@ if (isset($_GET["orderBy"])) {
 }
 ?>
 
-<div class="videoSection">
+<div class="searchResults">
    <?php
    $cardFetcher = new VideoCardsFetcher($db, $user);
    

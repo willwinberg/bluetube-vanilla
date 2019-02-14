@@ -38,7 +38,7 @@ class VideoGrid {
       $html = "";
 
       foreach ($this->cards as $card) {
-         $card->setExpanded(false);
+         $card->setExpanded($this->expanded);
          $html .= $card->render();
       }
 
