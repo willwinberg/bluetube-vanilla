@@ -26,7 +26,7 @@ $commentSection = new CommentSection($db, $video, $user);
 
 $cardFetcher = new VideoCardsFetcher($db, $user);
 $recommendedCards = $cardFetcher->getRecommended();
-$videoGrid = new VideoGrid($recommendedCards, false);
+$videoGrid = new VideoGrid($recommendedCards);
 ?>
 
 <div class="watchLeft">
@@ -35,7 +35,7 @@ $videoGrid = new VideoGrid($recommendedCards, false);
    <?php echo $commentSection->render(); ?>
 </div>
 <div class="suggestions">
-    <?php echo $videoGrid->render(NULL, NULL); ?>
+    <?php echo $videoGrid->render(); ?>
 </div>
 
 <?php require_once("includes/footer.php"); ?>

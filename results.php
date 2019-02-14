@@ -16,7 +16,8 @@ if (isset($_GET["orderBy"])) {
    
    $searchResultCards = $cardFetcher->getSearchResults($term, $orderBy);
    $searchResultsGrid = new VideoGrid($searchResultCards, true);
-   echo $searchResultsGrid->render("Search Results", NULL);
+   $length = sizeof($searchResultCards);
+   echo $searchResultsGrid->render("Your search returned $length results");
    ?>
 </div>
 

@@ -7,12 +7,12 @@ require_once("includes/header.php");
    $cardFetcher = new VideoCardsFetcher($db, $user);
 
    $subbedCards = $cardFetcher->getSubscribed();
-   $subscriptionsGrid = new VideoGrid($subbedCards, false);
-   echo $subscriptionsGrid->render("Subscriptions", NULL);
+   $subscriptionsGrid = new VideoGrid($subbedCards);
+   echo $subscriptionsGrid->render("Subscriptions");
    
    $recommendedCards = $cardFetcher->getRecommended();
-   $recommendedGrid = new VideoGrid($recommendedCards, false);
-   echo $recommendedGrid->render("Recommendations", NULL);
+   $recommendedGrid = new VideoGrid($recommendedCards);
+   echo $recommendedGrid->render("Recommendations");
    ?>
 </div>
 

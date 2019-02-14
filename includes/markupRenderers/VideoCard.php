@@ -16,8 +16,8 @@ class VideoCard extends Video {
       ";
    }
 
-   public function setExpanded($bool) {
-      $this->expanded = $bool;
+   public function setExpanded() {
+      $this->expanded = true;
    }
 
    private function makeThumbnail() {

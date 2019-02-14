@@ -4,13 +4,17 @@ class VideoGrid {
 
    private $cards, $expanded;
 
-   public function __construct($cards, $expanded) {
+   public function __construct($cards, $expanded = false) {
       $this->cards = $cards;
-      $this->type = $type;
       $this->expanded = $expanded;
+      $this->cssClass = "videoGrid";
+
+      if ($expanded) {
+         $this->filtersHeader = $this->makeFiltersHeader();
+      } 
    }
 
-   public function render($title, $filter) {
+   public function render($title) {
       $gridCards = $this->makeGridCards();
 
       if ($title) {
@@ -19,7 +23,7 @@ class VideoGrid {
                <div class='left'>
                   $title
                </div>
-                $filter
+               $this->filtersHeader
             </div>
          ";
       } else {
@@ -28,7 +32,7 @@ class VideoGrid {
 
       return "
          $header
-         <div class='videoGrid'>
+         <div class='$this->cssClass'>
             $gridCards
          </div>
       ";
@@ -45,6 +49,29 @@ class VideoGrid {
       return $html;
    }
 
+   public function makeFiltersHeader() {
+
+         $this->cssClass .= " large";
+
+         preg_replace("#&d=.*&#", '&d=newvalue&', $_SERVER['REQUEST_URI']);
+
+         $url = "foo";
+         
+         return "
+            <div class='right'>
+               <span>Order by:</span>
+               <a href='$url&orderBy=uploadDate'>Upload date</a>
+               <a href='$url&orderBy=views'>Most viewed</a>
+            </div>
+         ";
+  
+   }
+
+   public function createLarge($videos, $title, $showFilter) {
+      $this->gridClass .= " large";
+      $this->largeMode = true;
+      return $this->create($videos, $title, $showFilter);
+   }
 
 }
 ?>
