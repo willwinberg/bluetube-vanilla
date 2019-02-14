@@ -10,12 +10,14 @@ class VideoGrid {
       $this->cssClass = "videoGrid";
 
       if ($expanded) {
-         $this->filtersHeader = $this->makeFiltersHeader();
+         $this->filterButtons = $this->makeFilterButtons();
       } 
    }
 
-   public function render($title) {
+   public function render($title = "") {
       $gridCards = $this->makeGridCards();
+      $filterButtons = $this->filterButtons;
+      
 
       if ($title) {
          $header = "
@@ -23,7 +25,7 @@ class VideoGrid {
                <div class='left'>
                   $title
                </div>
-               $this->filtersHeader
+               $filterButtons
             </div>
          ";
       } else {
@@ -49,7 +51,7 @@ class VideoGrid {
       return $html;
    }
 
-   public function makeFiltersHeader() {
+   public function makeFilterButtons() {
       $this->cssClass .= " large";
 
       $url = preg_replace("#&orderBy=.*#", '', $_SERVER['REQUEST_URI']);

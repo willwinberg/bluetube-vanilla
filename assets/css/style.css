@@ -1,3 +1,14 @@
+/* 
+main containers
+search bar 
+register/login
+watch
+comments
+video grids
+*/
+
+/* CONTAINERS */
+
 html,
 body {
   height: 100%;
@@ -590,4 +601,57 @@ a:hover {
 
 .gridHeader div {
   flex: 1;
+}
+
+.videoGrid.large {
+  flex-direction: row;
+  flex: 1;
+}
+
+.videoGrid.large .videoCard {
+  height: auto;
+  display: flex;
+}
+
+.videoGrid.large .videoCard .thumbnail {
+  width: 320px;
+  height: 166px;
+  margin-right: 16px;
+}
+
+.videoGrid.large .videoCard .details {
+  max-width: 600px;
+}
+
+.videoGrid.large .videoCard .details .title {
+  font-size: 18px;
+  line-height: 24px;
+}
+
+.videoCard .details .description {
+  color: rgba(17, 17, 17, 0.6);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.searchResultsContainer {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.gridHeader .right {
+  text-align: right;
+}
+
+.gridHeader a {
+  color: rgba(17, 17, 17, 0.6);
+}
+
+.gridHeader a:after {
+  content: " |";
+}
+
+.gridHeader a:last-child:after {
+  content: "";
 }
