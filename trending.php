@@ -1,12 +1,4 @@
-<?php
-require_once("includes/header.php");
-
-if (isset($_GET["orderBy"])) {
-   $orderBy = "uploadDate";
-} else {
-   $orderBy = "views";
-}
-?>
+<?php require_once("includes/header.php"); ?>
 
 <div class="trendingContainer">
    <?php

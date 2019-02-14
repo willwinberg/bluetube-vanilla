@@ -55,8 +55,6 @@ class VideoGrid {
    }
 
    public function makeFilterButtons() {
-      $this->cssClass .= " large";
-
       $url = preg_replace("#&orderBy=.*#", '', $_SERVER['REQUEST_URI']);
       
       return "

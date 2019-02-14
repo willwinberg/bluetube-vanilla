@@ -2,7 +2,7 @@
 
 class Video {
 
-   protected $db, $video, $user, $expanded;
+   protected $db, $video, $user;
 
    public 
       $id,
@@ -43,6 +43,7 @@ class Video {
       $this->filePath = $video["filePath"];
       $this->uploadedBy = $video["uploadedBy"];
       $this->uploadDate = $video["uploadDate"];
+      $this->expanded = false;
    }
 
    // public function id() {
