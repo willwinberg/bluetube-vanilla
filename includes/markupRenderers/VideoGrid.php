@@ -50,27 +50,17 @@ class VideoGrid {
    }
 
    public function makeFiltersHeader() {
+      $this->cssClass .= " large";
 
-         $this->cssClass .= " large";
-
-         preg_replace("#&d=.*&#", '&d=newvalue&', $_SERVER['REQUEST_URI']);
-
-         $url = "foo";
-         
-         return "
-            <div class='right'>
-               <span>Order by:</span>
-               <a href='$url&orderBy=uploadDate'>Upload date</a>
-               <a href='$url&orderBy=views'>Most viewed</a>
-            </div>
-         ";
-  
-   }
-
-   public function createLarge($videos, $title, $showFilter) {
-      $this->gridClass .= " large";
-      $this->largeMode = true;
-      return $this->create($videos, $title, $showFilter);
+      $url = preg_replace("#&orderBy=.*#", '', $_SERVER['REQUEST_URI']);
+      
+      return "
+         <div class='right'>
+            <span>Order by:</span>
+            <a href='$url&orderBy=uploadDate'>Upload date</a>
+            <a href='$url&orderBy=views'>Most viewed</a>
+         </div>
+      "; 
    }
 
 }
