@@ -75,5 +75,22 @@ class VideoCardsFetcher {
       return $cards;
    }
 
+   public function getTrending() {
+      $query = $this->db->prepare(
+         "SELECT * FROM videos WHERE uploadDate >= now() - INTERVAL 7 DAY
+         ORDER BY views DESC LIMIT 15"
+      );
+      $query->execute();
+
+      $cards = array();
+
+      while ($video = $query->fetch(PDO::FETCH_ASSOC)) {
+         $card = new VideoCard($this->db, $video, $this->user);
+         array_push($cards, $card);
+      }
+
+      return $cards;
+   }
+
 }
 ?>

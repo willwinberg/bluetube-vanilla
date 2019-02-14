@@ -6,6 +6,7 @@
 
 ## TODO:
 
+- search by views not working properly, nothing changes
 - sanitize input of search bar
 - when done, make sure requires are only where necessary
 - custom profile picture

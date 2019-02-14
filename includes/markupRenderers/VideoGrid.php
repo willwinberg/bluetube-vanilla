@@ -2,16 +2,20 @@
 
 class VideoGrid {
 
-   private $cards, $expanded;
+   private $cards, $type;
 
-   public function __construct($cards, $expanded = false) {
+   public function __construct($cards, $type = false) {
       $this->cards = $cards;
-      $this->expanded = $expanded;
+      $this->type = $type;
       $this->cssClass = "videoGrid";
 
-      if ($expanded) {
+      if ($type) {
+         $this->expanded = true;
+         $this->cssClass .= " large";
+      }
+      if (($type === "results")) {
          $this->filterButtons = $this->makeFilterButtons();
-      } 
+      }
    }
 
    public function render($title = "") {

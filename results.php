@@ -2,11 +2,12 @@
 require_once("includes/header.php");
 
 $term = $_GET["term"];
+$orderParam = $_GET["orderBy"];
 
-if (isset($_GET["orderBy"])) {
-   $orderBy = "uploadDate";
+if(!isset($orderParam) || $orderParam === "views") {
+    $orderBy = "views";
 } else {
-   $orderBy = "views";
+    $orderBy = "uploadDate";
 }
 ?>
 
@@ -15,7 +16,7 @@ if (isset($_GET["orderBy"])) {
    $cardFetcher = new VideoCardsFetcher($db, $user);
    
    $searchResultCards = $cardFetcher->getSearchResults($term, $orderBy);
-   $searchResultsGrid = new VideoGrid($searchResultCards, true);
+   $searchResultsGrid = new VideoGrid($searchResultCards, "results");
    $length = sizeof($searchResultCards);
    echo $searchResultsGrid->render("Your search returned $length results");
    ?>
