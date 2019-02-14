@@ -2,64 +2,49 @@
 
 class VideoGrid {
 
-   private $db, $user, $expanded;
-   private $cssClass = "videoGrid";
+   private $cards, $expanded;
 
-   public function __construct($db, $user, $expanded) {
-      $this->db = $db;
-      $this->user = $user;
+   public function __construct($cards, $expanded) {
+      $this->cards = $cards;
+      $this->type = $type;
       $this->expanded = $expanded;
    }
 
    public function render($title, $filter) {
-      $gridCards = $this->gridCards();
+      $gridCards = $this->makeGridCards();
 
       if ($title) {
-         $header = $this->createGridHeader($title, $filter);
+         $header = "
+            <div class='gridHeader'>
+               <div class='left'>
+                  $title
+               </div>
+                $filter
+            </div>
+         ";
       } else {
          $header = "";
       }
 
       return "
          $header
-         <div class='$this->gridClass'>
+         <div class='videoGrid'>
             $gridCards
          </div>
       ";
    }
 
-   private function gridCards() {
-      if ($videos) {
-         $gridCards = $this->createGridCards($videos);
-      } else {
-         $gridCards = $this->getGridCards();
-      }
-
-      return $gridCards;
-   }
-   
-   private function getGridCards() {
-      $query = $this->db->prepare(
-         "SELECT * FROM videos ORDER BY RAND() LIMIT 15");
-      $query->execute();
+   private function makeGridCards() {
       $html = "";
 
-      while ($video = $query->fetch(PDO::FETCH_ASSOC)) {
-         $card = new VideoCard($this->db, $video, $this->user);
-         $card->setExpanded($this->expanded);
+      foreach ($this->cards as $card) {
+         $card->setExpanded(false);
          $html .= $card->render();
       }
 
       return $html;
    }
 
-   public function createGridCards($videos) {
-      
-   }
-   
-   public function createGridHeader($title, $filter) {
-      return "";
-   }
 
 }
 ?>

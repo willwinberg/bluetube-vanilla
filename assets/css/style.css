@@ -95,6 +95,7 @@ a:hover {
 #mastHeadContainer .searchBarContainer form {
   flex: 1;
   display: flex;
+  margin-block-end: 0em;
 }
 
 #mastHeadContainer .searchBarContainer .searchBar {
@@ -577,4 +578,15 @@ a:hover {
   overflow-x: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.gridHeader {
+  display: flex;
+  margin: 10px 0;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #e8e8e8;
+}
+
+.gridHeader div {
+  flex: 1;
 }
