@@ -56,9 +56,23 @@ class VideoCardsFetcher {
       return $cards;
    }
 
-   public function getSearchResults($term) {
+   public function getSearchResults($term, $orderBy) {
+      $query = $this->db->prepare(
+         "SELECT * FROM videos WHERE title LIKE CONCAT('%' :term, '%')
+         OR uploadedBy LIKE CONCAT('%' :term, '%') ORDER BY $orderBy DESC"
+      );
+      $query->bindParam(":term", $term);
+      $query->execute();
 
+      $cards = array();
+
+      while ($video = $query->fetch(PDO::FETCH_ASSOC)) {
+         $card = new VideoCard($this->db, $video, $this->user);
+         array_push($cards, $card);
+      }
+
+      return $cards;
    }
-   
+
 }
 ?>
