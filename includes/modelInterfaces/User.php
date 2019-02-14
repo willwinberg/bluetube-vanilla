@@ -60,7 +60,7 @@ class User {
    }
 
    // Array of usernames to which $this is subscribed
-   public function subscriptionsArray() {
+   public function subscriptionsArray($objects = false) {
       $query = $this->db->prepare(
          "SELECT toUsername FROM subscribes WHERE fromUsername=:fromUsername"
       );
@@ -68,12 +68,15 @@ class User {
       $query->execute();
       
       $subscribers = array();
+      $subscriberObjs = array();
 
       while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
          $user = new User($this->db, $row["toUsername"]);
          array_push($subscribers, $user->username);
+         array_push($subscriberObjs, $user);
       }
 
+      if ($objects) return $subscriberObjs;
       return $subscribers;
    }
 

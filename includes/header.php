@@ -4,11 +4,13 @@ require_once("includes/modelInterfaces/User.php");
 require_once("includes/modelInterfaces/Video.php");
 require_once("includes/dataProcessors/VideoCardsFetcher.php");
 require_once("includes/markupRenderers/Button.php"); 
+require_once("includes/markupRenderers/NavigationMenu.php"); 
 require_once("includes/markupRenderers/VideoGrid.php"); 
 require_once("includes/markupRenderers/VideoCard.php");
 
 $loggedInUsername = User::isLoggedIn() ? $_SESSION["loggedIn"] : "";
 $user = new User($db, $loggedInUsername);
+$navMenu = new NavigationMenu($user);
 ?>
 
 <!DOCTYPE html>
@@ -55,7 +57,8 @@ $user = new User($db, $loggedInUsername);
             <?php echo Button::profileNavButton($db, $loggedInUsername); echo $loggedInUsername ?>
          </div>
       </div>
-      <div id="sideNavContainer" style="display: none">
+      <div id="navContainer" style="display: none">
+         <?php echo $navMenu->render(); ?>
       </div>
       <div id="mainSectionContainer">
          <div id="mainContentContainer">

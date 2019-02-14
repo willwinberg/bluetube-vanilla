@@ -34,6 +34,7 @@ class VideoCardsFetcher {
 
          while ($i < $length) {
             $sql .= " OR uploadedBy=?";
+            $i++;
          }
       }
 
