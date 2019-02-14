@@ -54,7 +54,7 @@ $navMenu = new NavigationMenu($user);
             <a href="upload.php">
                <img class="upload" src="assets/images/icons/upload.png">
             </a>
-            <?php echo Button::profileNavButton($db, $loggedInUsername); echo $loggedInUsername ?>
+            <?php echo Button::profileNavButton($db, $loggedInUsername); ?>
          </div>
       </div>
       <div id="navContainer" style="display: none">
