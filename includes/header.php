@@ -3,10 +3,11 @@ require_once("includes/config.php");
 require_once("includes/modelInterfaces/User.php");
 require_once("includes/modelInterfaces/Video.php");
 require_once("includes/dataProcessors/VideoCardsFetcher.php");
+require_once("includes/markupRenderers/Button.php"); 
 require_once("includes/markupRenderers/VideoGrid.php"); 
 require_once("includes/markupRenderers/VideoCard.php");
 
-$loggedInUsername = User::loggedIn() ? $_SESSION["loggedIn"] : "";
+$loggedInUsername = User::isLoggedIn() ? $_SESSION["loggedIn"] : "";
 $user = new User($db, $loggedInUsername);
 echo $user->firstName;
 ?>
@@ -52,10 +53,7 @@ echo $user->firstName;
             <a href="upload.php">
                <img class="upload" src="assets/images/icons/upload.png">
             </a>
-            <a href="#">
-               <img class="upload" src="assets/images/profilePictures/default.png">
-               <?php echo $loggedInUsername ?>
-            </a>
+            <?php echo Button::profileNavButton($db, $loggedInUsername); ?>
          </div>
       </div>
       <div id="sideNavContainer" style="display: none">

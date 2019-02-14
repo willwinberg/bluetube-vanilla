@@ -23,17 +23,13 @@ class User {
       $this->image = $user["image"];
       $this->signUpDate = $user["signUpDate"];
    }
-   
-   public static function loggedIn() {
+
+   public static function isLoggedIn() {
       return isset($_SESSION["loggedIn"]);
    }
 
    public function getFullName() {
       return $this->firstName . " " . $this->lastName;
-   }
-
-   public static function isLoggedIn() {
-      return isset($_SESSION["loggedIn"]);
    }
 
    public function subscribe($toUsername) {

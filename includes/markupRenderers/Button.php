@@ -76,5 +76,17 @@ class Button {
       ";
    }
 
+   public static function profileNavButton($db, $username) {
+      if (User::isLoggedIn()) {
+         return Button::profileButton($db, $username);
+      } else {
+         return "
+            <a href='login.php'>
+               <span class='signInLink'>LOG IN</span>
+            </a>
+         ";
+      }
+   }
+
 }
 ?>

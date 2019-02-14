@@ -18,7 +18,6 @@ class VideoGrid {
       $gridCards = $this->makeGridCards();
       $filterButtons = $this->filterButtons;
       
-
       if ($title) {
          $header = "
             <div class='gridHeader'>

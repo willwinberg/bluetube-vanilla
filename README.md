@@ -6,6 +6,7 @@
 
 ## TODO:
 
+- sanitize input of search bar
 - when done, make sure requires are only where necessary
 - custom profile picture
 - SASS or styled-components
