@@ -1,10 +1,5 @@
 <?php
 require_once("includes/header.php");
-require_once("includes/dataProcessors/VideoCardsFetcher.php");
-require_once("includes/modelInterfaces/Video.php");
-require_once("includes/markupRenderers/VideoGrid.php"); 
-require_once("includes/markupRenderers/VideoCard.php");
-
 ?>
 
 <div class="videoSection">
