@@ -55,5 +55,10 @@ class VideoCardsFetcher {
 
       return $cards;
    }
+
+   public function getSearchResults($term) {
+
+   }
+   
 }
 ?>

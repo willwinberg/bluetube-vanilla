@@ -41,8 +41,8 @@ echo $user->firstName;
             <img src="assets/images/logo.png" title="logo" alt="BlueTube Logo"/>
          </a>
          <div class="searchBarContainer">
-            <form action="search.php" method="GET">
-               <input type="text" class="searchBar" name="term" placeholder="Search...">
+            <form action="results.php" method="GET">
+               <input type="text" class="searchBar" name="term" placeholder="Search..." required>
                <button class="searchButton">
                   <img src="assets/images/icons/search.png">
                </button>
