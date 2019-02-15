@@ -1,6 +1,6 @@
 <?php
 require_once("includes/header.php");
-require_once("includes/markupRenderers/VideoDetailsFormProvider.php");
+require_once("includes/markupRenderers/FormProvider.php");
 
 if (!User::isLoggedIn()) {
    header("Location: login.php");
@@ -9,8 +9,8 @@ if (!User::isLoggedIn()) {
 
 <div class="column">
    <?php
-    $formProvider = new VideoDetailsFormProvider($db);
-    echo $formProvider->createVideoUploadForm();
+    $VideoUploadForm = new FormProvider($db);
+    echo $VideoUploadForm->makeVideoUploadForm();
     ?>
 </div>
 
