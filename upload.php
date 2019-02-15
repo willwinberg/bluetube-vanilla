@@ -1,6 +1,10 @@
 <?php
 require_once("includes/header.php");
 require_once("includes/markupRenderers/VideoDetailsFormProvider.php");
+
+if (!User::isLoggedIn()) {
+   header("Location: login.php");
+}
 ?>
 
 <div class="column">

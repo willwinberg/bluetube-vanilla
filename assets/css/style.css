@@ -728,6 +728,7 @@ a:hover {
 
 .bannerContainer .channelName {
   position: absolute;
+  font-family: serif;
   top: calc(50% - 40px);
   font-size: 50px;
   color: #fff;
@@ -807,3 +808,5 @@ a:hover {
   margin-top: 3px;
   text-indent: 8px;
 }
+
+/* SETTINGS */
