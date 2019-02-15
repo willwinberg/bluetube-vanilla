@@ -1,16 +1,36 @@
 <?php
 class FormProvider {
-    public function __construct($db) {
+
+    private $db, $type;
+
+    public function __construct($db, $type) {
         $this->db = $db;
+        $this->type = $type;
     }
 
-    public function makeVideoUploadForm() {
+    public function render() {
+        switch ($this->type) {
+            case "uploadForm":
+                return $this->makeUploadForm();
+            case "registerForm":
+                return $this->makeRegisterForm();
+            case "loginForm":
+                return $this->makeLoginForm();
+            case "settingForm":
+                return $this->makeSettingsForm();
+            default:
+                echo "A strange error occurred.";
+                break;
+        }
+    }
+
+    private function makeUploadForm() {
         $fileInput = $this->fileInput("File"); // file
         $titleInput = $this->textInput("Title"); // text
         $descriptionInput = $this->textareaInput("Description"); //textarea
         $privacyInput = $this->privacyInput(); //privacy
         $categoriesInput = $this->categoriesInput(); // categories
-        $submitButton = $this->submitButton("Upload"); // upload
+        $submitButton = $this->submitButton("Upload", "uploadButton"); // upload
 
         return "
             <form
@@ -23,7 +43,30 @@ class FormProvider {
                 $descriptionInput
                 $privacyInput
                 $categoriesInput
-                $uploadButton
+                $submitButton
+            </form>
+        ";
+    }
+    private function makeRegisterForm() {
+        $fileInput = $this->fileInput("File"); // file
+        $titleInput = $this->textInput("Title"); // text
+        $descriptionInput = $this->textareaInput("Description"); //textarea
+        $privacyInput = $this->privacyInput(); //privacy
+        $categoriesInput = $this->categoriesInput(); // categories
+        $submitButton = $this->submitButton("Upload", "uploadButton"); // upload
+
+        return "
+            <form
+                action='videoProcessing.php'
+                method='POST'
+                enctype='multipart/form-data'
+            >
+                $fileInput
+                $titleInput
+                $descriptionInput
+                $privacyInput
+                $categoriesInput
+                $submitButton
             </form>
         ";
     }
@@ -77,14 +120,14 @@ class FormProvider {
     }
 
     private function privacyInput() {
-        return ("
+        return "
             <div class='form-group'>
-                <select class='form-control' name='privacyInput'>
+                <select class='form-control' name='privacy'>
                     <option value='0'>Private</option>
-                    <option value='1'>Public</option>
+                    <option value='1'>private</option>
                 </select>
             </div>
-        ");
+        ";
     }
 
     private function categoriesInput() {
@@ -100,16 +143,16 @@ class FormProvider {
         
         return "
             <div class='form-group'>
-                <select class='form-control' name='categoryInput'>
+                <select class='form-control' name='category'>
                     $html
                 </select>
             </div>
         ";
     }
 
-    private function submitButton($text) {
+    private function submitButton($text, $postTo) {
         return "
-        <button type='submit' class='btn btn-primary' name='uploadButton'>
+        <button type='submit' class='btn btn-primary' name='$postTo'>
             $text
         </button>
         ";

@@ -3,7 +3,6 @@
 class User {
 
    private $db;
-   public $firstName, $lastName, $username, $email, $image;
 
    public function __construct($db, $username) {
       $query = $db->prepare(

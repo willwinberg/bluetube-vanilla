@@ -6,17 +6,16 @@ require_once("includes/dataProcessors/FormInputValidator.php");
 require_once("includes/dataProcessors/UserEntryHandler.php");
 require_once("includes/dataProcessors/ErrorMessage.php"); 
 
-$newUserDataSanitizer = new FormInputSanitizer;
-$newUserDataValidator = new formInputValidator($db);
+$userDataSanitizer = new FormInputSanitizer;
+$userDataValidator = new formInputValidator($db);
 $newUserAccount = new UserEntryHandler($db);
 
 if (isset($_POST["submitRegisterForm"])) {
+   $sanitizedUserData = $userDataSanitizer->sanitize($_POST);
 
-   $sanitizedUserData = $newUserDataSanitizer->sanitizeNewUserData($_POST);
+   $userDataValidator->validateNewUserData($sanitizedUserData);
 
-   $newUserDataValidator->validateNewUserData($sanitizedUserData);
-
-   $noErrors = empty($newUserDataValidator->errorArray);
+   $noErrors = empty($userDataValidator->errorArray);
 
    if ($noErrors) {
       $newUserAccount->registerNewUser($sanitizedUserData);
@@ -51,7 +50,7 @@ function getValue($key) {
                value="<?php getValue('firstName'); ?>"
                placeholder="First name"
             >
-            <?php echo $newUserDataValidator->getError(ErrorMessage::$firstNameLength); ?>
+            <?php echo $userDataValidator->getError(ErrorMessage::$firstNameLength); ?>
 
             <input
                required
@@ -60,7 +59,7 @@ function getValue($key) {
                value="<?php getValue('lastName'); ?>"
                placeholder="Last name"
             >
-            <?php echo $newUserDataValidator->getError(ErrorMessage::$lastNameLength); ?>
+            <?php echo $userDataValidator->getError(ErrorMessage::$lastNameLength); ?>
 
             <input
                required
@@ -69,8 +68,8 @@ function getValue($key) {
                value="<?php getValue('username'); ?>"
                placeholder="Username"
             >
-            <?php echo $newUserDataValidator->getError(ErrorMessage::$usernameLength); ?>
-            <?php echo $newUserDataValidator->getError(ErrorMessage::$usernameTaken); ?>
+            <?php echo $userDataValidator->getError(ErrorMessage::$usernameLength); ?>
+            <?php echo $userDataValidator->getError(ErrorMessage::$usernameTaken); ?>
 
             <input
                required
@@ -79,8 +78,8 @@ function getValue($key) {
                value="<?php getValue('email'); ?>"
                placeholder="Email"
             >
-            <?php echo $newUserDataValidator->getError(ErrorMessage::$emailInvalid); ?>
-            <?php echo $newUserDataValidator->getError(ErrorMessage::$emailTaken); ?>
+            <?php echo $userDataValidator->getError(ErrorMessage::$emailInvalid); ?>
+            <?php echo $userDataValidator->getError(ErrorMessage::$emailTaken); ?>
 
             <input
                required
@@ -89,7 +88,7 @@ function getValue($key) {
                value="<?php getValue('emailConfirm'); ?>"
                placeholder="Confirm email"
             >
-            <?php echo $newUserDataValidator->getError(ErrorMessage::$emailsDoNotMatch); ?>
+            <?php echo $userDataValidator->getError(ErrorMessage::$emailsDoNotMatch); ?>
 
             <input
                required
@@ -97,8 +96,8 @@ function getValue($key) {
                name="password"
                placeholder="Password"
             >
-            <?php echo $newUserDataValidator->getError(ErrorMessage::$passwordInsecure); ?>
-            <?php echo $newUserDataValidator->getError(ErrorMessage::$passwordLength); ?>
+            <?php echo $userDataValidator->getError(ErrorMessage::$passwordInsecure); ?>
+            <?php echo $userDataValidator->getError(ErrorMessage::$passwordLength); ?>
 
             <input
                required
@@ -106,7 +105,7 @@ function getValue($key) {
                name="passwordConfirm"
                placeholder="Confirm password"
             >
-            <?php echo $newUserDataValidator->getError(ErrorMessage::$passwordsDoNotMatch); ?>
+            <?php echo $userDataValidator->getError(ErrorMessage::$passwordsDoNotMatch); ?>
 
             <input type="submit" name="submitRegisterForm" value="SUBMIT">
             

@@ -9,11 +9,11 @@ if (!isset($_POST["uploadButton"])) {
 }
 
 $uploadedVideoData = new UploadedVideoData(
-   $_FILES["fileInput"], 
-   $_POST["titleInput"],
-   $_POST["descriptionInput"],
-   $_POST["privacyInput"],
-   $_POST["categoryInput"],
+   $_FILES["file"], 
+   $_POST["title"],
+   $_POST["description"],
+   $_POST["privacy"],
+   $_POST["category"],
    $user->username   
 );
 

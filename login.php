@@ -9,7 +9,7 @@ $userAccount = new UserEntryHandler($db);
 
 if (isset($_POST["submitLoginForm"])) {
     
-   $sanitizedLoginData = $loginDataSanitizer->sanitizeLoginData($_POST);
+   $sanitizedLoginData = FormInputSanitizer::sanitizeData($_POST);
 
    $userAccount->login($sanitizedLoginData);
 

@@ -238,8 +238,8 @@ a:hover {
 }
 
 .watchLeft .videoPlayer {
-  width: 100%;
-  max-height: 80vh;
+  width: 59.5vw;
+  height: 28vw;
 }
 
 .suggestions {

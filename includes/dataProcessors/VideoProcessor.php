@@ -215,6 +215,7 @@ class VideoProcessor {
 
     private function isValidType($videoType) {
         $lowercased = strtolower($videoType);
+        echo "video type is: $videoType";
         return in_array($lowercased, $this->allowedTypes);
     }
     

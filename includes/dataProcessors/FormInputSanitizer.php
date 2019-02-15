@@ -2,30 +2,43 @@
 
 class FormInputSanitizer {
 
-    public function sanitizeNewUserData($postData) {
-        $sanitizedData = $postData;
+    public function sanitize($data) {
+        foreach ($data as $name => $value) {
+            switch ($name) {
+                case "firstName":
+                    $sanitizedData[$name] = $this->sanitizeString($value);
+                    break;
+                case "lastName":
+                    $sanitizedData[$name] = $this->sanitizeString($value);
+                    break;
+                case "username":
+                    $sanitizedData[$name] = $this->sanitizeUsername($value);
+                    break;
+                case "email":
+                    $sanitizedData[$name] = $this->sanitizeEmail($value);
+                    break;
+                case "emailConfirm":
+                    $sanitizedData[$name] = $this->sanitizeEmail($value);
+                    break;
+                case "password":
+                    $sanitizedData[$name] = $this->sanitizePassword($value);
+                    break;
+                case "passwordConfirm":
+                    $sanitizedData[$name] = $this->sanitizePassword($value);
+                    break;
+                case "body":
+                    $sanitizedData[$name] = $this->sanitizeBody($value);
+                    break;
+                default:
+                    echo "Skipped $name => $value\n";
+            }
+        }
+        var_dump($data);
 
-        $sanitizedData["firstName"] = $this->sanitizeString($postData["firstName"]);
-        $sanitizedData["lastName"] = $this->sanitizeString($postData["lastName"]);
-        $sanitizedData["username"] = $this->sanitizeUsername($postData["username"]);
-        $sanitizedData["email"] = $this->sanitizeEmail($postData["email"]);
-        $sanitizedData["emailConfirm"] = $this->sanitizeEmail($postData["emailConfirm"]);
-        $sanitizedData["password"] = $this->sanitizePassword($postData["password"]);
-        $sanitizedData["passwordConfirm"] = $this->sanitizePassword($postData["passwordConfirm"]);
-
-        return $sanitizedData;
+        return $data;
     }
 
-    public function sanitizeLoginData($postData) {
-        $sanitizedData = $postData;
-
-        $sanitizedData["username"] = $this->sanitizeUsername($postData["username"]);
-        $sanitizedData["password"] = $this->sanitizePassword($postData["password"]);
-
-        return $sanitizedData;
-    }
-
-    private function sanitizeString($textInput) {
+    private static function sanitizeString($textInput) {
         $textInput = strip_tags($textInput);
         $textInput = str_replace(" ", "", $textInput);
         $textInput = strtolower($textInput);
@@ -46,6 +59,11 @@ class FormInputSanitizer {
     }
 
     private function sanitizePassword($passwordInput) {
+        $passwordInput = strip_tags($passwordInput);
+        return $passwordInput;
+    }
+
+    private function sanitizeBody($bodyInput) {
         $passwordInput = strip_tags($passwordInput);
         return $passwordInput;
     }
