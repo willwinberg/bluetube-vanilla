@@ -25,9 +25,9 @@ class VideoProcessor {
    }
 
    // TODO: deconstruct this
-   public function uploadVideo($cleanVideoData) {
+   public function uploadVideo($data) {
       $targetDirectory = "uploads/videos/";
-      $videoDataArray = $cleanVideoData->getVideoDataArray();
+      $videoDataArray = $data["video"];
 
       $tempFilePath = $targetDirectory . uniqid() . basename($videoDataArray["name"]);
       $tempFilePath = str_replace(" ", "_", $tempFilePath);
@@ -41,7 +41,7 @@ class VideoProcessor {
       if (move_uploaded_file($videoDataArray["tmp_name"], $tempFilePath)) {
          $finalFilePath = $targetDirectory . uniqid() . ".mp4";
 
-         if (!$this->insertVideoIntoDB($cleanVideoData, $finalFilePath)) {
+         if (!$this->insertVideoIntoDB($data, $finalFilePath)) {
             echo "Insert query failed\n";
             return false;
          } 
@@ -65,23 +65,23 @@ class VideoProcessor {
       }
    }
    
-   private function insertVideoIntoDB($cleanVideoData, $filePath) {
+   private function insertVideoIntoDB($data, $filePath) {
       $query = $this->db->prepare(
          "INSERT INTO videos(title, uploadedBy, description, privacy, category, filePath)
          VALUES(:title, :uploadedBy, :description, :privacy, :category, :filePath)"
       );
 
-      $title = $cleanVideoData->getTitle();
-      $uploadedBy = $cleanVideoData->getUploadedBy();
-      $description = $cleanVideoData->getDescription();
-      $privacy = $cleanVideoData->getPrivacy();
-      $category = $cleanVideoData->getCategory();
+      $title = $data["title"];
+      $description = $data["description"];
+      $privacy = $data["privacy"];
+      $category = $data["category"];
+      $uploadedBy = $data["username"];
 
       $query->bindParam(":title", $title);
-      $query->bindParam(":uploadedBy", $uploadedBy);
       $query->bindParam(":description", $description);
       $query->bindParam(":privacy", $privacy);
       $query->bindParam(":category", $category);
+      $query->bindParam(":uploadedBy", $uploadedBy);
 
       $query->bindParam(":filePath", $filePath);
 

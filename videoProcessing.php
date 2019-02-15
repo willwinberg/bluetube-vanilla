@@ -1,6 +1,5 @@
 <?php 
 require_once("includes/header.php");
-require_once("includes/modelInterfaces/UploadedVideoData.php");
 require_once("includes/dataProcessors/VideoProcessor.php");
 
 if (!isset($_POST["uploadButton"])) {
@@ -8,13 +7,13 @@ if (!isset($_POST["uploadButton"])) {
     exit();
 }
 
-$uploadedVideoData = new UploadedVideoData(
-   $_FILES["file"], 
-   $_POST["title"],
-   $_POST["description"],
-   $_POST["privacy"],
-   $_POST["category"],
-   $user->username   
+$uploadedVideoData = array(
+   "video" => $_FILES["file"], 
+   "title" => $_POST["title"],
+   "description" => $_POST["description"],
+   "privacy" => $_POST["privacy"],
+   "category" => $_POST["category"],
+   "username" => $user->username   
 );
 
 // $validatedVideoData = videoDataValidator($uploadedVideoData);
