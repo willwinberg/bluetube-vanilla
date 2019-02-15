@@ -20,6 +20,8 @@ class User {
       $this->lastName = $user["lastName"];
       $this->username = $user["username"];
       $this->email = $user["email"];
+      // $this->bannerImg = $user["coverPhoto"];
+      $this->bannerImg = "assets/images/banners/default-banner.jpg";
       $this->image = $user["image"];
       $this->signUpDate = $user["signUpDate"];
    }

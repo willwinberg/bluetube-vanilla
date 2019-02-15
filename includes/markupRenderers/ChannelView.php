@@ -2,11 +2,11 @@
 
 class ChannelView {
 
-private $db, $user, $channelsUsername;
+private $db, $loggedInUser, $channelsUsername;
 
-   public function __construct($db, $user, $channelUsername) {
+   public function __construct($db, $loggedInUser, $channelUsername) {
       $this->db = $db;
-      $this->user = $user;
+      $this->loggedInUser = $loggedInUser;
 
       if (!$channelUsername) {
          return "Channel does not exist";
@@ -17,12 +17,32 @@ private $db, $user, $channelsUsername;
 
    public function render() {
       $owner = var_dump($this->channelOwner);
+
+      // $banner = $this->makeBanner();
+      // $headerSection = $this->createHeaderSection();
+      // $tabsSection = $this->createTabsSection();
+      // $contentSection = $this->createContentSection();
+
       return "
          <div class='channelContainer'>
             $owner
          </div>
       ";
    }
+
+public function makeBanner() {
+      $src = $this->channelOwner->bannerImg;
+      $name = $this->channelOwner->getFullName();
+
+      return "
+         <div class='bannerContainer'>
+            <img src='$src' class='banner'>
+            <span class='name'>$name</span>
+         </div>
+      ";
+   }
+
+   
 
 }
 ?>

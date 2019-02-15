@@ -12,6 +12,5 @@ if (isset($_GET["username"])) {
 $channelView = new ChannelView($db, $user, $channelUsername);
 
 echo $channelView->render();
-?>
 
-<?php require_once("includes/footer.php"); ?>
+require_once("includes/footer.php"); ?>
