@@ -59,10 +59,11 @@ class Button {
 
    public static function subscribeButton($db, $subscriber, $uploader) {
       $uploader = new User($db, $uploader);
-      $existingSubs = $subscriber->subscriptionsArray();
-      $alreadySubbed = in_array($uploader->username, $existingSubs);
+      $subscribersSubs = $subscriber->subscriptionsArray();
+      $uploadersSubCount = $uploader->getSubscriberCount();
+      $alreadySubbed = in_array($uploader->username, $subscribersSubs);
       $text = $alreadySubbed ? "SUBSCRIBED" : "SUBSCRIBE";
-      $text .= " " . sizeof($existingSubs);
+      $text .= " " . $uploadersSubCount;
 
       $class = $alreadySubbed ? "unsubscribe button" : "subscribe button";
       $action = "subscribe(this, \"$uploader->username\", \"$subscriber->username\")";

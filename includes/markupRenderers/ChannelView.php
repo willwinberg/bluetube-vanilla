@@ -37,7 +37,7 @@ public function makeBanner() {
       return "
          <div class='bannerContainer'>
             <img src='$src' class='banner'>
-            <span class='name'>$name</span>
+            <span class='channelName'>$name</span>
          </div>
       ";
    }
@@ -54,14 +54,10 @@ public function makeBanner() {
                <img class='ownerImage' src='$image'>
                <div class='ownerInfo'>
                      <span class='name'>$name</span>
-                     <span class='subscriberCount'>$subCount subscribers</span>
+                     <span class='subscriberCount'>$subscriberCount subscribers</span>
                </div>
-            </div>
-            <div class='buttonContainer'>
-               */<div class='buttonItem'>/*    
-                     $button
-               */</div>/*
-            </div>
+            </div> 
+            $subscribeButton
          </div>
       ";
    }

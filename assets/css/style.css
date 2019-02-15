@@ -6,6 +6,7 @@ watch
 comments
 video grids
 navigation
+channel
 */
 
 /* CONTAINERS */
@@ -702,4 +703,85 @@ a:hover {
   padding: 10px 24px 0;
   border-top: 1px solid #e8e8e8;
   display: block;
+}
+
+/* CHANNEL */
+
+.channelContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.bannerContainer {
+  height: 200px;
+  flex: 1;
+  position: relative;
+}
+
+.bannerContainer .banner {
+  width: 100%;
+  object-fit: cover;
+  max-height: 100%;
+  vertical-align: middle;
+}
+
+.bannerContainer .channelName {
+  position: absolute;
+  top: calc(50% - 40px);
+  font-size: 50px;
+  color: #fff;
+  text-align: center;
+  width: 100%;
+  letter-spacing: 5px;
+}
+
+.channelHeader {
+  padding: 15px 100px 0 100px;
+  display: flex;
+  height: 100px;
+}
+
+.infoContainer {
+  flex: 1;
+  display: flex;
+}
+
+.channelHeader .infoContainer .ownerImage {
+  height: 80px;
+  width: 80px;
+}
+
+.channelHeader .ownerInfo {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.channelHeader .ownerInfo .name {
+  font-size: 24px;
+  font-weight: 400;
+  color: #111;
+}
+
+.channelHeader .ownerInfo .subscriberCount {
+  font-size: 14px;
+  color: rgba(17, 17, 17, 0.6);
+}
+
+.channelHeader .buttonContainer {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.channelHeader .buttonContainer button {
+  padding: 10px 15px;
+  font-size: 14px;
+  font-weight: 500;
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
 }

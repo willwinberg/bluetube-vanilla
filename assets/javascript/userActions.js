@@ -6,6 +6,7 @@ function subscribe(button, toUsername, fromUsername) {
 
    $.post("ajax/userActions.php", { toUsername, fromUsername })
       .done(function (count) {
+         console.log("subscribe() done");
          if (count !== null) {
             $(button).toggleClass("subscribe unsubscribe");
 
