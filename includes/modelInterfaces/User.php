@@ -61,6 +61,16 @@ class User {
       return $query->rowCount();
    }
 
+   public function getTotalViews() {
+      $query = $this->db->prepare(
+         "SELECT sum(views) FROM videos WHERE uploadedBy=:uploadedBy"
+      );
+      $query->bindParam(":uploadedBy", $this->username);
+      $query->execute();
+
+      return $query->fetchColumn();
+    }
+
    // Array of usernames to which $this is subscribed
    public function subscriptionsArray($objects = false) {
       $query = $this->db->prepare(

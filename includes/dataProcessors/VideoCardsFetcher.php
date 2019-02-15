@@ -102,8 +102,24 @@ class VideoCardsFetcher {
 
       $cards = array();
 
-      while ($like = $query->fetch(PDO::FETCH_ASSOC)) {
-         $card = new VideoCard($this->db, $like["videoId"], $this->user);
+      while ($video = $query->fetch(PDO::FETCH_ASSOC)) {
+         $card = new VideoCard($this->db, $video["videoId"], $this->user);
+         array_push($cards, $card);
+      }
+
+      return $cards;
+   }
+
+   public function getOwned() {
+      $query = $this->db->prepare(       
+         "SELECT * FROM videos WHERE uploadedBy=:uploadedBy ORDER BY uploadDate DESC");
+      $query->bindParam(":uploadedBy", $this->user->username);
+      $query->execute();
+
+      $cards = array();
+
+      while ($video = $query->fetch(PDO::FETCH_ASSOC)) {
+         $card = new VideoCard($this->db, $video, $this->user);
          array_push($cards, $card);
       }
 
