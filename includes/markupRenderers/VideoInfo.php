@@ -39,7 +39,7 @@ class VideoInfo {
                $profileButton
                <div class='uploadInfo'>
                   <span class='owner'>
-                     <a href='profile.php?username=$uploadedBy'>
+                     <a href='channel.php?username=$uploadedBy'>
                         $uploadedBy
                      </a>
                   </span>

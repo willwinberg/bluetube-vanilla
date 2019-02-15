@@ -23,7 +23,7 @@ class CommentMarkup extends Comment {
                $profileButton
                <div class='mainContainer'>
                   <div class='commentHeader'>
-                     <a href='profile.php?username=$postedBy'>
+                     <a href='channel.php?username=$postedBy'>
                         <span class='username'>$postedBy</span>
                      </a>
                      <span class='timestamp'>$timestamp</span>

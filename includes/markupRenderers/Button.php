@@ -37,7 +37,7 @@ class Button {
 
    public static function profileButton($db, $username) {
       $user = new User($db, $username);
-      $link = "profile.php?username=$username";
+      $link = "channel.php?username=$username";
       
       return "
          <a href='$link'>
