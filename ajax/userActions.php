@@ -13,7 +13,7 @@ if (isset($_POST["toUsername"]) && isset($_POST["fromUsername"])) {
       $fromUser->subscribe($toUser->username);
    }
    
-   echo $toUser->subscriberCount();
+   echo $toUser->getSubscriberCount();
 } else {
    echo "Error in userAction.php";
 }

@@ -21,7 +21,7 @@ class User {
       $this->username = $user["username"];
       $this->email = $user["email"];
       // $this->bannerImg = $user["coverPhoto"];
-      $this->bannerImg = "assets/images/banners/default-banner.jpg";
+      $this->bannerImg = "assets/images/banners/default-banner.png";
       $this->image = $user["image"];
       $this->signUpDate = $user["signUpDate"];
    }
@@ -30,7 +30,7 @@ class User {
       return isset($_SESSION["loggedIn"]);
    }
 
-   public function getFullName() {
+   public function fullName() {
       return $this->firstName . " " . $this->lastName;
    }
 
@@ -52,7 +52,7 @@ class User {
       $query->execute();
    }
 
-   public function subscriberCount() {
+   public function getSubscriberCount() {
       $query = $this->db->prepare(
          "SELECT * FROM subscribes WHERE toUsername=:toUsername"
       );

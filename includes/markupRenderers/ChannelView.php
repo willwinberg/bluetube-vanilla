@@ -16,28 +16,52 @@ private $db, $loggedInUser, $channelsUsername;
    }
 
    public function render() {
-      $owner = var_dump($this->channelOwner);
-
-      // $banner = $this->makeBanner();
+      $banner = $this->makeBanner();
+      $header = $this->makeHeader();
       // $headerSection = $this->createHeaderSection();
       // $tabsSection = $this->createTabsSection();
       // $contentSection = $this->createContentSection();
 
       return "
          <div class='channelContainer'>
-            $owner
+            $banner
+            $header
          </div>
       ";
    }
 
 public function makeBanner() {
       $src = $this->channelOwner->bannerImg;
-      $name = $this->channelOwner->getFullName();
+      $name = $this->channelOwner->fullName();
 
       return "
          <div class='bannerContainer'>
             <img src='$src' class='banner'>
             <span class='name'>$name</span>
+         </div>
+      ";
+   }
+
+   public function makeHeader() {
+      $image = $this->channelOwner->image;
+      $name = $this->channelOwner->fullName();
+      $subscriberCount = $this->channelOwner->getSubscriberCount();
+      $subscribeButton = Button::subscribeButton($this->db, $this->loggedInUser, $this->channelOwner->username);
+
+      return "
+         <div class='channelHeader'>
+            <div class='infoContainer'>
+               <img class='ownerImage' src='$image'>
+               <div class='ownerInfo'>
+                     <span class='name'>$name</span>
+                     <span class='subscriberCount'>$subCount subscribers</span>
+               </div>
+            </div>
+            <div class='buttonContainer'>
+               */<div class='buttonItem'>/*    
+                     $button
+               */</div>/*
+            </div>
          </div>
       ";
    }
