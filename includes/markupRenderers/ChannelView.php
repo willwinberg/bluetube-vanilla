@@ -37,12 +37,12 @@ private $db, $loggedInUser, $channelsUsername;
 
    public function makeBanner() {
       $src = $this->channelOwner->bannerImg;
-      $name = $this->channelOwner->fullName();
+      $username = $this->channelOwner->username;
 
       return "
          <div class='bannerContainer'>
             <img src='$src' class='banner'>
-            <span class='channelName'>$name</span>
+            <span class='channelName'>$username</span>
          </div>
       ";
    }
@@ -106,7 +106,7 @@ private $db, $loggedInUser, $channelsUsername;
       $ownerUsername = $this->channelOwner->username;
 
       if (sizeof($ownedVideos) > 0) {
-         $ownedGrid = new VideoGrid($ownedVideos, true);
+         $ownedGrid = new VideoGrid($ownedVideos);
          $html = $ownedGrid->render("$ownerUsername's Videos");
       } else {
          $html = "<span>$ownerUsername has not uploaded any videos</span>";
@@ -118,7 +118,7 @@ private $db, $loggedInUser, $channelsUsername;
                id='videos' role='tabpanel'
                aria-labelledby='videos-tab'
             >
-               $gridHtml
+               $html
             </div>
       ";
    }
@@ -128,7 +128,7 @@ private $db, $loggedInUser, $channelsUsername;
       $username = $this->channelOwner->username;
       $subscriberCount = $this->channelOwner->getSubscriberCount();
       $totalViews = $this->channelOwner->getTotalViews();
-      $signUpDate = $this->channelOwner->signUpDate;
+      $signUpDate = $this->channelOwner->signUpDate();
 
       return "
          <div
@@ -143,7 +143,7 @@ private $db, $loggedInUser, $channelsUsername;
                <div class='values'>
                   <span>Name: $name</span>
                   <span>Username: $username</span>
-                  <span>Subscribers: $subscriberCount-></span>
+                  <span>Subscribers: $subscriberCount</span>
                   <span>Total Views: $totalViews</span>
                   <span>Sign-up Date: $signUpDate</span>
                </div>

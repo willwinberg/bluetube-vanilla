@@ -15,6 +15,7 @@ class User {
       $user = $query->fetch(PDO::FETCH_ASSOC);
 
       $this->db = $db;
+      $this->user = $user;
 
       $this->firstName = $user["firstName"];
       $this->lastName = $user["lastName"];
@@ -23,7 +24,6 @@ class User {
       // $this->bannerImg = $user["coverPhoto"];
       $this->bannerImg = "assets/images/banners/default-banner.png";
       $this->image = $user["image"];
-      $this->signUpDate = $user["signUpDate"];
    }
 
    public static function isLoggedIn() {
@@ -33,6 +33,12 @@ class User {
    public function fullName() {
       return $this->firstName . " " . $this->lastName;
    }
+
+   public function signUpDate() {
+        $date = $this->user["signUpDate"];
+
+        return date("F jS, Y", strtotime($date));
+    }
 
    public function subscribe($toUsername) {
       $query = $this->db->prepare(
