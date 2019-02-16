@@ -1,6 +1,6 @@
 <?php
 
-class ErrorMessage {
+class Error {
 
    public static $firstNameLength = "First name must be between 2 and 30 characters";
    public static $lastNameLength = "Last name must be between 2 and 30 characters";

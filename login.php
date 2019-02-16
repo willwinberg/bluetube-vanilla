@@ -2,14 +2,14 @@
 require_once("includes/config.php");
 require_once("includes/dataProcessors/FormInputSanitizer.php");
 require_once("includes/dataProcessors/UserEntryHandler.php");
-require_once("includes/dataProcessors/ErrorMessage.php");
+require_once("includes/dataProcessors/Error.php");
 
 $loginDataSanitizer = new FormInputSanitizer;
 $userAccount = new UserEntryHandler($db);
 
 if (isset($_POST["submitLoginForm"])) {
     
-   $sanitizedLoginData = FormInputSanitizer::sanitizeData($_POST);
+   $sanitizedLoginData = $loginDataSanitizer->sanitize($_POST);
 
    $userAccount->login($sanitizedLoginData);
 
@@ -52,7 +52,7 @@ function getValue($key) {
                name="password"
                placeholder="Password"
             >
-            <?php echo $userAccount->getError(ErrorMessage::$loginFailed); ?>
+            <?php echo $userAccount->getError(Error::$loginFailed); ?>
             <input type="submit" name="submitLoginForm" value="SUBMIT">
          </form>
       </div>

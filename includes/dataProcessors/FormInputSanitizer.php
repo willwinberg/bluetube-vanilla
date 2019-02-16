@@ -38,7 +38,7 @@ class FormInputSanitizer {
         return $data;
     }
 
-    private static function sanitizeString($textInput) {
+    private function sanitizeString($textInput) {
         $textInput = strip_tags($textInput);
         $textInput = str_replace(" ", "", $textInput);
         $textInput = strtolower($textInput);

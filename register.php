@@ -1,36 +1,30 @@
 <?php
-
+require_once("includes/entryHeader.php");
 require_once("includes/config.php");
 require_once("includes/dataProcessors/FormInputSanitizer.php"); 
 require_once("includes/dataProcessors/FormInputValidator.php");
 require_once("includes/dataProcessors/UserEntryHandler.php");
-require_once("includes/dataProcessors/ErrorMessage.php"); 
+require_once("includes/dataProcessors/Error.php"); 
+require_once("includes/markupRenderers/FormBuilder.php"); 
 
-$userDataSanitizer = new FormInputSanitizer;
-$userDataValidator = new formInputValidator($db);
-$entry = new UserEntryHandler($db);
+$dataSanitizer = new FormInputSanitizer;
+$dataValidator = new formInputValidator($db);
+$entryHandler = new UserEntryHandler($db);
 
 if (isset($_POST["submitRegisterForm"])) {
-   $sanitizedUserData = $userDataSanitizer->sanitize($_POST);
+   $sanitizedData = $dataSanitizer->sanitize($_POST);
 
-   $userDataValidator->validateNewUserData($sanitizedUserData);
-   $noErrors = empty($userDataValidator->errorArray);
+   $dataValidator->validateNewUserData($sanitizedData);
+   $errors = $dataValidator->errorArray;
+   $noErrors = empty($errors);
 
    if ($noErrors) {
-      $entry->registerNewUser($sanitizedUserData);
-      $_SESSION["loggedIn"] = $sanitizedUserData["username"];
+      $entryHandler->registerNewUser($sanitizedData);
+      $_SESSION["loggedIn"] = $sanitizedData["username"];
       header("Location: index.php");
    }
 }
-
-function getValue($key) {
-   if (isset($_POST[$key])) {
-      echo $_POST[$key];
-   }
-}
 ?>
-
-<?php require_once("includes/entryHeader.php"); ?>
 
 <div class="entryContainer">
    <div class="column">
@@ -40,75 +34,20 @@ function getValue($key) {
          <span>to continue to BlueTube</span>
       </div>
       <div class="entryForm">
-         <form action="register.php" method="POST">
+         <?php
+         $form = new FormBuilder($custom = true);
 
-            <input
-               required
-               type="text"
-               name="firstName"
-               value="<?php getValue('firstName'); ?>"
-               placeholder="First name"
-            >
-            <?php echo $userDataValidator->getError(ErrorMessage::$firstNameLength); ?>
-
-            <input
-               required
-               type="text"
-               name="lastName"
-               value="<?php getValue('lastName'); ?>"
-               placeholder="Last name"
-            >
-            <?php echo $userDataValidator->getError(ErrorMessage::$lastNameLength); ?>
-
-            <input
-               required
-               type="text"
-               name="username"
-               value="<?php getValue('username'); ?>"
-               placeholder="Username"
-            >
-            <?php echo $userDataValidator->getError(ErrorMessage::$usernameLength); ?>
-            <?php echo $userDataValidator->getError(ErrorMessage::$usernameTaken); ?>
-
-            <input
-               required
-               type="email" 
-               name="email"
-               value="<?php getValue('email'); ?>"
-               placeholder="Email"
-            >
-            <?php echo $userDataValidator->getError(ErrorMessage::$emailInvalid); ?>
-            <?php echo $userDataValidator->getError(ErrorMessage::$emailTaken); ?>
-
-            <input
-               required
-               type="email"
-               name="emailConfirm"
-               value="<?php getValue('emailConfirm'); ?>"
-               placeholder="Confirm email"
-            >
-            <?php echo $userDataValidator->getError(ErrorMessage::$emailsDoNotMatch); ?>
-
-            <input
-               required
-               type="password"
-               name="password"
-               placeholder="Password"
-            >
-            <?php echo $userDataValidator->getError(ErrorMessage::$passwordInsecure); ?>
-            <?php echo $userDataValidator->getError(ErrorMessage::$passwordLength); ?>
-
-            <input
-               required
-               type="password"
-               name="passwordConfirm"
-               placeholder="Confirm password"
-            >
-            <?php echo $userDataValidator->getError(ErrorMessage::$passwordsDoNotMatch); ?>
-
-            <input type="submit" name="submitRegisterForm" value="SUBMIT">
-            
-         </form>
+         echo $form->openFormTag("register.php");
+         echo $form->textInput("First Name", "firstName");
+         echo $form->textInput("Last Name", "lastName");
+         echo $form->textInput("Username", "username");
+         echo $form->textInput("Email", "email");
+         echo $form->textInput("Confirm Email", "emailConfirm");
+         echo $form->textInput("Password", "password");
+         echo $form->textInput("Confirm Password", "passwordConfirm");
+         echo $form->submitButton("SUBMIT", "submitRegisterForm");
+         echo $form->closeFormTag();
+         ?>       
       </div>
       <a class="entryMessage" href="login.php">Already have an account? Log in here.</a>
    </div>

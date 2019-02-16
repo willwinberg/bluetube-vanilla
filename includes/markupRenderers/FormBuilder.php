@@ -1,5 +1,16 @@
 <?php
+
 class FormBuilder {
+
+    private $data, $custom;
+
+    public function __construct($custom = false) {
+        if (isset($_POST)) {
+            $this->data = $_POST;
+        }
+
+        $this->custom = $custom;  
+    }
 
     public function render($type) {
         switch ($type) {
@@ -17,50 +28,22 @@ class FormBuilder {
         }
     }
 
-    public function openFormTag($action, $enctype) {
-        if (!$enctype) $enctype = '';
-
+    public function openFormTag($action, $enctype = '') {
         return "
-            <div class='column'>
-                <form
-                    action='$action'
-                    method='POST'
-                    enctype='$enctype'
-                >
+            <form
+                action='$action'
+                method='POST'
+                enctype='$enctype'
+            >
         ";
     }
+
     public function closeFormTag() {
         return "
-                </form>
-            </div>
-        ";
-    }
-
-    public function makeRegisterForm() {
-        $fileInput = $this->fileInput("File"); // file
-        $titleInput = $this->textInput("Title"); // text
-        $descriptionInput = $this->textareaInput("Description"); //textarea
-        $privacyInput = $this->privacyInput(); //privacy
-        $categoriesInput = $this->categoriesInput(); // categories
-        $submitButton = $this->submitButton("Upload", "uploadButton"); // upload
-
-        return "
-        <div class='column'>
-            <form
-                action='processing.php'
-                method='POST'
-                enctype='multipart/form-data'
-            >
-                $fileInput
-                $titleInput
-                $descriptionInput
-                $privacyInput
-                $categoriesInput
-                $submitButton
             </form>
-        </div>
         ";
     }
+
 
     public function fileInput($title) {
         $name = strtolower($title);
@@ -79,51 +62,49 @@ class FormBuilder {
         ";
     }
 
-    public function textInput($title) {
-        $name = strtolower($title);
-
-        return "
-            <div class='form-group'>
-                <input
-                    class='form-control'
-                    type='text'
-                    name='$name'
-                    placeholder='$title'
-                    required
-                >
-            </div>
+    public function textInput($title, $name, $error = "") {
+        $value = $this->data[$name];
+        $input = "
+            <input
+                class='form-control'
+                type='text'
+                name='$name'
+                value='$value'
+                placeholder='$title'
+                required
+            >
+            $error
         ";
+        if ($this->custom) {
+            $html = $input;
+        } else {
+            $html = "<div class='form-group'>$input</div>";
+        }
+
+        return $html;
     }
 
-    public function emailInput($title) {
-        $name = strtolower($title);
-
-        return "
-            <div class='form-group'>
-                <input
-                    class='form-control'
-                    type='text'
-                    name='$name'
-                    placeholder='$title'
-                    required
-                >
-            </div>
+    public function textareaInput($title, $name, $error = "") {
+        $value = $this->data[$name];
+        $input = "
+            <textarea
+                class='form-control'
+                type='text'
+                name='$name'
+                value='$value'
+                placeholder='$title'
+                rows='3'
+                required
+            ></textarea>
+            $error
         ";
-    }
+        if ($this->custom) {
+            $html = $input;
+        } else {
+            $html = "<div class='form-group'>$input</div>";
+        }
 
-    public function textareaInput($title) {
-        $name = strtolower($title);
-
-        return "
-            <div class='form-group'>
-                <textarea
-                    class='form-control'
-                    name='$name'
-                    placeholder='$title'
-                    rows='3'
-                ></textarea>
-            </div>
-        ";
+        return $html;
     }
 
     public function privacyInput() {
