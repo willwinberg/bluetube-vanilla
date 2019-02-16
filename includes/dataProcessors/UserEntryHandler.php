@@ -20,7 +20,7 @@ class UserEntryHandler {
       $query->execute();
 
       if ($query->rowCount() !== 1) {
-         $this->error = ErrorMessage::$loginFailed;
+         $this->error = Error::$loginFailed;
       }
       return;
    }

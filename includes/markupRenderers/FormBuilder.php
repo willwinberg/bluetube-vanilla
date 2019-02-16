@@ -9,7 +9,7 @@ class FormBuilder {
             $this->data = $_POST;
         }
 
-        $this->custom = $custom;  
+        $this->custom = $custom; 
     }
 
     public function render($type) {
@@ -62,7 +62,7 @@ class FormBuilder {
         ";
     }
 
-    public function textInput($title, $name, $error = "") {
+    public function textInput($title, $name) {
         $value = $this->data[$name];
         $input = "
             <input
@@ -73,7 +73,6 @@ class FormBuilder {
                 placeholder='$title'
                 required
             >
-            $error
         ";
         if ($this->custom) {
             $html = $input;
@@ -84,7 +83,21 @@ class FormBuilder {
         return $html;
     }
 
-    public function textareaInput($title, $name, $error = "") {
+    public function passwordInput($title, $name) {
+        return "
+        <div class='form-group'>
+            <input
+                class='form-control'
+                type='password'
+                name='$name'
+                placeholder='$title'
+                required
+            >
+        </div>
+        ";
+    }
+
+    public function textareaInput($title, $name) {
         $value = $this->data[$name];
         $input = "
             <textarea
@@ -96,7 +109,6 @@ class FormBuilder {
                 rows='3'
                 required
             ></textarea>
-            $error
         ";
         if ($this->custom) {
             $html = $input;

@@ -19,19 +19,19 @@ class formInputValidator {
 
    private function validateFirstName($firstName) {
       if (strlen($firstName) > 30 || strlen($firstName) < 2) {
-         array_push($this->errorArray, ErrorMessage::$firstNameLength);
+         array_push($this->errorArray, Error::$firstNameLength);
       }
    }
 
    private function validateLastName($lastName) {
       if (strlen($lastName) > 30 || strlen($lastName) < 2) {
-         array_push($this->errorArray, ErrorMessage::$lastNameLength);
+         array_push($this->errorArray, Error::$lastNameLength);
       }
    }
 
    private function validateUsername($username) {
       if (strlen($username) > 20 || strlen($username) < 5) {
-         array_push($this->errorArray, ErrorMessage::$usernameLength);
+         array_push($this->errorArray, Error::$usernameLength);
          return;
       }
 
@@ -42,18 +42,18 @@ class formInputValidator {
       $query->execute();
 
       if ($query->rowCount() !== 0) {
-         array_push($this->errorArray, ErrorMessage::$usernameTaken);
+         array_push($this->errorArray, Error::$usernameTaken);
       }
    }
 
    private function validateEmails($email, $emailConfirm) {
       if ($email != $emailConfirm) {
-         array_push($this->errorArray, ErrorMessage::$emailsDoNotMatch);
+         array_push($this->errorArray, Error::$emailsDoNotMatch);
          return;
       }
 
       if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-         array_push($this->errorArray, ErrorMessage::$emailInvalid);
+         array_push($this->errorArray, Error::$emailInvalid);
          return;
       }
 
@@ -64,23 +64,23 @@ class formInputValidator {
       $query->execute();
 
       if ($query->rowCount() !== 0) {
-         array_push($this->errorArray, ErrorMessage::$emailTaken);
+         array_push($this->errorArray, Error::$emailTaken);
       }
    }
 
    private function validatePasswords($password, $passwordConfirm) {
       if ($password != $passwordConfirm) {
-         array_push($this->errorArray, ErrorMessage::$passwordsDoNotMatch);
+         array_push($this->errorArray, Error::$passwordsDoNotMatch);
          return;
       }
 
       if (preg_match("/^.*(?=.{8,})(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).*$/", $password)) {
-         array_push($this->errorArray, ErrorMessage::$passwordInsecure);
+         array_push($this->errorArray, Error::$passwordNotSecure);
          return;
       }
 
       if (strlen($password) > 30 || strlen($password) < 8) {
-         array_push($this->errorArray, ErrorMessage::$passwordLength);
+         array_push($this->errorArray, Error::$passwordLength);
       }
    }
    

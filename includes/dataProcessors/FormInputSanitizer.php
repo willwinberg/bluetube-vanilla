@@ -29,11 +29,8 @@ class FormInputSanitizer {
                 case "body":
                     $sanitizedData[$name] = $this->sanitizeBody($value);
                     break;
-                default:
-                    echo "Skipped $name => $value\n";
             }
         }
-        var_dump($data);
 
         return $data;
     }

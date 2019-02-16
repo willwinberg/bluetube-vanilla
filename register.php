@@ -15,8 +15,7 @@ if (isset($_POST["submitRegisterForm"])) {
    $sanitizedData = $dataSanitizer->sanitize($_POST);
 
    $dataValidator->validateNewUserData($sanitizedData);
-   $errors = $dataValidator->errorArray;
-   $noErrors = empty($errors);
+   $noErrors = empty($dataValidator->errorArray);
 
    if ($noErrors) {
       $entryHandler->registerNewUser($sanitizedData);
@@ -38,14 +37,32 @@ if (isset($_POST["submitRegisterForm"])) {
          $form = new FormBuilder($custom = true);
 
          echo $form->openFormTag("register.php");
-         echo $form->textInput("First Name", "firstName");
-         echo $form->textInput("Last Name", "lastName");
-         echo $form->textInput("Username", "username");
-         echo $form->textInput("Email", "email");
-         echo $form->textInput("Confirm Email", "emailConfirm");
-         echo $form->textInput("Password", "password");
-         echo $form->textInput("Confirm Password", "passwordConfirm");
-         echo $form->submitButton("SUBMIT", "submitRegisterForm");
+            echo $form->textInput("First Name", "firstName");
+            echo $dataValidator->getError(Error::$firstNameLength);
+
+            echo $form->textInput("Last Name", "lastName");
+            echo $dataValidator->getError(Error::$lastNameLength);
+
+            echo $form->textInput("Username", "username");
+            echo $dataValidator->getError(Error::$usernameLength);
+            echo $dataValidator->getError(Error::$usernameTaken);
+
+            echo $form->textInput("Email", "email");
+            echo $dataValidator->getError(Error::$emailInvalid);
+            echo $dataValidator->getError(Error::$emailTaken);
+
+
+            echo $form->textInput("Confirm Email", "emailConfirm");
+            echo $dataValidator->getError(Error::$emailsDoNotMatch);
+
+            echo $form->passwordInput("Password", "password");
+            echo $dataValidator->getError(Error::$passwordNotSecure);
+            echo $dataValidator->getError(Error::$passwordLength);
+
+            echo $form->passwordInput("Confirm Password", "passwordConfirm");
+            echo $dataValidator->getError(Error::$passwordsDoNotMatch);            
+
+            echo $form->submitButton("SUBMIT", "submitRegisterForm");
          echo $form->closeFormTag();
          ?>       
       </div>
