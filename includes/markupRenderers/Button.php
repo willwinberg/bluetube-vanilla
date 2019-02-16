@@ -2,10 +2,11 @@
 
 class Button {
 
-   public static $rerouteToSIgnIn = "notSignedInAlert()";
-
    public static function getAction($link) {
-        return User::isLoggedIn() ? $link : Button::$rerouteToSIgnIn;
+      if (User::isLoggedIn()) {
+         return $link;
+      }
+      return "notSignedInAlert()";
     }
 
    public static function regular($text, $action, $class, $src) {
@@ -80,13 +81,13 @@ class Button {
    public static function profileNavButton($db, $username) {
       if (User::isLoggedIn()) {
          return Button::profileButton($db, $username);
-      } else {
-         return "
-            <a href='login.php'>
-               <span class='signInLink'>LOG IN</span>
-            </a>
-         ";
       }
+
+      return "
+         <a href='login.php'>
+            <span class='signInLink'>LOG IN</span>
+         </a>
+      ";
    }
 
 }

@@ -3,7 +3,7 @@ require_once("includes/header.php");
 require_once("includes/markupRenderers/FormBuilder.php");
 require_once("includes/markupRenderers/LoadingModal.php");
 
-if (!User::isLoggedIn()) {
+if (User::isNotLoggedIn()) {
    header("Location: login.php");
 }
 

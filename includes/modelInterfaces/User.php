@@ -29,6 +29,10 @@ class User {
       return isset($_SESSION["loggedIn"]);
    }
 
+   public static function isNotLoggedIn() {
+      return !isset($_SESSION["loggedIn"]);
+   }
+
    public function fullName() {
       return $this->firstName . " " . $this->lastName;
    }

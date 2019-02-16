@@ -4,7 +4,7 @@ require_once("includes/markupRenderers/channelView.php");
 require_once("includes/dataProcessors/FormInputSanitizer.php");
 require_once("includes/dataProcessors/FormInputValidator.php");
 
-if (!User::isLoggedIn()) {
+if (User::isNotLoggedIn()) {
    header("Location: login.php");
 }
 

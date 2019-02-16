@@ -1,7 +1,7 @@
 <?php
 require_once("includes/header.php"); 
 
-if (!User::isLoggedIn()) {
+if (User::isNotLoggedIn()) {
    header("Location: login.php");
 }
 ?>
