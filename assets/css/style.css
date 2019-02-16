@@ -159,10 +159,6 @@ a:hover {
   align-items: center;
 }
 
-.entryContainer .column .entryHeader img {
-  width: 150px;
-}
-
 .entryContainer .column {
   flex-grow: 0;
   width: 450px;
@@ -173,6 +169,10 @@ a:hover {
 
 .entryContainer .column .entryHeader {
   padding: 20px 0;
+}
+
+.entryContainer .column .entryHeader img {
+  width: 150px;
 }
 
 .entryContainer .column .entryHeader h3 {
@@ -186,10 +186,6 @@ a:hover {
 
 .entryContainer .column .entryHeader span {
   font-size: 14px;
-}
-
-.entryContainer .column .loginForm {
-  padding-top: 24px;
 }
 
 .entryContainer .column form {

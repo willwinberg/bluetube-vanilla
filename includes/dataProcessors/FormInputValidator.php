@@ -9,12 +9,15 @@ class formInputValidator {
       $this->db = $db;
    }
 
-   public function validateNewUserData($sanitizedData) {
+   public function validateUserData($sanitizedData) {
       $this->validateFirstName($sanitizedData["firstName"]);
       $this->validateLastName($sanitizedData["lastName"]);
       $this->validateUsername($sanitizedData["username"]);
       $this->validateEmails($sanitizedData["email"], $sanitizedData["emailConfirm"]);
       $this->validatePasswords($sanitizedData["password"], $sanitizedData["passwordConfirm"]);
+      if (isset($sanitizedData["oldPassword"])) {
+         $this->validateOldPassword($sanitizedData["oldPassword"]);
+      }
    }
 
    private function validateFirstName($firstName) {

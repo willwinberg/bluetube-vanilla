@@ -1,11 +1,11 @@
 <?php
 require_once("includes/config.php");
 require_once("includes/dataProcessors/FormInputSanitizer.php");
-require_once("includes/dataProcessors/UserEntryHandler.php");
+require_once("includes/dataProcessors/AccountHandler.php");
 require_once("includes/dataProcessors/Error.php");
 
 $loginDataSanitizer = new FormInputSanitizer;
-$userAccount = new UserEntryHandler($db);
+$userAccount = new AccountHandler($db);
 
 if (isset($_POST["submitLoginForm"])) {
     

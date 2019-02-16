@@ -62,12 +62,12 @@ class FormBuilder {
         ";
     }
 
-    public function textInput($title, $name) {
+    public function textInput($title, $name, $type = "text") {
         $value = $this->data[$name];
         $input = "
             <input
                 class='form-control'
-                type='text'
+                type='$type'
                 name='$name'
                 value='$value'
                 placeholder='$title'
@@ -81,20 +81,6 @@ class FormBuilder {
         }
 
         return $html;
-    }
-
-    public function passwordInput($title, $name) {
-        return "
-        <div class='form-group'>
-            <input
-                class='form-control'
-                type='password'
-                name='$name'
-                placeholder='$title'
-                required
-            >
-        </div>
-        ";
     }
 
     public function textareaInput($title, $name) {

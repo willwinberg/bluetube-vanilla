@@ -1,6 +1,6 @@
 <?php
 
-class UserEntryHandler {
+class AccountHandler {
 
    private $db;
    public $error;
