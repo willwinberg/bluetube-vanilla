@@ -12,22 +12,6 @@ class FormBuilder {
         $this->custom = $custom; 
     }
 
-    public function render($type) {
-        switch ($type) {
-            case "uploadForm":
-                return $this->makeUploadForm();
-            case "registerForm":
-                return $this->makeRegisterForm();
-            case "loginForm":
-                return $this->makeLoginForm();
-            case "settingForm":
-                return $this->makeSettingsForm();
-            default:
-                echo "A strange error occurred.";
-                break;
-        }
-    }
-
     public function openFormTag($action, $enctype = '') {
         return "
             <form
@@ -43,7 +27,6 @@ class FormBuilder {
             </form>
         ";
     }
-
 
     public function fileInput($title) {
         $name = strtolower($title);

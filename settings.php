@@ -15,19 +15,21 @@ $dataSanitizer = new FormInputSanitizer;
 $dataValidator = new formInputValidator($db);
 $account = new AccountHandler($db);
 
-$detailsUpdateSubmitted = isset($_POST["detailsUpdate"]);
-$passwordUpdateSubmitted = isset($_POST["passwordUpdate"]);
+$detailsUpdate = isset($_POST["detailsUpdate"]);
+$passwordUpdate = isset($_POST["passwordUpdate"]);
 
-if ($detailsUpdateSubmitted || $passwordUpdateSubmitted) {
+if ($detailsUpdate || $passwordUpdate) {
    $sanitizedData = $dataSanitizer->sanitize($_POST);
+   var_dump($sanitizedData);
+   echo "here";
 
    $dataValidator->validateUserData($sanitizedData);
    $noErrors = empty($dataValidator->errorArray);
 
    if ($noErrors) {
-      if ($detailsUpdateSubmitted) $account->updateDetails($sanitizedData);
-      if ($passwordUpdateSubmitted) $account->updatePassword($sanitizedData);
-      echo "Update successful";
+      if ($detailsUpdate) $account->updateDetails($sanitizedData, $loggedInUsername);
+      if ($passwordUpdate) $account->updatePassword($sanitizedData, $loggedInUsername);
+      var_dump($user);
    }
 }
 ?>
@@ -61,7 +63,7 @@ if ($detailsUpdateSubmitted || $passwordUpdateSubmitted) {
       echo $form->textInput("Old Password", "oldPassword", "password");
       echo $dataValidator->getError(Error::$passwordIncorrect);
 
-      echo $form->textInput("New Password", "newPassword", "password");
+      echo $form->textInput("New Password", "password", "password");
       echo $dataValidator->getError(Error::$passwordNotSecure);
       echo $dataValidator->getError(Error::$passwordLength);
 

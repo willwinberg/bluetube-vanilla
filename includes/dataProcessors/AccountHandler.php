@@ -48,21 +48,22 @@ class AccountHandler {
       return $query->execute();
    }
 
-   public function updateDetails($fistName, $lastName, $email, $username) {
+   public function updateDetails($data, $username) {
       $query = $this->db->prepare(
-         "UPDATE users SET firstName=:fistName, lastName=:lastName, email=:email WHERE username=:username");
-      $query->bindParam(":fistName", $firstName);
-      $query->bindParam(":lastName", $lastName);
-      $query->bindParam(":email", $email);
+         "UPDATE users SET firstName=:fistName, lastName=:lastName, username=:newUsername email=:email WHERE username=:username");
+      $query->bindParam(":fistName", $data["firstName"]);
+      $query->bindParam(":lastName", $data["lastName"]);
+      $query->bindParam(":email", $data["email"]);
       $query->bindParam(":username", $username);
+      $query->bindParam(":newUsername", $data["username"]);
 
       return $query->execute();
    }
 
-   public function updatePassword($oldPassword, $password, $passwordConfirm, $username) {
+   public function updatePassword($data, $username) {
       $query = $this->db->prepare(
          "UPDATE users SET password=:password WHERE username=:username");
-      $password = hash("sha256", $password);
+      $password = hash("sha256", $data["password"]);
       $query->bindParam(":password", $password);
       $query->bindParam(":username", $username);
 

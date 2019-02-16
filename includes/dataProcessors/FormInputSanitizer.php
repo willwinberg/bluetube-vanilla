@@ -26,6 +26,9 @@ class FormInputSanitizer {
                 case "passwordConfirm":
                     $sanitizedData[$name] = $this->sanitizePassword($value);
                     break;
+                case "oldPassword":
+                    $sanitizedData[$name] = $this->sanitizePassword($value);
+                    break;
                 case "body":
                     $sanitizedData[$name] = $this->sanitizeBody($value);
                     break;
