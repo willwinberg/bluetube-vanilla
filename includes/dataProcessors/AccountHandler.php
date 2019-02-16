@@ -3,7 +3,6 @@
 class AccountHandler {
 
    private $db;
-   public $error;
 
    public function __construct($db) {
       $this->db = $db;
@@ -17,7 +16,7 @@ class AccountHandler {
       );
       $query->bindParam(":username", $username);
       $query->bindParam(":password", $password);
-      $query->execute();
+      $this->success = $query->execute();
 
       if ($query->rowCount() !== 1) {
          $this->error = Error::$loginFailed;
@@ -45,7 +44,7 @@ class AccountHandler {
       $query->bindParam(":password", $password);
       $query->bindParam(":image", $image);
       
-      return $query->execute();
+      $this->success = $query->execute();
    }
 
    public function updateDetails($data, $username) {
@@ -56,22 +55,30 @@ class AccountHandler {
       $query->bindParam(":email", $data["email"]);
       $query->bindParam(":username", $username);
 
-      return $query->execute();
+      $this->success = $query->execute();
    }
 
-   public function updatePassword($data, $username) {
+   public function updatePassword($password, $username) {
+      $password = hash("sha256", $password);
+
       $query = $this->db->prepare(
          "UPDATE users SET password=:password WHERE username=:username");
-      $password = hash("sha256", $data["password"]);
       $query->bindParam(":password", $password);
       $query->bindParam(":username", $username);
 
-      return $query->execute();
+      
+      $query->execute();
    }
 
-   public function getError($errorMessage) {
+   public function error($message) {
       if ($this->error) {
-         return "<span class='errorMessage'>$errorMessage</span>";
+         return "<span class='errorMessage'>$message</span>";
+      }
+   }
+
+   public function success($message) {
+      if ($this->success) {
+         return "<span class='successMessage'>$message</span>";
       }
    }
 }

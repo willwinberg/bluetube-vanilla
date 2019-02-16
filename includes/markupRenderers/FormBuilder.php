@@ -49,7 +49,7 @@ class FormBuilder {
 
     public function textInput($title, $name, $type = "text") {
         $value = $this->data[$name];
-        if ($name == "password") $value = null;
+        if ($type == "password") $value = "";
 
         $input = "
             <input

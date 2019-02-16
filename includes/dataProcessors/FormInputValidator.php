@@ -9,30 +9,19 @@ class formInputValidator {
       $this->db = $db;
    }
 
-   public function validateUserData($data) {
-      $this->validateFirstName($data["firstName"]);
-      $this->validateLastName($data["lastName"]);
-      $this->validateUsername($data["username"]);
-      $this->validateEmails($data["email"], $data["emailConfirm"]);
-      $this->validatePasswords($data["password"], $data["passwordConfirm"]);
-      if (isset($data["oldPassword"])) {
-         $this->validateOldPassword($data["oldPassword"], $data["username"]);
-      }
-   }
-
-   private function validateFirstName($firstName) {
+   public function validateFirstName($firstName) {
       if (strlen($firstName) > 30 || strlen($firstName) < 2) {
          array_push($this->errors, Error::$firstNameLength);
       }
    }
 
-   private function validateLastName($lastName) {
+   public function validateLastName($lastName) {
       if (strlen($lastName) > 30 || strlen($lastName) < 2) {
          array_push($this->errors, Error::$lastNameLength);
       }
    }
 
-   private function validateUsername($username) {
+   public function validateUsername($username) {
       if (strlen($username) > 20 || strlen($username) < 5) {
          array_push($this->errors, Error::$usernameLength);
          return;
@@ -49,7 +38,7 @@ class formInputValidator {
       }
    }
 
-   private function validateEmails($email, $emailConfirm) {
+   public function validateEmails($email, $emailConfirm) {
       if ($email != $emailConfirm) {
          array_push($this->errors, Error::$emailsDoNotMatch);
          return;
@@ -71,7 +60,7 @@ class formInputValidator {
       }
    }
 
-   private function validatePasswords($password, $passwordConfirm) {
+   public function validatePasswords($password, $passwordConfirm) {
       if ($password != $passwordConfirm) {
          array_push($this->errors, Error::$passwordsDoNotMatch);
          return;
@@ -87,22 +76,22 @@ class formInputValidator {
       }
    }
 
-   private function validateOldPassword($oldPassword, $username) {
-        $password = hash("sha256", $oldPassword);
+   public function validateOldPassword($oldPassword, $username) {
+      $password = hash("sha256", $oldPassword);
+   
+      $query = $this->db->prepare(
+         "SELECT * FROM users WHERE username=:username AND password=:password"
+      );
+      $query->bindParam(":username", $username);
+      $query->bindParam(":password", $password);
+      $query->execute();
 
-        $query = $this->db->prepare(
-           "SELECT * FROM users WHERE username=:username AND password=:password"
-         );
-        $query->bindParam(":username", $username);
-        $query->bindParam(":password", $password);
-        $query->execute();
-
-        if($query->rowCount() == 0) {
-            array_push($this->errors, Error::$passwordIncorrect);
-        }
+      if($query->rowCount() == 0) {
+         array_push($this->errors, Error::$passwordIncorrect);
+      }
     }
    
-   public function getError($errorMessage) {
+   public function error($errorMessage) {
       if (in_array($errorMessage, $this->errors)) {
          return "<span class='errorMessage'>$errorMessage</span>";
       }

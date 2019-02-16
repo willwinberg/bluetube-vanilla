@@ -4,19 +4,16 @@ require_once("includes/dataProcessors/FormInputSanitizer.php");
 require_once("includes/dataProcessors/AccountHandler.php");
 require_once("includes/dataProcessors/Error.php");
 
-$loginDataSanitizer = new FormInputSanitizer;
-$userAccount = new AccountHandler($db);
+$dataSanitizer = new FormInputSanitizer;
+$account = new AccountHandler($db);
 
-if (isset($_POST["submitLoginForm"])) {
-    
-   $sanitizedLoginData = $loginDataSanitizer->sanitize($_POST);
+if (isset($_POST["submitLoginForm"])) {   
+   $data = $dataSanitizer->sanitize($_POST);
 
-   $userAccount->login($sanitizedLoginData);
+   $account->login($data);
 
-   $noError = !$userAccount->error;
-
-   if ($noError) {
-      $_SESSION["loggedIn"] = $sanitizedLoginData["username"];
+   if (!$account->error) {
+      $_SESSION["loggedIn"] = $data["username"];
       header("Location: index.php");
    }
 }
@@ -52,7 +49,7 @@ function getValue($key) {
                name="password"
                placeholder="Password"
             >
-            <?php echo $userAccount->getError(Error::$loginFailed); ?>
+            <?php echo $account->error(Error::$loginFailed); ?>
             <input type="submit" name="submitLoginForm" value="SUBMIT">
          </form>
       </div>

@@ -8,18 +8,23 @@ require_once("includes/dataProcessors/Error.php");
 require_once("includes/markupRenderers/FormBuilder.php"); 
 
 $dataSanitizer = new FormInputSanitizer;
-$dataValidator = new formInputValidator($db);
-$entryHandler = new AccountHandler($db);
+$validator = new formInputValidator($db);
+$account = new AccountHandler($db);
 
 if (isset($_POST["submitRegisterForm"])) {
-   $sanitizedData = $dataSanitizer->sanitize($_POST);
+   $data = $dataSanitizer->sanitize($_POST);
 
-   $dataValidator->validateUserData($sanitizedData);
-   $noErrors = empty($dataValidator->errorArray);
+   $validator->validateFirstName($data["firstName"]);
+   $validator->validateLastName($data["lastName"]);
+   $validator->validateUsername($data["username"]);
+   $validator->validateEmails($data["email"], $data["emailConfirm"]);
+   $validator->validatePasswords($data["password"], $data["passwordConfirm"]);
+
+   $noErrors = empty($validator->errors);
 
    if ($noErrors) {
-      $entryHandler->registerNewUser($sanitizedData);
-      $_SESSION["loggedIn"] = $sanitizedData["username"];
+      $account->registerNewUser($data);
+      $_SESSION["loggedIn"] = $data["username"];
       header("Location: index.php");
    }
 }
@@ -37,29 +42,28 @@ if (isset($_POST["submitRegisterForm"])) {
 
       echo $form->openFormTag("register.php");
          echo $form->textInput("First Name", "firstName");
-         echo $dataValidator->getError(Error::$firstNameLength);
+         echo $validator->error(Error::$firstNameLength);
 
          echo $form->textInput("Last Name", "lastName");
-         echo $dataValidator->getError(Error::$lastNameLength);
+         echo $validator->error(Error::$lastNameLength);
 
          echo $form->textInput("Username", "username");
-         echo $dataValidator->getError(Error::$usernameLength);
-         echo $dataValidator->getError(Error::$usernameTaken);
+         echo $validator->error(Error::$usernameLength);
+         echo $validator->error(Error::$usernameTaken);
 
          echo $form->textInput("Email", "email");
-         echo $dataValidator->getError(Error::$emailInvalid);
-         echo $dataValidator->getError(Error::$emailTaken);
-
+         echo $validator->error(Error::$emailInvalid);
+         echo $validator->error(Error::$emailTaken);
 
          echo $form->textInput("Confirm Email", "emailConfirm");
-         echo $dataValidator->getError(Error::$emailsDoNotMatch);
+         echo $validator->error(Error::$emailsDoNotMatch);
 
          echo $form->textInput("Password", "password", "password");
-         echo $dataValidator->getError(Error::$passwordNotSecure);
-         echo $dataValidator->getError(Error::$passwordLength);
+         echo $validator->error(Error::$passwordNotSecure);
+         echo $validator->error(Error::$passwordLength);
 
          echo $form->textInput("Confirm Password", "passwordConfirm", "password");
-         echo $dataValidator->getError(Error::$passwordsDoNotMatch);   
+         echo $validator->error(Error::$passwordsDoNotMatch);   
 
          echo $form->submitButton("SUBMIT", "submitRegisterForm");
       echo $form->closeFormTag();
