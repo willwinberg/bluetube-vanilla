@@ -4,11 +4,13 @@ class FormBuilder {
 
     private $data, $custom;
 
-    public function __construct($custom = false) {
-        if (isset($_POST)) {
+    public function __construct($data, $custom = false) {
+        if (isset($_POST) && !empty($_POST)) {
             $this->data = $_POST;
+        } else if ($data) {
+            $this->data = $data;
+            $this->data["emailConfirm"] = $data["email"];
         }
-
         $this->custom = $custom; 
     }
 

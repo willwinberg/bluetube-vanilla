@@ -50,12 +50,11 @@ class AccountHandler {
 
    public function updateDetails($data, $username) {
       $query = $this->db->prepare(
-         "UPDATE users SET firstName=:fistName, lastName=:lastName, username=:newUsername email=:email WHERE username=:username");
+         "UPDATE users SET firstName=:fistName, lastName=:lastName, email=:email WHERE username=:username");
       $query->bindParam(":fistName", $data["firstName"]);
       $query->bindParam(":lastName", $data["lastName"]);
       $query->bindParam(":email", $data["email"]);
       $query->bindParam(":username", $username);
-      $query->bindParam(":newUsername", $data["username"]);
 
       return $query->execute();
    }

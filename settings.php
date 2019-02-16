@@ -20,8 +20,6 @@ $passwordUpdate = isset($_POST["passwordUpdate"]);
 
 if ($detailsUpdate || $passwordUpdate) {
    $sanitizedData = $dataSanitizer->sanitize($_POST);
-   var_dump($sanitizedData);
-   echo "here";
 
    $dataValidator->validateUserData($sanitizedData);
    $noErrors = empty($dataValidator->errorArray);
@@ -29,14 +27,13 @@ if ($detailsUpdate || $passwordUpdate) {
    if ($noErrors) {
       if ($detailsUpdate) $account->updateDetails($sanitizedData, $loggedInUsername);
       if ($passwordUpdate) $account->updatePassword($sanitizedData, $loggedInUsername);
-      var_dump($user);
    }
 }
 ?>
 
 <div class="settingsContainer column">
    <?php
-   $form = new FormBuilder();
+   $form = new FormBuilder($user->user);
 
    echo $form->openFormTag("settings.php");
       echo $form->textInput("First Name", "firstName");
@@ -45,9 +42,9 @@ if ($detailsUpdate || $passwordUpdate) {
       echo $form->textInput("Last Name", "lastName");
       echo $dataValidator->getError(Error::$lastNameLength);
 
-      echo $form->textInput("Username", "username");
-      echo $dataValidator->getError(Error::$usernameLength);
-      echo $dataValidator->getError(Error::$usernameTaken);
+      // echo $form->textInput("Username", "username");
+      // echo $dataValidator->getError(Error::$usernameLength);
+      // echo $dataValidator->getError(Error::$usernameTaken);
 
       echo $form->textInput("Email", "email");
       echo $dataValidator->getError(Error::$emailInvalid);
