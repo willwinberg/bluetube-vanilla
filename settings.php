@@ -15,14 +15,18 @@ $dataSanitizer = new FormInputSanitizer;
 $dataValidator = new formInputValidator($db);
 $account = new AccountHandler($db);
 
-if (isset($_POST["detailsUpdate"]) || isset($_POST["passwordUpdate"])) {
+$detailsUpdateSubmitted = isset($_POST["detailsUpdate"]);
+$passwordUpdateSubmitted = isset($_POST["passwordUpdate"]);
+
+if ($detailsUpdateSubmitted || $passwordUpdateSubmitted) {
    $sanitizedData = $dataSanitizer->sanitize($_POST);
 
    $dataValidator->validateUserData($sanitizedData);
    $noErrors = empty($dataValidator->errorArray);
 
    if ($noErrors) {
-      $account->updateDetails($sanitizedData);
+      if ($detailsUpdateSubmitted) $account->updateDetails($sanitizedData);
+      if ($passwordUpdateSubmitted) $account->updatePassword($sanitizedData);
       echo "Update successful";
    }
 }
