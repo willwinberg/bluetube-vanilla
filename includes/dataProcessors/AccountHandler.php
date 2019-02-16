@@ -1,4 +1,5 @@
 <?php
+require_once("includes/dataProcessors/Success.php"); 
 
 class AccountHandler {
 
@@ -16,12 +17,15 @@ class AccountHandler {
       );
       $query->bindParam(":username", $username);
       $query->bindParam(":password", $password);
-      $this->success = $query->execute();
+      $query->execute();
 
-      if ($query->rowCount() !== 1) {
+      if ($query->rowCount() === 1) {
+         $this->success = Success::$login;
+         return true;
+      } else {
          $this->error = Error::$loginFailed;
+         return false;
       }
-      return;
    }
 
    public function registerNewUser($userData) {
@@ -43,8 +47,14 @@ class AccountHandler {
       $query->bindParam(":email", $email);
       $query->bindParam(":password", $password);
       $query->bindParam(":image", $image);
-      
-      $this->success = $query->execute();
+      $query->execute();
+
+      if ($query->rowCount() === 1) {
+         $this->success = Success::$register;
+      } else {
+         $this->error = Error::$registerFailed;
+      }
+      return;
    }
 
    public function updateDetails($data, $username) {
@@ -54,8 +64,14 @@ class AccountHandler {
       $query->bindParam(":lastName", $data["lastName"]);
       $query->bindParam(":email", $data["email"]);
       $query->bindParam(":username", $username);
+      $query->execute();
 
-      $this->success = $query->execute();
+      if ($query->rowCount() === 1) {
+         $this->success = Success::$detailsUpdate;
+      } else {
+         $this->error = Error::$detailsUpdateFailed;
+      }
+      return;
    }
 
    public function updatePassword($password, $username) {
@@ -65,21 +81,27 @@ class AccountHandler {
          "UPDATE users SET password=:password WHERE username=:username");
       $query->bindParam(":password", $password);
       $query->bindParam(":username", $username);
+      $success = $query->execute();
 
-      
-      $query->execute();
+      if ($query->rowCount() === 1) {
+         $this->success = Success::$passwordUpdate;
+      } else {
+         $this->error = Error::$passwordUpdateFailed;
+      }
+      return;
    }
 
-   public function error($message) {
+   public function error() {
       if ($this->error) {
-         return "<span class='errorMessage'>$message</span>";
+         return "<span class='errorMessage'>$this->error</span>";
       }
    }
 
-   public function success($message) {
+   public function success() {
       if ($this->success) {
-         return "<span class='successMessage'>$message</span>";
+         return "<span class='successMessage'>$this->success</span>";
       }
    }
+
 }
 ?>

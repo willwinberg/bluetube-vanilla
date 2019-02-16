@@ -17,30 +17,21 @@ $account = new AccountHandler($db);
 
 $data = $dataSanitizer->sanitize($_POST);
 
-// if (isset($_POST["detailsUpdate"])) {
-//    $validator->validateFirstName($data["firstName"]);
-//    $validator->validateLastName($data["lastName"]);
-//    $validator->validateEmails($data["email"], $data["emailConfirm"]);
+if (isset($_POST["detailsUpdate"])) {
+   $validator->validateFirstName($data["firstName"]);
+   $validator->validateLastName($data["lastName"]);
+   $validator->validateEmails($data["email"], $data["emailConfirm"]);
    
-//    $noErrors = empty($validator->errors);
+   $noErrors = empty($validator->errors);
 
-//    if ($noErrors) {
-//       $account->updateDetails($data, $loggedInUsername);
-//    }
-// }
+   if ($noErrors) {
+      $account->updateDetails($data, $loggedInUsername);
+   }
+}
 
 if (isset($_POST["passwordUpdate"])) {
    $validator->validateOldPassword($data["oldPassword"], $loggedInUsername);
    $validator->validatePasswords($data["newPassword"], $data["passwordConfirm"]);
-   echo hash("sha256", $data["oldPassword"]);
-   echo " OLD\n";
-   echo hash("sha256", $data["newPassword"]);
-      echo " NEW\n";
-   echo hash("sha256", "password");
-      echo " password\n";
-   echo hash("sha256", "poopword");
-      echo " poopword\n";
-
 
    $noErrors = empty($validator->errors);
 
@@ -56,26 +47,27 @@ if (isset($_POST["passwordUpdate"])) {
    <?php
    $form = new FormBuilder($user->user);
 
-   // echo $form->openFormTag("settings.php");
-   //    echo $form->textInput("First Name", "firstName");
-   //    echo $validator->error(Error::$firstNameLength);
+   echo $account->success();
+   echo $form->openFormTag("settings.php");
+      echo $form->textInput("First Name", "firstName");
+      echo $validator->error(Error::$firstNameLength);
 
-   //    echo $form->textInput("Last Name", "lastName");
-   //    echo $validator->error(Error::$lastNameLength);
+      echo $form->textInput("Last Name", "lastName");
+      echo $validator->error(Error::$lastNameLength);
 
-   //    // echo $form->textInput("Username", "username");
-   //    // echo $validator->error(Error::$usernameLength);
-   //    // echo $validator->error(Error::$usernameTaken);
+      // echo $form->textInput("Username", "username");
+      // echo $validator->error(Error::$usernameLength);
+      // echo $validator->error(Error::$usernameTaken);
 
-   //    echo $form->textInput("Email", "email");
-   //    echo $validator->error(Error::$emailInvalid);
-   //    echo $validator->error(Error::$emailTaken);
+      echo $form->textInput("Email", "email");
+      echo $validator->error(Error::$emailInvalid);
+      echo $validator->error(Error::$emailTaken);
 
-   //    echo $form->textInput("Confirm Email", "emailConfirm");
-   //    echo $validator->error(Error::$emailsDoNotMatch);
+      echo $form->textInput("Confirm Email", "emailConfirm");
+      echo $validator->error(Error::$emailsDoNotMatch);
 
-   //    echo $form->submitButton("SUBMIT", "detailsUpdate");
-   // echo $form->closeFormTag();
+      echo $form->submitButton("SUBMIT", "detailsUpdate");
+   echo $form->closeFormTag();
 
    echo $form->openFormTag("settings.php");
       echo $form->textInput("Old Password", "oldPassword", "password");
@@ -90,7 +82,6 @@ if (isset($_POST["passwordUpdate"])) {
 
       echo $form->submitButton("SUBMIT", "passwordUpdate");
    echo $form->closeFormTag();
-   echo $account->success("Password Change Successful");
    ?>
 </div>
 

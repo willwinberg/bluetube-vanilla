@@ -49,7 +49,7 @@ function getValue($key) {
                name="password"
                placeholder="Password"
             >
-            <?php echo $account->error(Error::$loginFailed); ?>
+            <?php echo $account->error(); ?>
             <input type="submit" name="submitLoginForm" value="SUBMIT">
          </form>
       </div>
