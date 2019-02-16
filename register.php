@@ -33,7 +33,7 @@ if (isset($_POST["submitRegisterForm"])) {
          <span>to continue to BlueTube</span>
       </div>
       <?php
-      $form = new FormBuilder($custom = true);
+      $form = new FormBuilder(null, $custom = true);
 
       echo $form->openFormTag("register.php");
          echo $form->textInput("First Name", "firstName");

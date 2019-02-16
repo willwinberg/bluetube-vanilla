@@ -49,6 +49,8 @@ class FormBuilder {
 
     public function textInput($title, $name, $type = "text") {
         $value = $this->data[$name];
+        if ($name == "password") $value = null;
+
         $input = "
             <input
                 class='form-control'
@@ -70,6 +72,7 @@ class FormBuilder {
 
     public function textareaInput($title, $name) {
         $value = $this->data[$name];
+
         $input = "
             <textarea
                 class='form-control'
@@ -122,6 +125,7 @@ class FormBuilder {
     }
 
     public function submitButton($text, $name) {
+
         return "
         <button type='submit' class='btn btn-primary' name='$name'>
             $text

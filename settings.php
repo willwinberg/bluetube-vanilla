@@ -35,26 +35,26 @@ if ($detailsUpdate || $passwordUpdate) {
    <?php
    $form = new FormBuilder($user->user);
 
-   echo $form->openFormTag("settings.php");
-      echo $form->textInput("First Name", "firstName");
-      echo $dataValidator->getError(Error::$firstNameLength);
+   // echo $form->openFormTag("settings.php");
+   //    echo $form->textInput("First Name", "firstName");
+   //    echo $dataValidator->getError(Error::$firstNameLength);
 
-      echo $form->textInput("Last Name", "lastName");
-      echo $dataValidator->getError(Error::$lastNameLength);
+   //    echo $form->textInput("Last Name", "lastName");
+   //    echo $dataValidator->getError(Error::$lastNameLength);
 
-      // echo $form->textInput("Username", "username");
-      // echo $dataValidator->getError(Error::$usernameLength);
-      // echo $dataValidator->getError(Error::$usernameTaken);
+   //    // echo $form->textInput("Username", "username");
+   //    // echo $dataValidator->getError(Error::$usernameLength);
+   //    // echo $dataValidator->getError(Error::$usernameTaken);
 
-      echo $form->textInput("Email", "email");
-      echo $dataValidator->getError(Error::$emailInvalid);
-      echo $dataValidator->getError(Error::$emailTaken);
+   //    echo $form->textInput("Email", "email");
+   //    echo $dataValidator->getError(Error::$emailInvalid);
+   //    echo $dataValidator->getError(Error::$emailTaken);
 
-      echo $form->textInput("Confirm Email", "emailConfirm");
-      echo $dataValidator->getError(Error::$emailsDoNotMatch);
+   //    echo $form->textInput("Confirm Email", "emailConfirm");
+   //    echo $dataValidator->getError(Error::$emailsDoNotMatch);
 
-      echo $form->submitButton("SUBMIT", "detailsUpdate");
-   echo $form->closeFormTag();
+   //    echo $form->submitButton("SUBMIT", "detailsUpdate");
+   // echo $form->closeFormTag();
 
    echo $form->openFormTag("settings.php");
       echo $form->textInput("Old Password", "oldPassword", "password");
