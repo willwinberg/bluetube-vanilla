@@ -8,6 +8,8 @@
 
 ## TODO:
 
+-processing, comments, need Sanitizer
+
 - consolidate all html into render methods
 - refactor Form class to be dynamic
 - git rid of UploadedVideoData class

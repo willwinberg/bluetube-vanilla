@@ -1,15 +1,8 @@
 <?php
-class FormProvider {
+class FormBuilder {
 
-    private $db, $type;
-
-    public function __construct($db, $type) {
-        $this->db = $db;
-        $this->type = $type;
-    }
-
-    public function render() {
-        switch ($this->type) {
+    public function render($type) {
+        switch ($type) {
             case "uploadForm":
                 return $this->makeUploadForm();
             case "registerForm":
@@ -24,7 +17,26 @@ class FormProvider {
         }
     }
 
-    private function makeUploadForm() {
+    public function openFormTag($action, $enctype) {
+        if (!$enctype) $enctype = '';
+
+        return "
+            <div class='column'>
+                <form
+                    action='$action'
+                    method='POST'
+                    enctype='$enctype'
+                >
+        ";
+    }
+    public function closeFormTag() {
+        return "
+                </form>
+            </div>
+        ";
+    }
+
+    public function makeRegisterForm() {
         $fileInput = $this->fileInput("File"); // file
         $titleInput = $this->textInput("Title"); // text
         $descriptionInput = $this->textareaInput("Description"); //textarea
@@ -33,8 +45,9 @@ class FormProvider {
         $submitButton = $this->submitButton("Upload", "uploadButton"); // upload
 
         return "
+        <div class='column'>
             <form
-                action='videoProcessing.php'
+                action='processing.php'
                 method='POST'
                 enctype='multipart/form-data'
             >
@@ -45,33 +58,11 @@ class FormProvider {
                 $categoriesInput
                 $submitButton
             </form>
-        ";
-    }
-    private function makeRegisterForm() {
-        $fileInput = $this->fileInput("File"); // file
-        $titleInput = $this->textInput("Title"); // text
-        $descriptionInput = $this->textareaInput("Description"); //textarea
-        $privacyInput = $this->privacyInput(); //privacy
-        $categoriesInput = $this->categoriesInput(); // categories
-        $submitButton = $this->submitButton("Upload", "uploadButton"); // upload
-
-        return "
-            <form
-                action='videoProcessing.php'
-                method='POST'
-                enctype='multipart/form-data'
-            >
-                $fileInput
-                $titleInput
-                $descriptionInput
-                $privacyInput
-                $categoriesInput
-                $submitButton
-            </form>
+        </div>
         ";
     }
 
-    private function fileInput($title) {
+    public function fileInput($title) {
         $name = strtolower($title);
 
         return "
@@ -88,7 +79,7 @@ class FormProvider {
         ";
     }
 
-    private function textInput($title) {
+    public function textInput($title) {
         $name = strtolower($title);
 
         return "
@@ -104,7 +95,23 @@ class FormProvider {
         ";
     }
 
-    private function textareaInput($title) {
+    public function emailInput($title) {
+        $name = strtolower($title);
+
+        return "
+            <div class='form-group'>
+                <input
+                    class='form-control'
+                    type='text'
+                    name='$name'
+                    placeholder='$title'
+                    required
+                >
+            </div>
+        ";
+    }
+
+    public function textareaInput($title) {
         $name = strtolower($title);
 
         return "
@@ -119,19 +126,19 @@ class FormProvider {
         ";
     }
 
-    private function privacyInput() {
+    public function privacyInput() {
         return "
             <div class='form-group'>
                 <select class='form-control' name='privacy'>
                     <option value='0'>Private</option>
-                    <option value='1'>private</option>
+                    <option value='1'>Public</option>
                 </select>
             </div>
         ";
     }
 
-    private function categoriesInput() {
-        $query = $this->db->prepare("SELECT * FROM categories");    
+    public function categoriesInput($db) {
+        $query = $db->prepare("SELECT * FROM categories");    
         $query->execute();     
         $html = "";
 
@@ -150,9 +157,9 @@ class FormProvider {
         ";
     }
 
-    private function submitButton($text, $postTo) {
+    public function submitButton($text, $name) {
         return "
-        <button type='submit' class='btn btn-primary' name='$postTo'>
+        <button type='submit' class='btn btn-primary' name='$name'>
             $text
         </button>
         ";

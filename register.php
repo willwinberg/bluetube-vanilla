@@ -8,17 +8,16 @@ require_once("includes/dataProcessors/ErrorMessage.php");
 
 $userDataSanitizer = new FormInputSanitizer;
 $userDataValidator = new formInputValidator($db);
-$newUserAccount = new UserEntryHandler($db);
+$entry = new UserEntryHandler($db);
 
 if (isset($_POST["submitRegisterForm"])) {
    $sanitizedUserData = $userDataSanitizer->sanitize($_POST);
 
    $userDataValidator->validateNewUserData($sanitizedUserData);
-
    $noErrors = empty($userDataValidator->errorArray);
 
    if ($noErrors) {
-      $newUserAccount->registerNewUser($sanitizedUserData);
+      $entry->registerNewUser($sanitizedUserData);
       $_SESSION["loggedIn"] = $sanitizedUserData["username"];
       header("Location: index.php");
    }
