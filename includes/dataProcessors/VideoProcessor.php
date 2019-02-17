@@ -120,7 +120,6 @@ class VideoProcessor {
       $thumbnailPath = "uploads/videos/thumbnails";
       
       $duration = $this->getVideoDuration($finalFilePath);
-      echo $duration;
 
       $videoId = $this->db->lastInsertId();
       $this->updateVideoDurationInDB($duration, $videoId);
@@ -215,7 +214,6 @@ class VideoProcessor {
 
     private function isValidType($videoType) {
         $lowercased = strtolower($videoType);
-        echo "video type is: $videoType";
         return in_array($lowercased, $this->allowedTypes);
     }
     

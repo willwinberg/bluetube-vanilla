@@ -33,7 +33,7 @@ if (isset($_POST["submitRegisterForm"])) {
 <div class="entryContainer">
    <div class="column">
       <div class="entryHeader">
-         <img src="assets/images/logo.png" title="logo" alt="BlueTube Logo"/>
+         <img src="assets/images/logo.png" title="logo" alt="BlueTube Logo">
          <h3>Sign Up</h3>
          <span>to continue to BlueTube</span>
       </div>

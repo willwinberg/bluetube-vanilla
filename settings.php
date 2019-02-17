@@ -10,7 +10,7 @@ require_once("includes/markupRenderers/FormBuilder.php");
 if (User::isNotLoggedIn()) {
    header("Location: login.php");
 }
-var_dump($_POST);
+
 $dataSanitizer = new FormInputSanitizer;
 $validator = new formInputValidator($db);
 $account = new AccountHandler($db);
