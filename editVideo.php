@@ -29,13 +29,13 @@ $data = $dataSanitizer->sanitize($_POST);
 if (isset($_POST["editVideo"])) {
    $data["videoId"] = $_GET["videoId"];
 
-   $editSuccess = $account->updateVideo($data);
+   $account->updateVideo($data);
 
-   if ($editSuccess) {
-      $message = "
-         <div class='alert alert-success'>Video edit saved</div>
-      ";
-   } 
+   if ($account->success) {
+      $message = $account->success;
+   } else {
+      $message = $account->error;
+   }
 }
 ?>
 

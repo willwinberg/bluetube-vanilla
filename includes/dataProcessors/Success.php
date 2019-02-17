@@ -8,6 +8,8 @@ class Success {
    public static $passwordUpdateFailed = "Password update Failed";
    public static $detailsUpdate = "Details update successful";
    public static $detailsUpdateFailed = "Details update failed";
+   public static $videoUpdate = "Details update failed";
+   public static $videoUpdateFailed = "<div class='alert alert-success'>Video edit saved</div>";
 
 }
 

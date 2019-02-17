@@ -104,9 +104,9 @@ class AccountHandler {
       $success = $query->execute();
 
       if ($query->rowCount() === 1) {
-         $this->success = Success::$passwordUpdate;
+         $this->success = Success::$videoUpdate;
       } else {
-         $this->error = Error::$passwordUpdateFailed;
+         $this->error = Error::$videoUpdateFailed;
       }
       return;
    }
