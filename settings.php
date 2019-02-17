@@ -10,12 +10,13 @@ require_once("includes/markupRenderers/FormBuilder.php");
 if (User::isNotLoggedIn()) {
    header("Location: login.php");
 }
-
+var_dump($_POST);
 $dataSanitizer = new FormInputSanitizer;
 $validator = new formInputValidator($db);
 $account = new AccountHandler($db);
 
 $data = $dataSanitizer->sanitize($_POST);
+
 $inputChanged = sizeof(array_diff($data, $user->user)) > 1;;
 
 if (isset($_POST["detailsUpdate"])) {
@@ -29,6 +30,7 @@ if (isset($_POST["detailsUpdate"])) {
    if ($noErrors && $inputChanged) {
       $account->updateDetails($data, $loggedInUsername);
    }
+}
 
 if (isset($_POST["passwordUpdate"])) {
    $validator->validateOldPassword($data["oldPassword"], $loggedInUsername);
@@ -46,8 +48,8 @@ if (isset($_POST["passwordUpdate"])) {
    <?php
    $form = new FormBuilder($user->user);
 
-   echo $account->success();
    echo $form->openFormTag("settings.php");
+      echo $account->success();
       echo $validator->error(Error::$firstNameLength);
       echo $form->textInput("First Name", "firstName");
 

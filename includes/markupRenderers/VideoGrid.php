@@ -36,9 +36,11 @@ class VideoGrid {
       }
 
       return "
-         $header
-         <div class='$this->cssClass'>
-            $gridCards
+         <div class='gridContainer'>
+            $header
+            <div class='$this->cssClass'>
+               $gridCards
+            </div>
          </div>
       ";
    }

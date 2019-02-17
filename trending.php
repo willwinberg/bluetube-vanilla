@@ -1,13 +1,11 @@
-<?php require_once("includes/header.php"); ?>
+<?php
+require_once("includes/header.php");
 
-<div class="trendingContainer">
-   <?php
-   $cardFetcher = new VideoCardsFetcher($db, $user);
-   
-   $trendingCards = $cardFetcher->getTrending();
-   $trendingGrid = new VideoGrid($trendingCards, true);
-   echo $trendingGrid->render("Trending");
-   ?>
-</div>
+$cardFetcher = new VideoCardsFetcher($db, $user);
+$trendingCards = $cardFetcher->getTrending();
 
-<?php require_once("includes/footer.php"); ?>
+$trendingGrid = new VideoGrid($trendingCards, true);
+echo $trendingGrid->render("Trending");
+
+require_once("includes/footer.php");
+?>

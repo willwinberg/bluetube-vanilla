@@ -93,15 +93,24 @@ class AccountHandler {
 
    public function error() {
       if ($this->error) {
-         return "<span class='errorMessage'>$this->error</span>";
+         return "
+            <div class='alert alert-danger'>
+               $this->error
+            </div>   
+         ";
       }
    }
 
    public function success() {
       if ($this->success) {
-         return "<span class='successMessage'>$this->success</span>";
+         return "
+            <div class='alert alert-success'>
+               $this->success
+            </div>
+         ";
       }
    }
+
 
 }
 ?>

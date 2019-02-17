@@ -601,22 +601,21 @@ span.successMessage {
 
 .gridHeader {
   display: flex;
+  flex-direction: column;
   margin: 10px 0;
   padding-bottom: 10px;
   border-bottom: 1px solid #e8e8e8;
 }
 
-.gridHeader div {
-  flex: 1;
-}
-
 .videoGrid.large {
+  display: flex;
   flex-direction: row;
   flex: 1;
 }
 
 .videoGrid.large .videoCard {
   height: auto;
+  flex: 1;
   display: flex;
 }
 
