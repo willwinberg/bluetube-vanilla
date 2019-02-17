@@ -38,8 +38,8 @@ class formInputValidator {
       }
    }
 
-   public function validateEmails($email, $emailConfirm) {
-      if ($email != $emailConfirm) {
+   public function validateEmails($email, $emailConfirm, $currentEmail = false) {
+      if ($email !== $emailConfirm) {
          array_push($this->errors, Error::$emailsDoNotMatch);
          return;
       }
@@ -55,7 +55,7 @@ class formInputValidator {
       $query->bindParam(":email", $email);
       $query->execute();
 
-      if ($query->rowCount() !== 0) {
+      if ($query->rowCount() !== 0 && $email !== $currentEmail) {
          array_push($this->errors, Error::$emailTaken);
       }
    }

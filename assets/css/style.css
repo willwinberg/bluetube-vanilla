@@ -227,6 +227,15 @@ a:hover {
   text-align: center;
 }
 
+span.successMessage {
+  color: rgb(16, 114, 57);
+  font-size: 15px;
+  display: flex;
+  margin-bottom: 20px;
+  flex: 1;
+  justify-content: center;
+}
+
 /* WATCH */
 
 .watchLeft {

@@ -5,7 +5,7 @@ class FormBuilder {
     private $data, $custom;
 
     public function __construct($data, $custom = false) {
-        if (isset($_POST) && !empty($_POST)) {
+        if (isset($_POST) && !empty($_POST) && !isset($_POST["passwordUpdate"])) {
             $this->data = $_POST;
         } else if ($data) {
             $this->data = $data;
