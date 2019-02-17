@@ -13,4 +13,5 @@ $channelView = new ChannelView($db, $user, $channelUsername);
 
 echo $channelView->render();
 
-require_once("includes/footer.php"); ?>
+require_once("includes/footer.php");
+?>

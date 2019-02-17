@@ -35,7 +35,7 @@ private $db, $loggedInUser, $channelsUsername;
       ";
    }
 
-   public function makeBanner() {
+   private function makeBanner() {
       $src = $this->channelOwner->bannerImg;
       $username = $this->channelOwner->username;
 
@@ -47,7 +47,7 @@ private $db, $loggedInUser, $channelsUsername;
       ";
    }
 
-   public function makeHeader() {
+   private function makeHeader() {
       $image = $this->channelOwner->image;
       $name = $this->channelOwner->fullName();
       $subscriberCount = $this->channelOwner->getSubscriberCount();
@@ -67,7 +67,7 @@ private $db, $loggedInUser, $channelsUsername;
       ";
    }
 
-   public function makeTabs() { // Bootstrap
+   private function makeTabs() { // Bootstrap
       return "
          <ul class='nav nav-tabs' role='tablist'>
             <li class='nav-item'>
@@ -100,7 +100,7 @@ private $db, $loggedInUser, $channelsUsername;
       ";
    }
 
-   public function makeVideos() {
+   private function makeVideos() {
       $cardFetcher = new VideoCardsFetcher($this->db, $this->channelOwner);
       $ownedVideos = $cardFetcher->getOwned();
       $ownerUsername = $this->channelOwner->username;
@@ -151,7 +151,6 @@ private $db, $loggedInUser, $channelsUsername;
          </div>
       ";
    }
-
 
 }
 ?>

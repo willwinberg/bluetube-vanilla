@@ -1,15 +1,16 @@
-<?php
-require_once("includes/header.php");
-?>
+<?php require_once("includes/header.php");?>
 
-<div class="videoSection">
-   <?php
+<div class="home">
+    <?php
    $cardFetcher = new VideoCardsFetcher($db, $user);
 
-   $subbedCards = $cardFetcher->getSubscribed();
-   $subscriptionsGrid = new VideoGrid($subbedCards);
-   echo $subscriptionsGrid->render("Subscriptions");
-   
+
+    if (User::isLoggedIn()) {
+    $subbedCards = $cardFetcher->getSubscribed();
+    $subscriptionsGrid = new VideoGrid($subbedCards);
+    echo $subscriptionsGrid->render("Subscriptions");
+    }
+
    $recommendedCards = $cardFetcher->getRecommended();
    $recommendedGrid = new VideoGrid($recommendedCards);
    echo $recommendedGrid->render("Recommendations");
