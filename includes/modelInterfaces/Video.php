@@ -226,7 +226,7 @@ class Video {
       }
 
       return $comments;
-}
+   }
 
    public function getThumbnails($single = true) {
       $getOne = $single ? "AND selected=1" : "";
@@ -241,5 +241,5 @@ class Video {
          return $query->fetchAll();
       }
    }
-
+   
 }

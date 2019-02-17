@@ -90,6 +90,26 @@ class AccountHandler {
       }
       return;
    }
+   
+   public function updateVideo($update) {
+      $query = $this->db->prepare(
+         "UPDATE videos SET title=:title, description=:description,
+         privacy=:privacy, category=:category WHERE id=:videoId"
+      );       
+      $query->bindParam(":title", $update["title"]);
+      $query->bindParam(":description", $update["description"]);
+      $query->bindParam(":privacy", $update["privacy"]);
+      $query->bindParam(":category", $update["category"]);
+      $query->bindParam(":videoId", $update["videoId"]);
+      $success = $query->execute();
+
+      if ($query->rowCount() === 1) {
+         $this->success = Success::$passwordUpdate;
+      } else {
+         $this->error = Error::$passwordUpdateFailed;
+      }
+      return;
+   }
 
    public function error() {
       if ($this->error) {

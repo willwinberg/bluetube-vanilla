@@ -14,10 +14,9 @@ class FormBuilder {
         $this->custom = $custom; 
     }
 
-    public function openFormTag($action, $enctype = '') {
+    public function openFormTag($enctype = '') {
         return "
             <form
-                action='$action'
                 method='POST'
                 enctype='$enctype'
             >
