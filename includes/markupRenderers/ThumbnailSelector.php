@@ -9,7 +9,7 @@ class ThumbnailSelector {
    }
 
    public function render() {
-      $thumbnails = $this->video->getThumbnails();
+      $thumbnails = $this->video->getThumbnails($single = false);
       $html = "";
 
       foreach ($thumbnails as $thumbnail) {
@@ -38,6 +38,6 @@ class ThumbnailSelector {
          </div>
       ";
    }
-   
+
 }
 ?>

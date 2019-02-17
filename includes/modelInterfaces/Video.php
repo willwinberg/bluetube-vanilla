@@ -228,13 +228,18 @@ class Video {
       return $comments;
 }
 
-   public function getThumbnailImg() {
+   public function getThumbnails($single = true) {
+      $getOne = $single ? " AND selected=1" : "";
       $query = $this->db->prepare(
-         "SELECT filePath FROM thumbnails WHERE videoId=:videoId AND selected=1");
+         "SELECT * FROM thumbnails WHERE videoId=:videoId $getOne");
       $query->bindParam(":videoId", $this->id);
       $query->execute();
-
-      return $query->fetchColumn();
+      
+      if ($single) {
+         return $query->fetchColumn();
+      } else {
+         return $query->fetchAll();
+      }
    }
 
 }
