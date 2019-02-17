@@ -22,9 +22,11 @@ class VideoCard extends Video {
 
    private function makeThumbnail() {
       $thumbnail = $this->getThumbnails();
+      $path = $thumbnail["filePath"];
+      $id = $thumbnail["id"];
       return "
          <div class='thumbnail'>
-            <img src='$thumbnail->filePath' alt='$thumbnail->id'>
+            <img src='$path' alt='$id'>
             <div class='duration'>
                <span>$this->duration</span>
             </div>

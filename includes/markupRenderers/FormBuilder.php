@@ -78,11 +78,10 @@ class FormBuilder {
                 class='form-control'
                 type='text'
                 name='$name'
-                value='$value'
                 placeholder='$title'
                 rows='3'
                 required
-            ></textarea>
+            >$value</textarea>
         ";
         if ($this->custom) {
             $html = $input;

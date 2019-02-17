@@ -1,8 +1,9 @@
 <?php
 require_once("includes/header.php");
 require_once("includes/dataProcessors/FormInputSanitizer.php");
-require_once("includes/markupRenderers/FormBuilder.php");
+require_once("includes/markupRenderers/VideoPlayer.php");
 require_once("includes/markupRenderers/ThumbnailSelector.php");
+require_once("includes/markupRenderers/FormBuilder.php");
 
 if (User::isNotLoggedIn()) {
    header("Location: login.php");
@@ -27,26 +28,36 @@ if (isset($_POST["editVideo"])) {
    // submit new details
 
    if ($editSuccess) {
-      $message = "<div class='alert alert-success'>Video edit saved</div>";
+      $message = "
+         <div class='alert alert-success'>Video edit saved</div>
+      ";
    } 
 }
 ?>
 
-<?php
-$form = new FormBuilder($_POST);
-echo $form->openFormTag("edit.php", "multipart/form-data");
-   echo $message;
-   echo $form->FileInput("File", "file");
-   echo $form->textInput("Title", "title");
-   echo $form->textareaInput("Description", "description");
-   echo $form->privacyInput();
-   echo $form->categoriesInput($db);
-   echo $form->submitButton("Submit", "edit");
-echo $form->closeFormTag();
+<div class='videoEditContainer'>
+   <div class='top'>
+      <?php
+      $videoPlayer = new VideoPlayer($video->filePath);
+      echo $videoPlayer->render(false);
 
-$thumbnails = new ThumbnailSelector($video);
-echo $thumbnails->render();
-?>
+      $thumbnails = new ThumbnailSelector($video);
+      echo $thumbnails->render();
+      ?>
+   </div>
+   <?php
+      $form = new FormBuilder($_POST);
+      echo $form->openFormTag("edit.php", "multipart/form-data");
+         echo $message;
+         echo $form->textInput("Title", "title");
+         echo $form->textareaInput("Description", "description");
+         echo $form->privacyInput();
+         echo $form->categoriesInput($db);
+         echo $form->submitButton("Submit", "edit");
+      echo $form->closeFormTag();
+      ?>
+   </div>
+</div>
 
 <?php require_once("includes/footer.php"); ?>
                

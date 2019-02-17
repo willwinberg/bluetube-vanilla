@@ -17,7 +17,7 @@ class ThumbnailSelector {
       }
 
       return "
-         <div class='thumbnailsContainer'>
+         <div class='thumbnails'>
             $html
          </div>
       ";
