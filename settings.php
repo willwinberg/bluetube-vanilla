@@ -4,7 +4,6 @@ require_once("includes/config.php");
 require_once("includes/dataProcessors/FormInputSanitizer.php");
 require_once("includes/dataProcessors/FormInputValidator.php");
 require_once("includes/dataProcessors/AccountHandler.php");
-require_once("includes/dataProcessors/Error.php"); 
 require_once("includes/markupRenderers/FormBuilder.php");
 
 if (User::isNotLoggedIn()) {

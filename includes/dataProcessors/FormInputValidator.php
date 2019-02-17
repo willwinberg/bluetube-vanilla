@@ -1,4 +1,5 @@
 <?php
+require_once("includes/dataProcessors/Error.php"); 
 
 class formInputValidator {
 

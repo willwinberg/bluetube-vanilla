@@ -1,5 +1,6 @@
 <?php
 require_once("includes/dataProcessors/Success.php"); 
+require_once("includes/dataProcessors/Error.php"); 
 
 class AccountHandler {
 

@@ -41,6 +41,7 @@ if (isset($_POST["editVideo"])) {
 
 <div class='videoEditContainer'>
    <div class='top'>
+         <script src="assets/javascript/selectThumbnail.js"></script>
       <?php
       $videoPlayer = new VideoPlayer($video->filePath);
       echo $videoPlayer->render(false);

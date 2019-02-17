@@ -14,6 +14,10 @@ class Error {
    public static $passwordLength = "Password must be between 8 and 30 characters";
    public static $passwordIncorrect = "You've entered an incorrect password";
    public static $loginFailed = "Username or password is incorrect";
+   public static $registerFailed = "A fatal error ocurred during registration";
+   public static $detailsUpdateFailed = "Your details update failed";
+   public static $passwordUpdateFailed = "Your password update failed";
+   public static $videoUpdateFailed = "Your video update failed";
 
 }
 
