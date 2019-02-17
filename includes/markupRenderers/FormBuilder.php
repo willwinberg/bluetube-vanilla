@@ -125,7 +125,6 @@ class FormBuilder {
     }
 
     public function submitButton($text, $name) {
-
         return "
         <button type='submit' class='btn btn-primary' name='$name'>
             $text

@@ -29,7 +29,6 @@ if (isset($_POST["detailsUpdate"])) {
    if ($noErrors && $inputChanged) {
       $account->updateDetails($data, $loggedInUsername);
    }
-}
 
 if (isset($_POST["passwordUpdate"])) {
    $validator->validateOldPassword($data["oldPassword"], $loggedInUsername);
