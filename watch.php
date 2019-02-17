@@ -15,7 +15,6 @@ if (!isset($_GET["id"])) {
     exit();
 }
 
-// $user === new User from header
 $video = new Video($db, $_GET["id"], $user);
 $video->incrementViews();
 
@@ -25,16 +24,18 @@ $commentSection = new CommentSection($db, $video, $user);
 
 $cardFetcher = new VideoCardsFetcher($db, $user);
 $recommendedCards = $cardFetcher->getRecommended();
-$videoGrid = new VideoGrid($recommendedCards);
+$recommendationsGrid = new VideoGrid($recommendedCards);
 ?>
 
 <div class="watchLeft">
-   <?php echo $videoPlayer->render(true); ?>
-   <?php echo $videoInfo->render(); ?>
-   <?php echo $commentSection->render(); ?>
+   <?php
+   echo $videoPlayer->render(true);
+   echo $videoInfo->render();
+   echo $commentSection->render();
+   ?>
 </div>
 <div class="suggestions">
-    <?php echo $videoGrid->render(); ?>
+    <?php echo $recommendationsGrid->render(); ?>
 </div>
 
 <?php require_once("includes/footer.php"); ?>
