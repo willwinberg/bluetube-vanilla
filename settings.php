@@ -25,7 +25,6 @@ if (isset($_POST["detailsUpdate"])) {
    $validator->validateEmails($data["email"], $data["emailConfirm"], $user->email);
    
    $noErrors = empty($validator->errors);
-   
 
    if ($noErrors && $inputChanged) {
       $account->updateDetails($data, $loggedInUsername);
