@@ -1,7 +1,3 @@
-<?php
-$root = $_SERVER['DOCUMENT_ROOT'] . "/bluetube";
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>

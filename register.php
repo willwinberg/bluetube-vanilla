@@ -67,7 +67,8 @@ if (isset($_POST["submitRegisterForm"])) {
 
          echo $form->submitButton("SUBMIT", "submitRegisterForm");
       echo $form->closeFormTag();
-      ?>       
+      ?>  
+      <br>     
       <a class="entryMessage" href="login.php">
          Already have an account? Log in here.
       </a>
