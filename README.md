@@ -8,6 +8,7 @@
 
 ## TODO:
 
+- make all errors in span with class
 - processing, comments, need Sanitizer
 - disabled submitting of unchanged forms
 - consolidate all html into render methods

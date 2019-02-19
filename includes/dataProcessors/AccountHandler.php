@@ -5,9 +5,11 @@ require_once("includes/dataProcessors/Error.php");
 class AccountHandler {
 
    private $db;
+   public $validated;
 
    public function __construct($db) {
       $this->db = $db;
+      $this->validated = false;
    }
 
    public function login($loginData) {
@@ -21,11 +23,10 @@ class AccountHandler {
       $query->execute();
 
       if ($query->rowCount() === 1) {
-         $this->success = Success::$login;
-         return true;
+         $this->validated = true;
+         return Success::$login;
       } else {
-         $this->error = Error::$loginFailed;
-         return false;
+         return Error::$login;
       }
    }
 
@@ -51,11 +52,10 @@ class AccountHandler {
       $query->execute();
 
       if ($query->rowCount() === 1) {
-         $this->success = Success::$register;
+         return Success::$register;
       } else {
-         $this->error = Error::$registerFailed;
+         return Error::$registerFailed;
       }
-      return;
    }
 
    public function updateDetails($data, $username) {

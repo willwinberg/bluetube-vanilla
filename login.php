@@ -12,36 +12,22 @@ $account = new AccountHandler($db);
 if (isset($_POST["submitLoginForm"])) {   
    $data = $dataSanitizer->sanitize($_POST);
 
-   $account->login($data);
+   $message = $account->login($data);
 
-   if ($account->success) {
+   if ($account->validated) {
       $_SESSION["loggedIn"] = $data["username"];
       header("Location: index.php");
    }
 }
-?>
 
-<div class="entryContainer">
-   <div class="column">
-      <div class="entryHeader">
-         <img src="assets/images/logo.png" title="logo" alt="BlueTube logo">
-         <h3>Log in</h3>
-         <span>to continue to BlueTube</span>
-      </div>
-      <?php
-      $form = new FormBuilder(null, $custom = true);
+$form = new FormBuilder(null, $custom = true);
 
-      echo $form->openFormTag("login.php");
-         echo $form->textInput("Username", "username");
-         echo $form->textInput("Password", "password");
+echo $form->openEntryFormTag("Sign In");
+   echo $form->textInput("Username", "username");
+   echo $form->textInput("Password", "password");
 
-         echo $account->error();
-         echo $form->submitButton("SUBMIT", "submitLoginForm");
-      echo $form->closeFormTag();
-      ?>
-      <br>
-      <a class="entryMessage" href="register.php">Don't have an account yet? Register here!</a>   
-   </div>
-</div>
+   echo $message;
+   echo $form->submitButton("SUBMIT", "submitLoginForm");
+echo $form->closeEntryFormTag("register.php", "Don't have an account yet? Register here!");
 
-<?php require_once("includes/entryFooter.php"); ?>
+require_once("includes/entryFooter.php"); ?>
