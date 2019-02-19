@@ -1,3 +1,4 @@
+<link rel="stylesheet" type="text/css" href="assets/css/FormBuilder.css">
 <?php
 
 class FormBuilder {
@@ -142,6 +143,30 @@ class FormBuilder {
         <button type='SUBMIT' class='btn btn-primary' name='$name'>
             $text
         </button>
+        ";
+    }
+
+    public function openEntryFormTag($title) {
+        return "
+            <div class='entryContainer'>
+                <div class='column'>
+                    <div class='entryHeader'>
+                        <img src='assets/images/logo.png' title='logo' alt='BlueTube Logo'>
+                        <h3>$title</h3>
+                        <span>to continue to BlueTube</span>
+                    </div>
+                    <form method='POST'>
+        ";
+    }
+
+    public function closeEntryFormTag($href, $message) {
+        return "
+                    </form>   
+                    <a class='entryMessage' href='$href'>
+                        $message
+                    </a>
+                </div>
+            </div>
         ";
     }
 }

@@ -1,0 +1,91 @@
+.entryContainer {
+  background-color: #efefee;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.entryContainer .column {
+  background-color: #fff;
+  min-height: 300px;
+  padding: 20px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0 1px 2px;
+  width: 450px;
+  padding: 20px 35px;
+  max-height: 100%;
+  overflow-y: auto;
+}
+
+.entryContainer .entryHeader {
+  padding: 20px 0;
+}
+
+.entryContainer .entryHeader img {
+  width: 200px;
+}
+
+.entryContainer .column .entryHeader h3 {
+  font-size: 22px;
+  font-weight: 400;
+  line-height: 32px;
+  margin: 0;
+  padding-top: 18px;
+}
+
+.entryContainer .column .entryHeader span {
+  font-size: 14px;
+}
+
+.entryContainer .column form {
+  display: flex;
+  flex-direction: column;
+}
+
+.entryContainer .column form input {
+  font-size: 14px;
+  margin: 10px 0;
+  border: none;
+  border-bottom: 1px solid #dedede;
+}
+
+.entryContainer .column form button {
+  background: #4285f4;
+  color: #fff;
+  height: 36px;
+  width: 88px;
+  border: none;
+  border-radius: 3px;
+  font-weight: 500;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.entryMessage {
+  font-size: 14px;
+  font-weight: 400;
+  color: 212529;
+}
+
+.errorMessage {
+  color: #f00;
+  font-size: 11px;
+  font-weight: 400;
+  text-align: center;
+}
+
+.errorMessage {
+  color: #f00;
+  font-size: 11px;
+  font-weight: 400;
+  text-align: center;
+}
+
+.successMessage {
+  color: rgb(16, 114, 57);
+  font-size: 15px;
+  display: flex;
+  margin-bottom: 20px;
+  flex: 1;
+  justify-content: center;
+}
