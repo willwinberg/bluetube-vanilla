@@ -5,12 +5,14 @@ require_once("includes/modelInterfaces/Video.php");
 require_once("includes/dataProcessors/VideoCardsFetcher.php");
 require_once("includes/markupRenderers/Button.php"); 
 require_once("includes/markupRenderers/NavigationMenu.php"); 
+require_once("includes/markupRenderers/Masthead.php"); 
 require_once("includes/markupRenderers/VideoGrid.php"); 
 require_once("includes/markupRenderers/VideoCard.php");
 
 $loggedInUsername = User::isLoggedIn() ? $_SESSION["loggedIn"] : "";
 $user = new User($db, $loggedInUsername);
 $navMenu = new NavigationMenu($user);
+$masthead = new Masthead($db, $loggedInUsername);
 ?>
 
 <!DOCTYPE html>
@@ -35,30 +37,13 @@ $navMenu = new NavigationMenu($user);
 
 <body>
    <div id="pageContainer">
-      <div id="mastHeadContainer">
-         <button class="navShowHide">
-            <img src="assets/images/icons/menu.png" />
-         </button>
-         <a class="logoContainer" href="index.php">
-            <img src="assets/images/logo.png" title="logo" alt="BlueTube Logo"/>
-         </a>
-         <div class="searchBarContainer">
-            <form action="results.php" method="GET">
-               <input type="text" class="searchBar" name="term" placeholder="Search..." required>
-               <button class="searchButton">
-                  <img src="assets/images/icons/search.png">
-               </button>
-            </form>
-         </div>
-         <div class="rightIcons">
-            <a href="upload.php">
-               <img class="upload" src="assets/images/icons/upload.png">
-            </a>
-            <?php echo Button::profileNavButton($db, $loggedInUsername); ?>
-         </div>
-      </div>
       
-      <?php echo $navMenu->render(); ?>
+      
+      <?php 
+      echo  $masthead->render();
+      echo $navMenu->render();
+      
+      ?>
 
       <div id="mainSectionContainer">
          <div id="mainContentContainer">

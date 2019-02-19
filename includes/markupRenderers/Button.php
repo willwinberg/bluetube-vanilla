@@ -23,8 +23,8 @@ class Button {
    }
 
    public static function hyperlink($text, $link, $class, $src) {
-      $val = $text || $class;
-      $image = $src ? "<img src='$src' name='$val' alt='$val'>" : "";
+      $val = $text ? $text : $class;
+      $image = $src ? "<img src='$src' title='$val' alt='$val'>" : "";
 
       return "
          <a href='$link'>
@@ -75,18 +75,6 @@ class Button {
          <div class='buttonContainer'>
             $button
          </div>
-      ";
-   }
-
-   public static function profileNavButton($db, $username) {
-      if (User::isLoggedIn()) {
-         return Button::profileButton($db, $username);
-      }
-
-      return "
-         <a href='login.php'>
-            <span class='signInLink'>LOG IN</span>
-         </a>
       ";
    }
 
