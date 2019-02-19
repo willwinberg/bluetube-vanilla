@@ -1,0 +1,32 @@
+#navContainer .navLink {
+  display: flex;
+  height: 40px;
+  overflow-y: auto;
+  flex: 1;
+  align-items: center;
+  padding: 0 24px;
+}
+
+#navContainer .navLink:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+#navContainer .navLink img {
+  height: 21px;
+  margin-right: 25px;
+}
+
+#navContainer .navLink span {
+  flex: 1;
+  color: #111;
+  font-size: 15px;
+}
+
+#navContainer .heading {
+  color: rgba(17, 17, 17, 0.8);
+  font-size: 16px;
+  font-weight: 500;
+  padding: 10px 25px 0;
+  border-top: 1px solid #e8e8e8;
+  display: block;
+}

@@ -13,51 +13,55 @@ if (User::isNotLoggedIn()) {
 if (!isset($_GET["videoId"])) {
     $alert = Error::$noVideoSelected;
     exit();
-   } else {
-      $video = new Video($db, $_GET["videoId"], $user);
+} else {
+   $video = new Video($db, $_GET["videoId"], $user);
 
-      if ($video->uploadedBy !== $user->username) {
-         $alert = Error::$notOwnedVideo;
+   if ($video->uploadedBy !== $user->username) {
+      $alert = Error::$notOwnedVideo;
       exit();
    }
 }
-// var_dump($video);
-// $noChanges = isset($_POST) && $video->dataSameAs($_POST);
 
-// if ($noChanges) {
-//    $alert = Error::$noChanges;
+$noChanges = isset($_POST) && $video->dataSameAs($_POST);
 
-if (isset($_POST["editVideo"])) {
+if ($noChanges) {
+   $alert = Error::$noChanges;
+
+} else if (isset($_POST["editVideo"])) {
    $data = FormInputSanitizer::sanitize($_POST);
    $data["videoId"] = $_GET["videoId"];
-   var_dump($data);
+
    $account = new AccountHandler($db);
 
    $alert = $account->updateVideo($data);
 }
 ?>
 
-<div class='top'>
-   <?php
+<?php
    $videoPlayer = new VideoPlayer($video->filePath);
    echo $videoPlayer->render(false);
-
+   
    $thumbnails = new ThumbnailSelector($video);
    echo $thumbnails->render();
    ?>
-</div>
+
+<div class='top'>
+
 <?php
 $form = new FormBuilder((array)$video);
-
 echo $form->openFormTag();
-   echo $alert;
-   echo $form->textInput("Title", "title");
-   echo $form->textareaInput("Description", "description");
-   echo $form->privacyInput();
-   echo $form->categoriesInput($db);
-   echo $form->submitButton("Submit", "editVideo");
+echo $alert;
+echo $form->textInput("Title", "title");
+echo $form->textareaInput("Description", "description");
+echo $form->privacyInput();
+echo $form->categoriesInput($db);
+echo $form->submitButton("Submit", "editVideo");
 echo $form->closeFormTag();
+?>
 
+</div>
+
+<?php
 require_once("includes/footer.php");
 ?>
                

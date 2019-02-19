@@ -1,4 +1,6 @@
+<link rel="stylesheet" type="text/css" href="assets/css/nav.css">
 <?php
+
 class NavigationMenu {
 
    private $user;
@@ -22,8 +24,10 @@ class NavigationMenu {
       }
 
       return "
-         <div class='navLinks'>
-            $html
+         <div id='navContainer' style='display: none'>
+            <div class='navLinks'>
+               $html
+            </div>
          </div>
       ";
    }
