@@ -82,6 +82,7 @@ edit video
 #mainContentContainer {
   padding: 10px 30px;
   display: flex;
+  flex-direction: column;
   flex: 1;
 }
 
@@ -770,41 +771,4 @@ span.successMessage {
   padding-bottom: 20px;
   margin-bottom: 20px;
   border-bottom: 1px solid #dedede;
-}
-
-/* EDIT VIDEO */
-
-.videoEditContainer {
-  display: flex;
-  flex-direction: column;
-}
-
-.videoEditContainer .top {
-  display: flex;
-}
-
-.top .videoPlayer {
-  max-height: 300px;
-  flex: 1;
-}
-
-.videoEditContainer .top .thumbnails {
-  display: flex;
-  flex-direction: column;
-  margin: 0 10px;
-  width: 210px;
-}
-
-.videoEditContainer .top .thumbnails .thumbnail {
-  margin-bottom: 10px;
-  padding: 2px;
-}
-
-.videoEditContainer .top .thumbnails .thumbnail.selected {
-  border: 3px solid #828282;
-}
-
-.videoEditContainer .top .thumbnails .thumbnail img {
-  width: 100%;
-  cursor: pointer;
 }

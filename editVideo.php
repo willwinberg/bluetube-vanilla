@@ -37,16 +37,15 @@ if ($noChanges) {
 }
 ?>
 
-<?php
+<section class='row'>
+   <?php
    $videoPlayer = new VideoPlayer($video->filePath);
    echo $videoPlayer->render(false);
    
    $thumbnails = new ThumbnailSelector($video);
    echo $thumbnails->render();
    ?>
-
-<div class='top'>
-
+</section>
 <?php
 $form = new FormBuilder((array)$video);
 echo $form->openFormTag();
@@ -57,11 +56,7 @@ echo $form->privacyInput();
 echo $form->categoriesInput($db);
 echo $form->submitButton("Submit", "editVideo");
 echo $form->closeFormTag();
-?>
 
-</div>
-
-<?php
 require_once("includes/footer.php");
 ?>
                
