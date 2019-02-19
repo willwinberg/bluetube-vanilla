@@ -20,6 +20,8 @@ class VideoProcessor {
    private $ffmpegPath = "assets/ffmpeg/ffmpeg";
    private $ffprobePath = "assets/ffmpeg/ffprobe";
 
+   public $tempId;
+
    public function __construct($db) {
       $this->db = $db;
    }
@@ -84,7 +86,10 @@ class VideoProcessor {
       $query->bindParam(":uploadedBy", $uploadedBy);
       $query->bindParam(":filePath", $filePath);
 
-      return $query->execute();
+      $success = $query->execute();
+      $this->tempId = $this->db->lastInsertId();
+
+      return $success;
     }
 
    public function convertVideoToMp4($tempFilePath, $finalFilePath) {
@@ -153,7 +158,7 @@ class VideoProcessor {
          $success = $query->execute();
 
          if (!$success) {
-            echo "Error inserting thumnails into database\n";
+            echo "Error inserting thumbnails into database\n";
             return false;
          }
       }

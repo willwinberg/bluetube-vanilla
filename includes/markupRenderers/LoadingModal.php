@@ -13,7 +13,7 @@
       <div class="modal-body">
         Uploading Video. This might take a while. <br/>
         Please do no refresh your browser.
-        <img src="assets/images/icons/loading-spinner.gif">
+        <img style="height: 120px; width: 120px" src="assets/images/icons/loading-spinner.gif">
       </div>
     </div>
   </div>

@@ -1,5 +1,7 @@
 <link rel="stylesheet" type="text/css" href="assets/css/FormBuilder.css">
 <?php
+require_once("includes/dataProcessors/Success.php");
+require_once("includes/dataProcessors/Error.php");
 
 class FormBuilder {
 
@@ -102,7 +104,6 @@ class FormBuilder {
         $value = $this->data["privacy"];
         $notPrivate = $value == "0" ? "selected" : "";
         $isPrivate = $value == "1" ? "selected" : "";
-        echo "the value of privacy is $value";
 
         return "
             <div class='form-group'>
@@ -119,7 +120,6 @@ class FormBuilder {
         $query->execute();     
         $html = "";
         $value = $this->data["category"];
-        echo "the value of category is $value";
 
         while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
             $id = $row["id"];

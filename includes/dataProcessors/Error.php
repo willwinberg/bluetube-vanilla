@@ -22,6 +22,7 @@ class Error {
    public static $noChanges = "<div class='alert alert-warning'>No Changes have been detected</div>";
    public static $noVideoSelected = "No video has been selected";
    public static $notOwnedVideo = "You do not have permission to edit this video";
+   public static $upload = "<div class='alert alert-danger'>Video upload failed</div>";
 
    public static function alert($error) {
       return "

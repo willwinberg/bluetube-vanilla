@@ -20,17 +20,17 @@ if (isset($_POST["uploadVideo"]) && isset($_FILES["file"])) {
     $uploadSuccess = $videoProcessor->uploadVideo($data);
 
     if ($uploadSuccess) {
-        $message = "<div class='alert alert-success'>Video upload successful</div>";
+        $id = $videProcessor->tempId;
+        $message = Success::$upload;
+        header("Location: editVideo.php?videoId=$id"); // fix this
     } else {
-        $message = "<div class='alert alert-danger'>Video upload failed</div>";
+        $message = Error::$upload;
     }
 }
-?>
 
-<div class='column'>
-<?php
-$form = new FormBuilder;
-echo $form->openFormTag(NULL, "multipart/form-data");
+$form = new FormBuilder($data);
+
+echo $form->openFormTag("multipart/form-data");
     echo $message;
     echo $form->FileInput("File", "file");
     echo $form->textInput("Title", "title");
@@ -40,7 +40,6 @@ echo $form->openFormTag(NULL, "multipart/form-data");
     echo $form->submitButton("Upload", "uploadVideo");
 echo $form->closeFormTag();
 ?>
-</div>
 
 <script>
 $("form").submit(function() {

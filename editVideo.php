@@ -11,13 +11,13 @@ if (User::isNotLoggedIn()) {
 }
 
 if (!isset($_GET["videoId"])) {
-    $alert = Error::$noVideoSelected;
+    echo Error::$noVideoSelected;
     exit();
 } else {
    $video = new Video($db, $_GET["videoId"], $user);
 
    if ($video->uploadedBy !== $user->username) {
-      $alert = Error::$notOwnedVideo;
+      echo Error::$notOwnedVideo;
       exit();
    }
 }
