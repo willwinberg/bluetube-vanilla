@@ -30,7 +30,7 @@ if (isset($_POST["uploadVideo"]) && isset($_FILES["file"])) {
 <div class='column'>
 <?php
 $form = new FormBuilder;
-echo $form->openFormTag("upload.php", "multipart/form-data");
+echo $form->openFormTag(NULL, "multipart/form-data");
     echo $message;
     echo $form->FileInput("File", "file");
     echo $form->textInput("Title", "title");

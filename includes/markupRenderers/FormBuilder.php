@@ -11,10 +11,11 @@ class FormBuilder {
             $this->data = $data;
             $this->data["emailConfirm"] = $data["email"];
         }
-        $this->custom = $custom; 
+    
+        $this->custom = $custom;
     }
 
-    public function openFormTag($enctype = '') {
+    public function openFormTag($enctype = "application/x-www-form-urlencoded") {
         return "
             <form
                 method='POST'
@@ -48,7 +49,7 @@ class FormBuilder {
 
     public function textInput($title, $name, $type = "text") {
         $value = $this->data[$name];
-        if ($type == "password") $value = "";
+        if ($type == "password") $value = null;
 
         $input = "
             <input
@@ -73,6 +74,7 @@ class FormBuilder {
         $value = $this->data[$name];
 
         $input = "
+
             <textarea
                 class='form-control'
                 type='text'
@@ -89,6 +91,10 @@ class FormBuilder {
         }
 
         return $html;
+    }
+
+    private function getError($inputName) {
+        
     }
 
     public function privacyInput() {
@@ -124,7 +130,7 @@ class FormBuilder {
 
     public function submitButton($text, $name) {
         return "
-        <button type='submit' class='btn btn-primary' name='$name'>
+        <button type='SUBMIT' class='btn btn-primary' name='$name'>
             $text
         </button>
         ";

@@ -15,19 +15,17 @@ if (!isset($_GET["videoId"])) {
     exit();
    } else {
       $video = new Video($db, $_GET["videoId"], $user);
+
       if ($video->uploadedBy !== $user->username) {
       echo "<div class='alert alert-danger'>You don't have permission to edit this video</div>";
       exit();
    }
 }
 
-$dataSanitizer = new FormInputSanitizer;
-$account = new AccountHandler($db);
-
-$data = $dataSanitizer->sanitize($_POST);
-
 if (isset($_POST["editVideo"])) {
+   $data = FormInputSanitizer::sanitize($_POST);
    $data["videoId"] = $_GET["videoId"];
+   $account = new AccountHandler($db);
 
    $account->updateVideo($data);
 
@@ -38,31 +36,27 @@ if (isset($_POST["editVideo"])) {
    }
 }
 ?>
-
-<div class='videoEditContainer'>
-   <div class='top'>
-         <script src="assets/javascript/selectThumbnail.js"></script>
-      <?php
-      $videoPlayer = new VideoPlayer($video->filePath);
-      echo $videoPlayer->render(false);
-
-      $thumbnails = new ThumbnailSelector($video);
-      echo $thumbnails->render();
-      ?>
-   </div>
+<div class='top'>
    <?php
-   $form = new FormBuilder((array)$video);
-   echo $form->openFormTag("", "multipart/form-data");
-      echo $message;
-      echo $form->textInput("Title", "title");
-      echo $form->textareaInput("Description", "description");
-      echo $form->privacyInput();
-      echo $form->categoriesInput($db);
-      echo $form->submitButton("Submit", "editVideo");
-   echo $form->closeFormTag();
-   ?>
-   </div>
-</div>
+   $videoPlayer = new VideoPlayer($video->filePath);
+   echo $videoPlayer->render(false);
 
-<?php require_once("includes/footer.php"); ?>
+   $thumbnails = new ThumbnailSelector($video);
+   echo $thumbnails->render();
+   ?>
+</div>
+<?php
+$form = new FormBuilder((array)$video);
+
+echo $form->openFormTag();
+   echo $message;
+   echo $form->textInput("Title", "title");
+   echo $form->textareaInput("Description", "description");
+   echo $form->privacyInput();
+   echo $form->categoriesInput($db);
+   echo $form->submitButton("Submit", "editVideo");
+echo $form->closeFormTag();
+
+require_once("includes/footer.php");
+?>
                
