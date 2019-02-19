@@ -33,6 +33,8 @@ class Video {
          $video = $query->fetch(PDO::FETCH_ASSOC);
       }
 
+      $this->video = $video;
+
       $this->id = $video["id"];
       $this->title = $video["title"];
       $this->description = $video["description"];
@@ -46,25 +48,25 @@ class Video {
       $this->expanded = false;
    }
 
-   // public function id() {
-   //    return $this->video["id"];
-   // }
+   public function id() {
+      return $this->video["id"];
+   }
    
-   // public function title() {
-
-   // }
+   public function title() {
+      return $this->video["title"];
+   }
    
-   // public function description() {
-
-   // }
+   public function description() {
+      return $this->video["description"];
+   }
    
-   // public function privacy() {
-
-   // }
+   public function privacy() {
+      return $this->video["privacy"];
+   }
    
-   // public function category() {
-
-   // }
+   public function category() {
+      return $this->video["category"];
+   }
    
    // public function views() {
    //    $video["views"];
@@ -241,5 +243,17 @@ class Video {
          return $query->fetchAll();
       }
    }
+   
+   public function dataSameAs($data) {
+      $details = array(
+         $this->title(),
+         $this->description(),
+         $this->privacy(),
+         $this->category()
+      );
+
+      return sizeof(array_intersect($data, $details)) > 0;
+   }
+   
    
 }

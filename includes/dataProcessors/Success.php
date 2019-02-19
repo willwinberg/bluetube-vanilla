@@ -4,12 +4,16 @@ class Success {
 
    public static $login = "Login successful";
    public static $register = "Registration successful";
-   public static $passwordUpdate = "Password update successful";
-   public static $passwordUpdateFailed = "Password update Failed";
    public static $detailsUpdate = "Details update successful";
-   public static $detailsUpdateFailed = "Details update failed";
-   public static $videoUpdate = "Details update failed";
-   public static $videoUpdateFailed = "<div class='alert alert-success'>Video edit saved</div>";
+   public static $passwordUpdate = "Password update successful";
+   
+   public static $videoUpdate = "<div class='alert alert-success'>Video updated successfully</div>";
+
+   function alert($message) {
+      return "
+         <div class='alert alert-success'>$message</div>
+      ";
+   }
 
 }
 

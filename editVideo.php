@@ -11,31 +11,32 @@ if (User::isNotLoggedIn()) {
 }
 
 if (!isset($_GET["videoId"])) {
-    echo "<div class='alert alert-danger'>No video has been selected</div>";
+    $alert = Error::$noVideoSelected;
     exit();
    } else {
       $video = new Video($db, $_GET["videoId"], $user);
 
       if ($video->uploadedBy !== $user->username) {
-      echo "<div class='alert alert-danger'>You don't have permission to edit this video</div>";
+         $alert = Error::$notOwnedVideo;
       exit();
    }
 }
+// var_dump($video);
+// $noChanges = isset($_POST) && $video->dataSameAs($_POST);
+
+// if ($noChanges) {
+//    $alert = Error::$noChanges;
 
 if (isset($_POST["editVideo"])) {
    $data = FormInputSanitizer::sanitize($_POST);
    $data["videoId"] = $_GET["videoId"];
+   var_dump($data);
    $account = new AccountHandler($db);
 
-   $account->updateVideo($data);
-
-   if ($account->success) {
-      $message = $account->success;
-   } else {
-      $message = $account->error;
-   }
+   $alert = $account->updateVideo($data);
 }
 ?>
+
 <div class='top'>
    <?php
    $videoPlayer = new VideoPlayer($video->filePath);
@@ -49,7 +50,7 @@ if (isset($_POST["editVideo"])) {
 $form = new FormBuilder((array)$video);
 
 echo $form->openFormTag();
-   echo $message;
+   echo $alert;
    echo $form->textInput("Title", "title");
    echo $form->textareaInput("Description", "description");
    echo $form->privacyInput();

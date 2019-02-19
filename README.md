@@ -8,8 +8,8 @@
 
 ## TODO:
 
--processing, comments, need Sanitizer
-
+- processing, comments, need Sanitizer
+- disabled submitting of unchanged forms
 - consolidate all html into render methods
 - refactor Form class to be dynamic
 - git rid of UploadedVideoData class

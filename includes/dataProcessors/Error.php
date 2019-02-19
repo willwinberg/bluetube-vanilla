@@ -13,11 +13,21 @@ class Error {
    public static $passwordNotSecure= "Password must contain at least one lower case letter, one upper case letter and one digit";
    public static $passwordLength = "Password must be between 8 and 30 characters";
    public static $passwordIncorrect = "You've entered an incorrect password";
-   public static $loginFailed = "Username or password is incorrect";
-   public static $registerFailed = "A fatal error ocurred during registration";
-   public static $detailsUpdateFailed = "Your details update failed";
-   public static $passwordUpdateFailed = "Your password update failed";
-   public static $videoUpdateFailed = "Your video update failed";
+
+   public static $login = "Username or password is incorrect";
+   public static $register = "A fatal error ocurred during registration";
+   public static $detailsUpdate = "Your details update failed";
+   public static $passwordUpdate = "Your password update failed";
+   public static $videoUpdate = "<div class='alert alert-danger'>Your video update failed</div>";
+   public static $noChanges = "<div class='alert alert-warning'>No Changes have been detected</div>";
+   public static $noVideoSelected = "No video has been selected";
+   public static $notOwnedVideo = "You do not have permission to edit this video";
+
+   public static function alert($error) {
+      return "
+         <div class='alert alert-danger'>$error</div>
+      ";
+   }
 
 }
 

@@ -103,13 +103,13 @@ class AccountHandler {
       $query->bindParam(":category", $update["category"]);
       $query->bindParam(":videoId", $update["videoId"]);
       $success = $query->execute();
+      $count = $query->rowCount();
 
-      if ($query->rowCount() === 1) {
-         $this->success = Success::$videoUpdate;
+      if ($count === 1) {
+         return Success::$videoUpdate;
       } else {
-         $this->error = Error::$videoUpdateFailed;
+         return Error::$videoUpdate;
       }
-      return;
    }
 
    public function error() {

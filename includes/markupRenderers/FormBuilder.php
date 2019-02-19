@@ -98,11 +98,16 @@ class FormBuilder {
     }
 
     public function privacyInput() {
+        $value = $this->data["privacy"];
+        $notPrivate = $value == "0" ? "selected" : "";
+        $isPrivate = $value == "1" ? "selected" : "";
+        echo "the value of privacy is $value";
+
         return "
             <div class='form-group'>
                 <select class='form-control' name='privacy'>
-                    <option value='0'>Private</option>
-                    <option value='1'>Public</option>
+                    <option value='0' $notPrivate>Public</option>
+                    <option value='1' $isPrivate>Private</option>
                 </select>
             </div>
         ";
@@ -112,11 +117,15 @@ class FormBuilder {
         $query = $db->prepare("SELECT * FROM categories");    
         $query->execute();     
         $html = "";
+        $value = $this->data["category"];
+        echo "the value of category is $value";
 
         while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
             $id = $row["id"];
+            $selected = $value == $id ? "selected" : "";
+            echo $selected;
             $name = $row["name"];
-            $html .= "<option value='$id'>$name</option>";
+            $html .= "<option value='$id' $selected>$name</option>";
         }
         
         return "
