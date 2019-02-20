@@ -4,7 +4,7 @@
   justify-content: center;
 }
 
-.button {
+.buttonContainer button {
   height: 35px;
   padding: 6px 15px;
   cursor: pointer;
@@ -12,6 +12,7 @@
   border-radius: 2px;
   border: none;
   font-size: 14px;
+  line-height: 1em;
 }
 
 .buttonContainer .subscribe {

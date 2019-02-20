@@ -8,6 +8,7 @@
 
 ## TODO:
 
+- replies comments hide button
 - make delete video button
 - make all errors in span with class
 - processing, comments, need Sanitizer

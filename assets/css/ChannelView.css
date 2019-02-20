@@ -1,0 +1,79 @@
+.channel .banner {
+  height: 200px;
+  flex: 1;
+  position: relative;
+}
+
+.channel .banner img {
+  width: 100%;
+  object-fit: cover;
+  max-height: 100%;
+  vertical-align: middle;
+}
+
+.channel .banner .username {
+  position: absolute;
+  font-family: serif;
+  top: calc(50% - 40px);
+  font-size: 50px;
+  color: #fff;
+  text-align: center;
+  width: 100%;
+  letter-spacing: 5px;
+}
+
+.channel .header {
+  padding: 15px 100px 0 100px;
+  display: flex;
+  height: 100px;
+}
+
+.channel .header .info {
+  flex: 1;
+  display: flex;
+}
+
+.channel .header .info img {
+  height: 80px;
+  width: 80px;
+}
+
+.channel .header .info .bottom {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.channel .header .bottom .name {
+  font-size: 24px;
+  font-weight: 400;
+  color: #111;
+}
+
+.channel .header .bottom .subscribes {
+  font-size: 14px;
+  color: rgba(17, 17, 17, 0.6);
+}
+
+.channel .content {
+  padding: 20px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-top: none;
+}
+
+.channel .nav-item a {
+  color: rgba(17, 17, 17, 0.6);
+}
+
+.channel .content .section .values {
+  color: rgba(17, 17, 17, 0.6);
+  display: flex;
+  flex-direction: column;
+}
+
+.channel .content .section .values span {
+  margin-top: 3px;
+  text-indent: 8px;
+}

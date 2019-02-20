@@ -1,3 +1,5 @@
+<link rel="stylesheet" type="text/css" href="assets/css/ChannelView.css">
+
 <?php
 
 class ChannelView {
@@ -23,11 +25,11 @@ private $db, $loggedInUser, $channelsUsername;
       $about = $this->makeAbout();
 
       return "
-         <div class='channelContainer'>
+         <div class='channel'>
             $banner
             $header
             $tabs
-            <div class='tab-content channelContent'>
+            <div class='tab-content content'>
                $videos
                $about
             </div>
@@ -40,9 +42,9 @@ private $db, $loggedInUser, $channelsUsername;
       $username = $this->channelOwner->username;
 
       return "
-         <div class='bannerContainer'>
-            <img src='$src' class='banner'>
-            <span class='channelName'>$username</span>
+         <div class='banner'>
+            <img src='$src' alt='profile banner'>
+            <span class='username'>$username</span>
          </div>
       ";
    }
@@ -54,15 +56,17 @@ private $db, $loggedInUser, $channelsUsername;
       $subscribeButton = $this->makeSubscribeButton();
 
       return "
-         <div class='channelHeader'>
-            <div class='infoContainer'>
-               <img class='ownerImage' src='$image'>
-               <div class='ownerInfo'>
+         <div class='header'>
+            <div class='info'>
+               <img src='$image' alt='owner picture'>
+               <div class='bottom'>
                      <span class='name'>$name</span>
-                     <span class='subscriberCount'>$subscriberCount subscribers</span>
+                     <span class='subscribes'>$subscriberCount subscribers</span>
                </div>
             </div> 
-            $subscribeButton
+            <div class='buttonContainer'>
+               $subscribeButton
+            </div>
          </div>
       ";
    }
@@ -71,7 +75,7 @@ private $db, $loggedInUser, $channelsUsername;
       if ($this->channelOwner->username !== $this->loggedInUser->username) {
          return Button::subscribeButton($this->db, $this->loggedInUser, $this->channelOwner->username);
       } else {
-         return Button::hyperlink("Edit My Profile", "settings.php", "edit button", null);
+         return Button::hyperlink("Edit My Profile", "settings.php", "edit", null);
       }
    }
 
