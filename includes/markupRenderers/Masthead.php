@@ -11,7 +11,7 @@ class Masthead {
    }
 
    public function render() {
-      $navButton = Button::regular("", NULL, "navShowHide", "assets/images/icons/menu.png");
+      $navButton = $this->makeNavButton();
       $logo = $this->makeLogo();
       $searchBar = $this->makeSearchBar();
       $uploadButton = Button::hyperlink("", "upload.php", "icon", "assets/images/icons/upload.png");
@@ -27,6 +27,14 @@ class Masthead {
                $profileButton
             </div>
          </div>
+      ";
+   }
+
+   private function makeNavButton() {
+      return "
+         <button class='navShowHide'>
+            <img src='assets/images/icons/menu.png'>
+         </button>
       ";
    }
 

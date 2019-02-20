@@ -1,21 +1,17 @@
 <link rel="stylesheet" type="text/css" href="assets/css/FormBuilder.css">
 <?php
-require_once("includes/dataProcessors/Success.php");
-require_once("includes/dataProcessors/Error.php");
 
 class FormBuilder {
 
-    private $data, $custom;
+    private $data;
 
-    public function __construct($data = null, $custom = false) {
+    public function __construct($data = null) {
         if (isset($_POST) && !empty($_POST) && !isset($_POST["passwordUpdate"])) {
             $this->data = $_POST;
         } else if ($data) {
             $this->data = $data;
             $this->data["emailConfirm"] = $data["email"];
         }
-    
-        $this->custom = $custom;
     }
 
     public function openFormTag($header = "", $enctype = "application/x-www-form-urlencoded") {
@@ -38,9 +34,10 @@ class FormBuilder {
         $name = strtolower($title);
 
         return "
-            <div class='form-group'>
+            <div class='form-group row'>
+                <label class='inputLabel col-sm-2 col-form-label'>$title</label>
                 <input
-                    class='form-control-file'
+                    class='form-control-file col-sm-10'
                     type='file'
                     id='form-file'
                     name='$name'
@@ -54,9 +51,28 @@ class FormBuilder {
         $value = $this->data[$name];
         if ($type == "password") $value = null;
 
-        $input = "
+        return "
+            <div class='form-group row'>
+                <label class='inputLabel col-sm-2 col-form-label'>$title</label>
+                <input
+                    class='form-control col-sm-10'
+                    type='$type'
+                    name='$name'
+                    value='$value'
+                    placeholder='$title'
+                    required
+                >
+            </div>
+        ";
+        
+    }
+
+    public function entryTextInput($title, $name, $type = "text") {
+        $value = $this->data[$name];
+        if ($type == "password") $value = null;
+
+        return "
             <input
-                class='form-control'
                 type='$type'
                 name='$name'
                 value='$value'
@@ -64,36 +80,24 @@ class FormBuilder {
                 required
             >
         ";
-        if ($this->custom) {
-            $html = $input;
-        } else {
-            $html = "<div class='form-group'>$input</div>";
-        }
-
-        return $html;
     }
 
     public function textareaInput($title, $name) {
         $value = $this->data[$name];
 
-        $input = "
-
-            <textarea
-                class='form-control'
-                type='text'
-                name='$name'
-                placeholder='$title'
-                rows='3'
-                required
-            >$value</textarea>
+        return "
+            <div class='form-group row'>
+                <label class='inputLabel col-sm-2 col-form-label'>$title</label>
+                <textarea
+                    class='form-control col-sm-10'
+                    type='text'
+                    name='$name'
+                    placeholder='$title'
+                    rows='3'
+                    required
+                >$value</textarea>
+            </div>
         ";
-        if ($this->custom) {
-            $html = $input;
-        } else {
-            $html = "<div class='form-group'>$input</div>";
-        }
-
-        return $html;
     }
 
     private function getError($inputName) {
@@ -106,8 +110,9 @@ class FormBuilder {
         $isPrivate = $value == "1" ? "selected" : "";
 
         return "
-            <div class='form-group'>
-                <select class='form-control' name='privacy'>
+            <div class='form-group row'>
+                <label class='inputLabel col-sm-2 col-form-label'>Privacy</label>
+                <select class='form-control col-sm-10' name='privacy'>
                     <option value='0' $notPrivate>Public</option>
                     <option value='1' $isPrivate>Private</option>
                 </select>
@@ -129,8 +134,9 @@ class FormBuilder {
         }
         
         return "
-            <div class='form-group'>
-                <select class='form-control' name='category'>
+            <div class='form-group row'>
+                <label class='inputLabel col-sm-2 col-form-label'>Category</label>
+                <select class='form-control col-sm-10' name='category'>
                     $html
                 </select>
             </div>

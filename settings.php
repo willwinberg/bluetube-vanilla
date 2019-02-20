@@ -61,7 +61,7 @@ echo $form->openFormTag("Modify Personal Information");
    echo $form->submitButton("SUBMIT", "detailsUpdate");
 echo $form->closeFormTag();
 
-echo $form->openFormTag("settings.php");
+echo $form->openFormTag("Change your password");
    echo $validator->error(Error::$passwordIncorrect);
    echo $form->textInput("Old Password", "oldPassword", "password");
 

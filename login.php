@@ -20,11 +20,11 @@ if (isset($_POST["submitLoginForm"])) {
    }
 }
 
-$form = new FormBuilder(null, $custom = true);
+$form = new FormBuilder();
 
 echo $form->openEntryFormTag("Sign In");
-   echo $form->textInput("Username", "username");
-   echo $form->textInput("Password", "password");
+   echo $form->entryTextInput("Username", "username");
+   echo $form->entryTextInput("Password", "password");
 
    echo $message;
    echo $form->submitButton("SUBMIT", "submitLoginForm");
