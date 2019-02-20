@@ -1,8 +1,9 @@
-## A YouTube clone
+![bluetube](https://github.com/Mehrunes-Dagon/bluetube/blob/master/assets/images/logo.png "BlueTube")
+
+### A video app like YouTube but only for sad videos
 
 - PHP
 - OOP
-- Javascript
 - Jquery
 - Bootstrap
 
@@ -11,22 +12,16 @@
 - make delete video button
 - make all errors in span with class
 - processing, comments, need Sanitizer
-- disabled submitting of unchanged forms
-- consolidate all html into render methods
-- refactor Form class to be dynamic
-- git rid of UploadedVideoData class
-- search by views not working properly, nothing changes
-- sanitize input of search bar
-- when done, make sure requires are only where necessary
-- custom profile picture
-- PDO class in /classes
+- make requires are only where necessary
+- add custom profile picture feature
+- add custom banner feature
 - make Video class properties private, only functions public
-- decompose login and register forms with FormProvider class
+- make User class properties private, only functions public
 - foreign key constraints on privacy and category db attrs
 
-## php.ini fine in XAMPP
+## php.ini modifications
 
 - max_execution_time=3000
 - max_filesize=1024M
 
-### Must include ffmpeg, see .gitignore
+### Must include [ffmpeg and ffprobe](https://www.ffmpeg.org/download.html) in `assets/ffmpeg` (Widows, Mac, Linux)

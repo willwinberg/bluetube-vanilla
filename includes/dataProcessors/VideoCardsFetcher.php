@@ -46,7 +46,6 @@ class VideoCardsFetcher {
       );
       $i = 1;
       foreach ($subbedUsernames as $username) {
-         echo $username;
          $query->bindValue($i, $username);
          $i++;
       }
