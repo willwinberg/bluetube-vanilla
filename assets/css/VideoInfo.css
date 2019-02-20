@@ -72,26 +72,16 @@
   margin-right: 10px;
 }
 
+.lowerInfo .top .uploadInfo .owner a {
+  font-size: 14px;
+  font-weight: 500;
+  color: #000;
+}
+
 .lowerInfo .top .uploadInfo .date {
   color: rgba(17, 17, 17, 0.6);
   font-size: 13px;
   font-weight: 400;
-}
-
-.lowerInfo .top .buttonContainer {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.lowerInfo .top .button {
-  height: 35px;
-  padding: 6px 15px;
-  cursor: pointer;
-  font-weight: 500;
-  border-radius: 2px;
-  border: none;
-  font-size: 14px;
 }
 
 .lowerInfo .description {

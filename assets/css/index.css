@@ -42,33 +42,11 @@
 .watchLeft {
   flex: 1;
 }
-
 .suggestions {
   max-width: 425px;
   flex-grow: 1;
   height: 100%;
   padding-left: 24px;
-}
-
-.buttonContainer .subscribe {
-  background-color: #f00;
-  color: #fff;
-}
-
-.buttonContainer .unsubscribe {
-  background-color: #eee;
-  color: rgba(17, 17, 17, 0.6);
-}
-
-.buttonContainer .edit {
-  background-color: #2692e6;
-  color: #fff;
-}
-
-.lowerInfo .top .uploadInfo .owner a {
-  font-size: 14px;
-  font-weight: 500;
-  color: #000;
 }
 
 /* COMMENTS */

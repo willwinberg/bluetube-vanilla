@@ -1,0 +1,30 @@
+.buttonContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.button {
+  height: 35px;
+  padding: 6px 15px;
+  cursor: pointer;
+  font-weight: 500;
+  border-radius: 2px;
+  border: none;
+  font-size: 14px;
+}
+
+.buttonContainer .subscribe {
+  background-color: #f00;
+  color: #fff;
+}
+
+.buttonContainer .unsubscribe {
+  background-color: #eee;
+  color: rgba(17, 17, 17, 0.6);
+}
+
+.buttonContainer .edit {
+  background-color: #2692e6;
+  color: #fff;
+}
