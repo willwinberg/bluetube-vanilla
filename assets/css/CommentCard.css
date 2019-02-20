@@ -1,4 +1,4 @@
-.commentCard .comment .profileImg {
+.commentCard .profileImg {
   margin-right: 16px;
   width: 48px;
   height: 48px;
@@ -14,13 +14,14 @@
   border: none;
   height: 30px;
   background-color: transparent;
+  border-bottom: 2px solid #dedede;
   font-size: 14px;
   color: #111;
   resize: none;
 }
 
-.commentCard .commentForm .postComment,
-.commentCard .commentForm .cancelComment {
+.commentCard .commentForm .postReply,
+.commentCard .commentForm .cancelReply {
   height: 36px;
   background-color: #2692e6;
   color: #fff;
@@ -28,22 +29,26 @@
   border: none;
   padding: 0 15px;
   border-radius: 2px;
+  cursor: pointer;
 }
 
-.commentCard .commentForm .cancelComment {
+.commentCard .commentForm .cancelReply {
   background-color: transparent;
   color: rgba(17, 17, 17, 0.6);
 }
 
-.commentCard .commentForm .cancelComment:hover {
+.commentCard .commentForm .cancelReply:hover {
   color: #000;
+}
+.commentCard .commentForm .postReply:hover {
+  color: rgba(17, 17, 17, 0.6);
 }
 
 .commentCard {
   margin-bottom: 16px;
 }
 
-.commentCard .comment {
+.commentCard .cardContent {
   display: flex;
 }
 
@@ -51,14 +56,14 @@
   margin-bottom: 2px;
 }
 
-.commentCard .comment .username {
+.commentCard .cardContent .username {
   margin-right: 8px;
   color: #111;
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 500;
 }
 
-.commentCard .comment .body {
+.commentCard .cardContent .body {
   font-size: 14px;
   font-weight: 400;
   line-height: 20px;
@@ -68,26 +73,30 @@
   margin-left: 64px;
 }
 
-.commentCard .controls button,
-.commentCard .controls .likeCount {
+.commentCard .controls button {
   height: 32px;
   background-color: transparent;
+  border: none;
+  font-size: 15px;
+  font-weight: 500;
+  color: rgba(17, 17, 17, 0.6);
+  cursor: pointer;
+}
+
+.commentCard .controls button:hover {
+  color: #000;
+}
+
+.commentCard .controls .likeCount {
   border: none;
   font-size: 13px;
   font-weight: 500;
   color: rgba(17, 17, 17, 0.6);
-}
-
-.commentCard .controls button {
-  cursor: pointer;
-}
-
-.commentCard .controls .likeCount {
   margin: 0 5px;
 }
 
 .commentCard .controls button img {
-  height: 16px;
+  height: 18px;
 }
 
 .commentCard .commentForm .profileImg {
@@ -95,7 +104,7 @@
   height: 30px;
 }
 
-.commentCard .comment .timestamp {
+.commentCard .cardContent .timestamp {
   color: #888;
   font-size: 13px;
   font-weight: 400;
@@ -106,7 +115,7 @@
   display: none !important;
 }
 
-.commentCard .comments .repliesSection {
+.commentCard .repliesSection {
   padding-left: 64px;
   margin-top: 16px;
 }

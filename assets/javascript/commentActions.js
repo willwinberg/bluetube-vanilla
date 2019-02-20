@@ -79,7 +79,7 @@ function updateValue(element, num) {
 }
 
 function getReplies(button, commentId, videoId) {
-   console.log("getReplies called");
+   console.log(`getReplies(this, ${commentId}, ${videoId}) called`);
    $.post("ajax/commentActions.php", { commentId, videoId, action: "replies" })
       .done(function (commentsHTML) {
          const replies = $("<div>").addClass("repliesSection");

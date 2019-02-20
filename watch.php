@@ -27,15 +27,17 @@ $recommendedCards = $cardFetcher->getRecommended();
 $recommendationsGrid = new VideoGrid($recommendedCards);
 ?>
 
-<div class="watchLeft">
-   <?php
-   echo $videoPlayer->render(true);
-   echo $videoInfo->render();
-   echo $commentSection->render();
-   ?>
-</div>
-<div class="suggestions">
-    <?php echo $recommendationsGrid->render(); ?>
+<div class="row">
+    <div class="col-8">
+    <?php
+    echo $videoPlayer->render(true);
+    echo $videoInfo->render();
+    echo $commentSection->render();
+    ?>
+    </div>
+    <div class="col-4 suggestions">
+        <?php echo $recommendationsGrid->render(); ?>
+    </div>
 </div>
 
 <?php require_once("includes/footer.php"); ?>

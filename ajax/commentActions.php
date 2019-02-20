@@ -1,6 +1,7 @@
 <?php
 require_once("../includes/config.php"); 
-require_once("../includes/modelInterfaces/Comment.php"); 
+require_once("../includes/modelInterfaces/Comment.php");
+require_once("../includes/markupRenderers/CommentCard.php");
 require_once("../includes/modelInterfaces/User.php"); 
 
 $username = $_SESSION["loggedIn"];
@@ -16,7 +17,15 @@ if ($action === 'like') {
 } else if ($action === 'dislike') {
    echo $comment->addDislike();
 } elseif ($action === 'replies') {
-   echo $comment->getRepliesArray();
+   $replies = $comment->getRepliesArray();
+   $html = "";
+
+   foreach ($replies as $reply) {
+      $card = new CommentCard($db, $reply, $user, $videoId);
+      $html .= $card->render();
+   }
+
+   echo $html;
 } else {
    echo "Error in commentActions.php";
 }

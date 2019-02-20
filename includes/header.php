@@ -37,14 +37,12 @@ $masthead = new Masthead($db, $loggedInUsername);
 
 <body>
    <div id="pageContainer">
-      
-      
+           
       <?php 
       echo  $masthead->render();
-      echo $navMenu->render();
-      
+      echo $navMenu->render();     
       ?>
 
-      <div id="mainSectionContainer">
+      <div id="mainSectionContainer" class="container-fluid">
          <div id="mainContentContainer">
             

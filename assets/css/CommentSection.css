@@ -29,6 +29,10 @@
   font-size: 14px;
   color: #111;
   resize: none;
+  border: 1px solid #dedede;
+  border-radius: 3px;
+  margin: 0 20px;
+  padding: 10px;
 }
 
 .commentSection .header .commentForm .postComment {
@@ -39,4 +43,8 @@
   border: none;
   padding: 0 15px;
   border-radius: 2px;
+  cursor: pointer;
+}
+.commentSection .header .commentForm .postComment:hover {
+  color: rgba(17, 17, 17, 0.6);
 }

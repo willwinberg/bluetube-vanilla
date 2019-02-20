@@ -20,9 +20,9 @@ class CommentCard extends Comment {
       
       return "
          <div class='commentCard'>
-            <div class='comment'>
+            <div class='cardContent'>
                $profileButton
-               <div class='mainContainer'>
+               <div>
                   <div class='commentHeader'>
                      <a href='channel.php?username=$postedBy'>
                         <span class='username'>$postedBy</span>
@@ -106,10 +106,10 @@ class CommentCard extends Comment {
 
       $profileButton = Button::profileButton($this->db, $username); 
 
-      $cancelButtonAction = "toggleReply(this)";
-      $cancelButton = Button::regular("Cancel", $cancelButtonAction, "cancelComment", NULL);
-      $commentAction = "postComment(this, \"$username\", \"$videoId\", \"$id\", \"repliesSection\")";
-      $postButton = Button::regular("Reply",$commentAction, "postComment", NULL);
+      $cancelAction = "toggleReply(this)";
+      $cancelButton = Button::regular("Cancel", $cancelAction, "cancelReply", NULL);
+      $postAction = "postComment(this, \"$username\", \"$videoId\", \"$id\", \"repliesSection\")";
+      $postButton = Button::regular("Reply",$postAction, "postReply", NULL);
 
       return "
          <div class='commentForm hidden'>
@@ -125,6 +125,7 @@ class CommentCard extends Comment {
       $id = $this->id();
       $videoId = $this->videoId();
       $replyCount = $this->getReplyCount();
+      $plural = $replyCount > 1 ? "all $replyCount replies" : "reply";
 
       if ($replyCount > 0) {
          $repliesText = "
@@ -132,7 +133,7 @@ class CommentCard extends Comment {
                class='repliesSection viewReplies'
                onclick='getReplies(this, $id, $videoId)'
             >
-            View all $replyCount replies
+            View $plural
             </span>
          ";
       } else {

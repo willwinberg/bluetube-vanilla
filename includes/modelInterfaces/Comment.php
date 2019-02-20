@@ -73,8 +73,7 @@ class Comment {
       $comments = array();
 
       while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
-         $comment = new Comment($this->db, $row, $this->user, $videoId);
-         array_push($comments, $comment);
+         array_push($comments, $row);
       }
 
       return $comments;

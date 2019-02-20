@@ -40,14 +40,8 @@
 
 /* WATCH */
 
-.watchLeft {
-  flex: 1;
-}
 .suggestions {
-  max-width: 425px;
-  flex-grow: 1;
-  height: 100%;
-  padding-left: 24px;
+  display: flex;
 }
 
 /* VIDEO GRID */
