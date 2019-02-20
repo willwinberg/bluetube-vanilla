@@ -14,7 +14,7 @@ class Masthead {
       $navButton = $this->makeNavButton();
       $logo = $this->makeLogo();
       $searchBar = $this->makeSearchBar();
-      $uploadButton = Button::hyperlink("", "upload.php", "icon", "assets/images/icons/upload.png");
+      $uploadButton = Button::hyperlink("", "upload.php", "", "assets/images/icons/upload.png");
       $profileButton = $this->makeProfileNavButton();
 
       return "
