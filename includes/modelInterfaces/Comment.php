@@ -87,8 +87,9 @@ class Comment {
          "SELECT count(*) FROM comments WHERE replyTo=:replyTo"
       );
       $query->bindParam(':replyTo', $id);
+      $query->execute();
 
-      return $query->fetchColumn();
+       return $query->fetchColumn();
    }
 
    public function totalLikes() {

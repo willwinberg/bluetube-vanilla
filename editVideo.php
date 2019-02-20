@@ -24,7 +24,7 @@ if (!isset($_GET["videoId"])) {
 // video just uploaded and browser rerouted here
 if (isset($_GET["success"])) $alert = Success::$upload;
 
-$noChanges = isset($_POST) && $video->dataSameAs($_POST);
+$noChanges = isset($_POST) && !$video->dataSameAs($_POST);
 
 if ($noChanges) {
    $alert = Error::$noChanges;

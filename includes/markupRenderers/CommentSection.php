@@ -12,7 +12,7 @@ class CommentSection {
    }
 
    public function render() {
-      $CommentCount = $this->video->getCommentCount();
+      $commentCount = $this->video->getCommentCount();
       $videoId = $this->video->id;
       $username = $this->user->username;
       $profileButton = Button::profileButton($this->db, $username);

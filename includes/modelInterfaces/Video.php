@@ -206,12 +206,12 @@ class Video {
 
    public function getCommentCount() {
       $query = $this->db->prepare(
-         "SELECT * FROM comments WHERE videoId=:videoId"
+         "SELECT count(*) FROM comments WHERE videoId=:videoId"
       );
       $query->bindParam(":videoId", $this->id);
       $query->execute();
 
-      return $query->rowCount();
+      return $query->fetchColumn();
    }
 
    public function getCommentsArray() {
