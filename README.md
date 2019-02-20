@@ -13,6 +13,7 @@
 - processing, comments, need Sanitizer
 - make requires are only where necessary
 - add custom profile picture feature
+- make comment reply nesting limited to 1
 - add custom banner feature
 - make Video class properties private, only functions public
 - make User class properties private, only functions public

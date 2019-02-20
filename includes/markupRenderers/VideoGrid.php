@@ -1,3 +1,4 @@
+<link rel="stylesheet" type="text/css" href="assets/css/VideoGrid.css">
 <?php
 
 class VideoGrid {
@@ -36,7 +37,7 @@ class VideoGrid {
       }
 
       return "
-         <div class='gridContainer'>
+         <div>
             $header
             <div class='$this->cssClass'>
                $gridCards

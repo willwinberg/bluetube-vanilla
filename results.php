@@ -12,7 +12,7 @@ if(!isset($orderParam) || $orderParam === "views") {
 }
 ?>
 
-<div class="searchResultsContainer">
+
    <?php
    $cardFetcher = new VideoCardsFetcher($db, $user);
    
@@ -21,8 +21,8 @@ if(!isset($orderParam) || $orderParam === "views") {
    $length = sizeof($searchResultCards);
    $plural = $length > 1 ? "s" : "";
 
-   echo $searchResultsGrid->render("Your search \"$term\" returned $length result$plural");
+   echo $searchResultsGrid->render("Your search  for \"$term\" returned $length result$plural");
    ?>
-</div>
+
 
 <?php require_once("includes/footer.php"); ?>

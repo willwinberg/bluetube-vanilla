@@ -1,0 +1,128 @@
+/* REGULAR GRID */
+
+.videoCard {
+  margin: 0 4px;
+  margin-bottom: 24px;
+}
+
+.videoCard .thumbnail {
+  width: 210px;
+  height: 118px;
+  position: relative;
+}
+
+.videoCard .thumbnail img {
+  width: 100%;
+  height: 100%;
+}
+
+.videoCard .thumbnail .duration {
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  margin: 4px;
+  color: #fff;
+  background-color: rgba(17, 17, 17, 0.8);
+  opacity: 0.7;
+  padding: 2px 4px;
+  border-radius: 2px;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 12px;
+}
+
+.videoCard .details {
+  padding-right: 24px;
+  padding-left: 3px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 210px;
+  cursor: pointer;
+}
+
+.videoCard .details .title {
+  margin: 8px 0;
+  max-height: 32px;
+  overflow: hidden;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 20px;
+  color: #212529;
+}
+
+.videoCard .details .uploadedBy {
+  color: rgba(17, 17, 17, 0.6);
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.videoCard .details .lower {
+  color: rgba(17, 17, 17, 0.6);
+  font-size: 13px;
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.videoCard .details .description {
+  color: #000;
+  font-size: 13px;
+  font-weight: 400;
+}
+
+.gridHeader {
+  display: flex;
+  flex-direction: row;
+}
+
+.gridHeader .right {
+  flex: 1;
+  text-align: right;
+}
+
+.gridHeader a {
+  color: rgba(17, 17, 17, 0.6);
+}
+
+/* LARGE GRID */
+
+.videoGrid.large .videoCard {
+  height: auto;
+  display: flex;
+}
+
+.videoGrid.large .videoCard .thumbnail {
+  width: 320px;
+  height: 166px;
+  margin-right: 16px;
+}
+
+.videoGrid.large .videoCard .details {
+  max-width: 600px;
+  flex: 1;
+  height: 166px;
+}
+
+.videoGrid.large .videoCard .details .title {
+  font-size: 18px;
+  margin: 0 0 5px 0;
+}
+
+.gridHeader a:after {
+  content: " |";
+}
+
+.gridHeader a:last-child:after {
+  content: "";
+}
+
+.suggestions .videoCard {
+  display: flex;
+  height: auto;
+}
+
+.suggestions .videoCard .details {
+  padding-right: 0;
+  flex: 1;
+}
