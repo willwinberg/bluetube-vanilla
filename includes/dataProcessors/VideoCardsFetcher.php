@@ -25,6 +25,7 @@ class VideoCardsFetcher {
    }
 
    public function getSubscribed() {
+      $cards = array();
       $subbedUsernames = $this->user->subscriptionsArray();
       $length = sizeof($subbedUsernames);
 
@@ -36,6 +37,8 @@ class VideoCardsFetcher {
             $sql .= " OR uploadedBy=?";
             $i++;
          }
+      } else {
+         return $cards;
       }
 
       $query = $this->db->prepare(
@@ -43,16 +46,18 @@ class VideoCardsFetcher {
       );
       $i = 1;
       foreach ($subbedUsernames as $username) {
+         echo $username;
          $query->bindValue($i, $username);
          $i++;
       }
       $query->execute();
-      $cards = array();
 
       while ($video = $query->fetch(PDO::FETCH_ASSOC)) {
          $card = new VideoCard($this->db, $video, $this->user);
          array_push($cards, $card);
       }
+
+      // var_dump($cards);
 
       return $cards;
    }

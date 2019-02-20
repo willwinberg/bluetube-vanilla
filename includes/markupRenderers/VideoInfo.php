@@ -1,3 +1,4 @@
+<link rel="stylesheet" type="text/css" href="assets/css/VideoInfo.css">
 <?php
 require_once("Button.php");
 
@@ -29,8 +30,7 @@ class VideoInfo {
                <span class='views'>$views views</span>
                <div class=likeButtons>
                   $likeButton
-                  $dislikeButton
-                  
+                  $dislikeButton          
                </div>
             </div>
          </div>

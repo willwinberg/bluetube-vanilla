@@ -1,4 +1,6 @@
+<link rel="stylesheet" type="text/css" href="assets/css/VideoPlayer.css">
 <?php
+
 class VideoPlayer {
 
    private $filePath;
@@ -16,7 +18,7 @@ class VideoPlayer {
             Your browser does not support the video tag
          </video>
       ");
-    }
+   }
 
 }
 ?>
