@@ -3,7 +3,7 @@ require_once("includes/header.php");
 require_once("includes/dataProcessors/FormInputSanitizer.php");
 require_once("includes/dataProcessors/VideoProcessor.php");
 require_once("includes/markupRenderers/FormBuilder.php");
-require_once("includes/markupRenderers/LoadingModal.php");
+require_once("includes/markupRenderers/loadingModal.php");
 
 if (User::isNotLoggedIn()) {
    header("Location: login.php");
@@ -28,7 +28,7 @@ if (isset($_POST["uploadVideo"]) && isset($_FILES["file"])) {
 
 $form = new FormBuilder($data);
 
-echo $form->openFormTag("multipart/form-data");
+echo $form->openFormTag("Upload a video to BlueTube", "multipart/form-data");
     echo $message;
     echo $form->FileInput("File", "file");
     echo $form->textInput("Title", "title");

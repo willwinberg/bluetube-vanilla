@@ -1,3 +1,5 @@
+<link rel="stylesheet" type="text/css" href="assets/css/loadingModal.css">
+
 <div
     class="modal fade"
     id="loadingModal"
@@ -11,9 +13,13 @@
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">     
       <div class="modal-body">
-        Uploading Video. This might take a while. <br/>
-        Please do no refresh your browser.
-        <img style="height: 120px; width: 120px" src="assets/images/icons/loading-spinner.gif">
+        <div class="modalContent">
+          <span class="modalMessage">
+            Uploading Video. This might take a while. <br/>
+            Please do no refresh your browser.
+          </span>
+          <img class="modalGif" src="assets/images/icons/loading-spinner.gif">
+        </div>
       </div>
     </div>
   </div>

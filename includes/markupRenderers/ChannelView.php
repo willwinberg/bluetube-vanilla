@@ -51,7 +51,7 @@ private $db, $loggedInUser, $channelsUsername;
       $image = $this->channelOwner->image;
       $name = $this->channelOwner->fullName();
       $subscriberCount = $this->channelOwner->getSubscriberCount();
-      $subscribeButton = Button::subscribeButton($this->db, $this->loggedInUser, $this->channelOwner->username);
+      $subscribeButton = $this->makeSubscribeButton();
 
       return "
          <div class='channelHeader'>
@@ -65,6 +65,14 @@ private $db, $loggedInUser, $channelsUsername;
             $subscribeButton
          </div>
       ";
+   }
+
+   private function makeSubscribeButton() {
+      if ($this->channelOwner->username !== $this->loggedInUser->username) {
+         return Button::subscribeButton($this->db, $this->loggedInUser, $this->channelOwner->username);
+      } else {
+         return Button::hyperlink("Edit My Profile", "settings.php", "edit button", null);
+      }
    }
 
    private function makeTabs() { // Bootstrap

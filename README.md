@@ -2,8 +2,7 @@
 
 ### A video app like YouTube but only for sad videos
 
-- PHP
-- OOP
+- OO PHP
 - Jquery
 - Bootstrap
 
@@ -21,7 +20,7 @@
 
 ## php.ini modifications
 
-- max_execution_time=3000
-- max_filesize=1024M
+- `max_execution_time=3000`
+- `max_filesize=1024M`
 
-### Must include [ffmpeg and ffprobe](https://www.ffmpeg.org/download.html) in `assets/ffmpeg` (Widows, Mac, Linux)
+### Must include [ffmpeg and ffprobe](https://www.ffmpeg.org/download.html) in `assets/ffmpeg` for Widows, Mac, or Linux accordingly

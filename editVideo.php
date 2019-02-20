@@ -52,7 +52,7 @@ if ($noChanges) {
 $form = new FormBuilder((array)$video);
 
 echo $alert;
-echo $form->openFormTag();
+echo $form->openFormTag("Edit Video");
    echo $form->textInput("Title", "title");
    echo $form->textareaInput("Description", "description");
    echo $form->privacyInput();

@@ -18,8 +18,9 @@ class FormBuilder {
         $this->custom = $custom;
     }
 
-    public function openFormTag($enctype = "application/x-www-form-urlencoded") {
+    public function openFormTag($header = "", $enctype = "application/x-www-form-urlencoded") {
         return "
+            <h2 class='formHeader'>$header</h2>
             <form
                 method='POST'
                 enctype='$enctype'
@@ -38,7 +39,6 @@ class FormBuilder {
 
         return "
             <div class='form-group'>
-                <label for='form-file'>$title</label>
                 <input
                     class='form-control-file'
                     type='file'

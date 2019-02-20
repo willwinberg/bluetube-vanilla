@@ -1,0 +1,23 @@
+.modalContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 20px 0;
+}
+
+.modalContent .modalMessage {
+  text-align: center;
+  color: #111;
+  font-size: 14px;
+  font-weight: 400;
+  margin-bottom: 20px;
+}
+
+.modalContent .modalGif {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  height: 160px;
+  width: 160px;
+  background: transparent;
+}

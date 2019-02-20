@@ -43,7 +43,7 @@ if (isset($_POST["passwordUpdate"])) {
 
 $form = new FormBuilder($user->user);
 
-echo $form->openFormTag();
+echo $form->openFormTag("Modify Personal Information");
    echo $account->success();
    echo $validator->error(Error::$firstNameLength);
    echo $form->textInput("First Name", "firstName");
