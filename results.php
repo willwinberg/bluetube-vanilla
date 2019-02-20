@@ -1,7 +1,8 @@
 <?php
 require_once("includes/header.php");
+require_once("includes/dataProcessors/FormInputSanitizer.php");
 
-$term = $_GET["term"];
+$term = FormInputSanitizer::sanitize($_GET["term"]);
 $orderParam = $_GET["orderBy"];
 
 if(!isset($orderParam) || $orderParam === "views") {
@@ -18,7 +19,9 @@ if(!isset($orderParam) || $orderParam === "views") {
    $searchResultCards = $cardFetcher->getSearchResults($term, $orderBy);
    $searchResultsGrid = new VideoGrid($searchResultCards, "results");
    $length = sizeof($searchResultCards);
-   echo $searchResultsGrid->render("Your search returned $length results");
+   $plural = $length > 1 ? "s" : "";
+
+   echo $searchResultsGrid->render("Your search \"$term\" returned $length result$plural");
    ?>
 </div>
 

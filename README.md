@@ -8,6 +8,7 @@
 
 ## TODO:
 
+- make delete video button
 - make all errors in span with class
 - processing, comments, need Sanitizer
 - disabled submitting of unchanged forms
@@ -18,14 +19,8 @@
 - sanitize input of search bar
 - when done, make sure requires are only where necessary
 - custom profile picture
-- SASS or styled-components
 - PDO class in /classes
-- FormProvider naming
 - make Video class properties private, only functions public
-- videoProcessor, separate into validation and insert
-- break thumbnails in to separate class
-- clean up upload.php
-- break video processor in to separate classes
 - decompose login and register forms with FormProvider class
 - foreign key constraints on privacy and category db attrs
 

@@ -5,12 +5,16 @@ class FormInputSanitizer {
     public static function sanitize($data) {
         $sanitizedData = $data;
 
+        if (gettype($data) === "string") {
+            return FormInputSanitizer::sanitizeText($data);
+        }
+
         foreach ($data as $name => $value) {
             if (in_array($name, array("username", "email", "emailConfirm"))) {
                 $sanitizedData[$name] = FormInputSanitizer::sanitizeIdentifier($value);
             } else if (in_array($name,array("password", "passwordConfirm", "oldPassword"))) {
                 $sanitizedData[$name] = FormInputSanitizer::sanitizePassword($value);
-            } else if (in_array($name, array("title", "body", "description"))) {
+            } else if (in_array($name, array("title", "body", "description", "term"))) {
                 $sanitizedData[$name] = FormInputSanitizer::sanitizeText($value);
             } else if (in_array($name, array("firstName", "lastName"))) {
                 $sanitizedData[$name] = FormInputSanitizer::sanitizeWord($value);

@@ -57,7 +57,7 @@ echo $form->openFormTag();
    echo $form->textareaInput("Description", "description");
    echo $form->privacyInput();
    echo $form->categoriesInput($db);
-echo $form->submitButton("Submit", "editVideo");
+echo $form->submitButton("Submit Changes", "editVideo");
 echo $form->closeFormTag();
 
 require_once("includes/footer.php");
