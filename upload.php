@@ -17,12 +17,10 @@ if (isset($_POST["uploadVideo"]) && isset($_FILES["file"])) {
     $data["video"] = $_FILES["file"];
     $data["username"] = $loggedInUsername;
     $videoProcessor = new VideoProcessor($db, $loggedInUsername);
-    $uploadSuccess = $videoProcessor->uploadVideo($data);
+    $id = $videoProcessor->uploadVideo($data);
 
-    if ($uploadSuccess) {
-        $id = $videProcessor->tempId;
-        $message = Success::$upload;
-        header("Location: editVideo.php?videoId=$id"); // fix this
+    if ($id) {
+        header("Location: editVideo.php?videoId=$id&success=true");
     } else {
         $message = Error::$upload;
     }

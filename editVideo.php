@@ -21,6 +21,8 @@ if (!isset($_GET["videoId"])) {
       exit();
    }
 }
+// video just uploaded and browser rerouted here
+if (isset($_GET["success"])) $alert = Success::$upload;
 
 $noChanges = isset($_POST) && $video->dataSameAs($_POST);
 
@@ -48,12 +50,13 @@ if ($noChanges) {
 </section>
 <?php
 $form = new FormBuilder((array)$video);
-echo $form->openFormTag();
+
 echo $alert;
-echo $form->textInput("Title", "title");
-echo $form->textareaInput("Description", "description");
-echo $form->privacyInput();
-echo $form->categoriesInput($db);
+echo $form->openFormTag();
+   echo $form->textInput("Title", "title");
+   echo $form->textareaInput("Description", "description");
+   echo $form->privacyInput();
+   echo $form->categoriesInput($db);
 echo $form->submitButton("Submit", "editVideo");
 echo $form->closeFormTag();
 

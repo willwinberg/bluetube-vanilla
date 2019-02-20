@@ -124,7 +124,6 @@ class FormBuilder {
         while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
             $id = $row["id"];
             $selected = $value == $id ? "selected" : "";
-            echo $selected;
             $name = $row["name"];
             $html .= "<option value='$id' $selected>$name</option>";
         }

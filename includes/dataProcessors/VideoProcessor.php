@@ -20,7 +20,7 @@ class VideoProcessor {
    private $ffmpegPath = "assets/ffmpeg/ffmpeg";
    private $ffprobePath = "assets/ffmpeg/ffprobe";
 
-   public $tempId;
+   public $id = null;
 
    public function __construct($db) {
       $this->db = $db;
@@ -39,7 +39,7 @@ class VideoProcessor {
       if (!$isValidVideoFile) {
          return false;
       }
-      // TODO: deconstruct, if file moved successfully
+
       if (move_uploaded_file($videoDataArray["tmp_name"], $tempFilePath)) {
          $finalFilePath = $targetDirectory . uniqid() . ".mp4";
 
@@ -63,32 +63,25 @@ class VideoProcessor {
             return false;
          }
 
-         return true;
+         return $this->id;
       }
    }
    
    private function insertVideoIntoDB($data, $filePath) {
       $query = $this->db->prepare(
-         "INSERT INTO videos(title, uploadedBy, description, privacy, category, filePath)
-         VALUES(:title, :uploadedBy, :description, :privacy, :category, :filePath)"
+         "INSERT INTO videos (title, uploadedBy, description, privacy, category, filePath)
+         VALUES (:title, :uploadedBy, :description, :privacy, :category, :filePath)"
       );
 
-      $title = $data["title"];
-      $description = $data["description"];
-      $privacy = $data["privacy"];
-      $category = $data["category"];
-      $uploadedBy = $data["username"];
-
-      $query->bindParam(":title", $title);
-      $query->bindParam(":description", $description);
-      $query->bindParam(":privacy", $privacy);
-      $query->bindParam(":category", $category);
-      $query->bindParam(":uploadedBy", $uploadedBy);
+      $query->bindParam(":title", $data["title"]);
+      $query->bindParam(":description", $data["description"]);
+      $query->bindParam(":privacy", $data["privacy"]);
+      $query->bindParam(":category", $data["category"]);
+      $query->bindParam(":uploadedBy", $data["username"]);
       $query->bindParam(":filePath", $filePath);
 
       $success = $query->execute();
-      $this->tempId = $this->db->lastInsertId();
-
+      $this->id = $this->db->lastInsertId();
       return $success;
     }
 
