@@ -4,7 +4,7 @@ require_once("includes/modelInterfaces/Comment.php");
 require_once("includes/markupRenderers/VideoPlayer.php");
 require_once("includes/markupRenderers/VideoInfo.php");
 require_once("includes/markupRenderers/CommentSection.php");
-require_once("includes/markupRenderers/CommentMarkup.php");
+require_once("includes/markupRenderers/CommentCard.php");
 ?>
 <script src="assets/javascript/videoPlayerActions.js"></script>
 <script src="assets/javascript/commentActions.js"></script>

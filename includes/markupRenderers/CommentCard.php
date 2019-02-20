@@ -1,7 +1,8 @@
+<link rel="stylesheet" type="text/css" href="assets/css/CommentCard.css">
 <?php
 require_once("Button.php");
 
-class CommentMarkup extends Comment {
+class CommentCard extends Comment {
 
    public function render() {
       $body = $this->body();
@@ -18,7 +19,7 @@ class CommentMarkup extends Comment {
       $repliesText = $this->getRepliesText();
       
       return "
-         <div class='itemContainer'>
+         <div class='commentCard'>
             <div class='comment'>
                $profileButton
                <div class='mainContainer'>

@@ -223,7 +223,7 @@ class Video {
       $comments = array();
 
       while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
-         $comment = new CommentMarkup($this->db, $row, $this->user, $this->id);
+         $comment = new CommentCard($this->db, $row, $this->user, $this->id);
          array_push($comments, $comment);
       }
 

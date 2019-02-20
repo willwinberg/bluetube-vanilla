@@ -2,7 +2,7 @@
 require_once("../includes/config.php");
 require_once("../includes/modelInterfaces/User.php");
 require_once("../includes/modelInterfaces/Comment.php");
-require_once("../includes/markupRenderers/CommentMarkup.php");
+require_once("../includes/markupRenderers/CommentCard.php");
 
 if (isset($_POST['body']) && isset($_POST['postedBy']) && isset($_POST['videoId'])) {
    $user = new User($db, $_SESSION["loggedIn"]);
@@ -24,9 +24,9 @@ if (isset($_POST['body']) && isset($_POST['postedBy']) && isset($_POST['videoId'
 
    $commentId = $db->lastInsertId();
 
-   $commentMarkup = new CommentMarkup($db, $commentId, $user, $videoId);
+   $commentCard = new CommentCard($db, $commentId, $user, $videoId);
 
-   echo $commentMarkup->render();
+   echo $commentCard->render();
 } else {
    echo "postComment.php is missing parameters";
 }

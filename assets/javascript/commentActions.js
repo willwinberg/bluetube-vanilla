@@ -90,7 +90,7 @@ function getReplies(button, commentId, videoId) {
 }
 
 function toggleReply(button) {
-   const parent = $(button).closest(".itemContainer");
+   const parent = $(button).closest(".commentCard");
    const commentForm = parent.find(".commentForm").first();
 
    commentForm.toggleClass("hidden");
