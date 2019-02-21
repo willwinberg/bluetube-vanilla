@@ -25,6 +25,10 @@
   background-color: transparent;
 }
 
+#mastheadContainer .navShowHide {
+  margin-bottom: 8px;
+}
+
 #mastheadContainer .logo img {
   margin-left: 25px;
   width: 180px;
