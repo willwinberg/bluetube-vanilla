@@ -5,7 +5,9 @@ require_once("includes/dataProcessors/FormInputSanitizer.php");
 require_once("includes/dataProcessors/FormInputValidator.php");
 require_once("includes/dataProcessors/AccountHandler.php");
 require_once("includes/markupRenderers/FormBuilder.php");
-
+?>
+<link rel="stylesheet" type="text/css" href="assets/css/FormBuilder.css">
+<?php
 if (User::isNotLoggedIn()) {
    header("Location: login.php");
 }

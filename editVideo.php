@@ -5,6 +5,12 @@ require_once("includes/dataProcessors/AccountHandler.php");
 require_once("includes/markupRenderers/VideoPlayer.php");
 require_once("includes/markupRenderers/ThumbnailSelector.php");
 require_once("includes/markupRenderers/FormBuilder.php");
+?>
+<link rel="stylesheet" type="text/css" href="assets/css/VideoPlayer.css">
+<link rel="stylesheet" type="text/css" href="assets/css/ThumbnailSelector.css">
+<script src="assets/javascript/selectThumbnail.js"></script>
+<script src="assets/javascript/selectFormBuilder.js"></script>
+<?php
 
 if (User::isNotLoggedIn()) {
    header("Location: login.php");

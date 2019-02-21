@@ -1,5 +1,3 @@
-<link rel="stylesheet" type="text/css" href="assets/css/loadingModal.css">
-
 <div
     class="modal fade"
     id="loadingModal"

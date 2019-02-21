@@ -4,7 +4,10 @@ require_once("includes/dataProcessors/FormInputSanitizer.php");
 require_once("includes/dataProcessors/VideoProcessor.php");
 require_once("includes/markupRenderers/FormBuilder.php");
 require_once("includes/markupRenderers/loadingModal.php");
-
+?>
+<link rel="stylesheet" type="text/css" href="assets/css/FormBuilder.css">
+<link rel="stylesheet" type="text/css" href="assets/css/loadingModal.css">
+<?php
 if (User::isNotLoggedIn()) {
    header("Location: login.php");
 }

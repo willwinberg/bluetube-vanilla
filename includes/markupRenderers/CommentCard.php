@@ -1,6 +1,4 @@
-<link rel="stylesheet" type="text/css" href="assets/css/CommentCard.css">
 <?php
-require_once("Button.php");
 
 class CommentCard extends Comment {
 

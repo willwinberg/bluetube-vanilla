@@ -24,7 +24,7 @@ function postComment(button, postedBy, videoId, replyTo, container) {
 }
 
 function likeComment(button, commentId, videoId) {
-   console.log(`likeComment(${button}, ${commentId}, ${videoId})`);
+   // console.log(`likeComment(${button}, ${commentId}, ${videoId})`);
    $.post("ajax/commentActions.php", { commentId, videoId, action: "like" })
       .done(function (likesUpdate) {
          const likeButton = $(button);
@@ -37,6 +37,7 @@ function likeComment(button, commentId, videoId) {
          updateValue(likeCount, likesUpdate);
 
          if (likesUpdate < 0) {
+
             likeButton.removeClass("active");
             likeButton.find("img").attr("src", "assets/images/icons/thumb-up.png");
          } else {
@@ -72,6 +73,7 @@ function dislikeComment(button, commentId, videoId) {
 }
 
 function updateValue(element, num) {
+   console.log(num);
    const count = element.text() || 0;
    const newCount = parseInt(count) + parseInt(num);
 

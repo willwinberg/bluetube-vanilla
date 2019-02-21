@@ -1,13 +1,14 @@
 <?php
 require_once("includes/config.php");
 require_once("includes/modelInterfaces/User.php");
-require_once("includes/modelInterfaces/Video.php");
-require_once("includes/dataProcessors/VideoCardsFetcher.php");
 require_once("includes/markupRenderers/Button.php"); 
 require_once("includes/markupRenderers/NavigationMenu.php"); 
-require_once("includes/markupRenderers/Masthead.php"); 
-require_once("includes/markupRenderers/VideoGrid.php"); 
-require_once("includes/markupRenderers/VideoCard.php");
+require_once("includes/markupRenderers/Masthead.php");
+?>
+<link rel="stylesheet" type="text/css" href="assets/css/Masthead.css">
+<link rel="stylesheet" type="text/css" href="assets/css/NavigationMenu.css">
+<link rel="stylesheet" type="text/css" href="assets/css/Button.css">
+<?php
 
 $loggedInUsername = User::isLoggedIn() ? $_SESSION["loggedIn"] : "";
 $user = new User($db, $loggedInUsername);

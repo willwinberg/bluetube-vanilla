@@ -2,7 +2,8 @@
 
 class User {
 
-   private $db, $user;
+   private $db;
+   public $user; // CHANGE
 
    public function __construct($db, $username) {
       $query = $db->prepare(

@@ -14,16 +14,16 @@ class CommentSection {
    public function render() {
       $commentCount = $this->video->getCommentCount();
       $videoId = $this->video->id();
-      $username = $this->user->username;
+      $username = $this->user->username();
       $profileButton = Button::profileButton($this->db, $username);
       $commentAction = "postComment(this, \"$username\", \"$videoId\", null, \"comments\")";
       $commentButton = Button::regular("Submit", $commentAction, "postComment", NULL);
       
-      $comments = $this->video->getCommentsArray();
+      $cards = $this->video->getCommentsArray();
       $commentsMarkup = "";
 
-      foreach ($comments as $comment) {
-         $commentsMarkup .= $comment->render();
+      foreach ($cards as $card) { 
+         $commentsMarkup .= $card->render();
       }
 
       return "

@@ -1,4 +1,3 @@
-<link rel="stylesheet" type="text/css" href="assets/css/Masthead.css">
 <?php
 require_once("includes/markupRenderers/Button.php");
 

@@ -1,5 +1,3 @@
-<link rel="stylesheet" type="text/css" href="assets/css/ThumbnailSelector.css">
-<script src="assets/javascript/selectThumbnail.js"></script>
 <?php
 
 class ThumbnailSelector {

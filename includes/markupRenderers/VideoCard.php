@@ -1,4 +1,3 @@
-<link rel="stylesheet" type="text/css" href="assets/css/VideoCard.css">
 <?php
 
 class VideoCard extends Video {

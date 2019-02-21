@@ -1,4 +1,3 @@
-<link rel="stylesheet" type="text/css" href="assets/css/NavigationMenu.css">
 <?php
 
 class NavigationMenu {

@@ -2,7 +2,7 @@
 
 class Comment {
 
-   private $db, $comment, $user, $videoId; //CHECK private or protected
+   protected $db, $comment, $user, $videoId; //CHECK private or protected
    // does this need videoId
 
    public function __construct($db, $input, $user, $videoId) {
