@@ -13,11 +13,11 @@ class VideoInfo {
    }
 
    public function render() {
-      $title = $this->video->title;
-      $uploadedBy = $this->video->uploadedBy;
-      $views = $this->video->views;
-      $uploadDate = $this->video->getUploadDate();
-      $description = $this->video->description;
+      $title = $this->video->title();
+      $uploadedBy = $this->video->uploadedBy();
+      $views = $this->video->views();
+      $uploadDate = $this->video->uploadDate();
+      $description = $this->video->description();
       $likeButton = $this->likeButton();
       $dislikeButton = $this->dislikeButton();
       $profileButton = $this->profileButton();
@@ -55,14 +55,14 @@ class VideoInfo {
    }
 
    private function profileButton() {
-      return Button::profileButton($this->db, $this->video->uploadedBy);
+      return Button::profileButton($this->db, $this->video->uploadedBy());
    }
 
    private function actionButton() {
-      if ($this->video->uploadedBy === $this->user->username) {
-            $actionButton = Button::editVideoButton($this->video->id);
+      if ($this->video->uploadedBy() === $this->user->username()) {
+            $actionButton = Button::editVideoButton($this->video->id());
       } else {
-         $actionButton = Button::subscribeButton($this->db, $this->user, $this->video->uploadedBy);
+         $actionButton = Button::subscribeButton($this->db, $this->user, $this->video->uploadedBy());
       }
 
       return $actionButton;
@@ -71,7 +71,7 @@ class VideoInfo {
    private function likeButton() {
       $likedUsers = $this->video->getLikedUsernameArray();
       $text = sizeof($likedUsers);
-      $videoId = $this->video->id;
+      $videoId = $this->video->id();
       $action = "likeVideo(this, $videoId)";
       $class = "likeButton";
       $src = "assets/images/icons/thumb-up.png"; 
@@ -86,7 +86,7 @@ class VideoInfo {
    private function dislikeButton() {
       $dislikedUsers = $this->video->getDislikedUsernameArray();
       $text = sizeof($dislikedUsers);
-      $videoId = $this->video->id;
+      $videoId = $this->video->id();
       $action = "dislikeVideo(this, $videoId)";
       $class = "dislikeButton";
       $src = "assets/images/icons/thumb-down.png";

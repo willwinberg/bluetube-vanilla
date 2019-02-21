@@ -2,7 +2,7 @@
 
 class User {
 
-   private $db;
+   private $db, $user;
 
    public function __construct($db, $username) {
       $query = $db->prepare(
@@ -24,17 +24,41 @@ class User {
       $this->bannerImg = "assets/images/banners/default-banner.png";
       $this->image = $user["image"];
    }
-
+   
    public static function isLoggedIn() {
       return isset($_SESSION["loggedIn"]);
    }
-
+   
    public static function isNotLoggedIn() {
       return !isset($_SESSION["loggedIn"]);
    }
 
+   public function username() {
+      return $this->user["username"];
+   }
+
+   public function firstName() {
+      return $this->user["firstName"];
+   }
+
+   public function lastName() {
+      return $this->user["lastName"];
+   }
+
    public function fullName() {
-      return $this->firstName . " " . $this->lastName;
+      return $this->firstName() . " " . $this->lastName();
+   }
+
+   public function email() {
+      return $this->user["email"];
+   }
+
+   public function image() {
+      return $this->user["image"];
+   }
+
+   public function bannerImg() {
+      return $this->user["bannerImg"];
    }
 
    public function signUpDate() {

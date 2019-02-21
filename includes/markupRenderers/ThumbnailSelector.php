@@ -11,7 +11,7 @@ class ThumbnailSelector {
    }
 
    public function render() {
-      $thumbnails = $this->video->getThumbnails($single = false);
+      $thumbnails = $this->video->getThumbnails($single = true);
       $html = "";
 
       foreach ($thumbnails as $thumbnail) {

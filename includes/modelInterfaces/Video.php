@@ -4,19 +4,6 @@ class Video {
 
    protected $db, $video, $user;
 
-   public 
-      $id,
-      $tile,
-      $description,
-      $privacy,
-      $category,
-      $views,
-      $duration,
-      $filePath,
-      $uploadedBy,
-      $uploadedDate
-   ;
-
    public function __construct($db, $input, $user) {
       $this->db = $db;
       $this->user = $user;
@@ -34,17 +21,6 @@ class Video {
       }
 
       $this->video = $video;
-
-      $this->id = $video["id"];
-      $this->title = $video["title"];
-      $this->description = $video["description"];
-      $this->privacy = $video["privacy"];
-      $this->category = $video["category"];
-      $this->views = $video["views"];
-      $this->duration = $video["duration"];
-      $this->filePath = $video["filePath"];
-      $this->uploadedBy = $video["uploadedBy"];
-      $this->uploadDate = $video["uploadDate"];
       $this->expanded = false;
    }
 
@@ -68,43 +44,52 @@ class Video {
       return $this->video["category"];
    }
    
-   // public function views() {
-   //    $video["views"];
-   // }
+   public function views() {
+      return $this->video["views"];
+   }
    
-   // public function duration() {
+   public function duration() {
+      return $this->video["duration"];
+   }
+   
+   public function filePath() {
+      return $this->video["filePath"];
+   }
 
-   // }
+   public function uploadedBy() {
+      return $this->video["uploadedBy"];
+   }
    
-   // public function filePath() {
-
-   // }
-   
-   public function getUploadDate() {
-      return date("M j, Y", strtotime($this->uploadDate));
+   public function uploadDate() {
+      return date("M j, Y", strtotime($this->video["uploadDate"]));
    }
 
    public function timestamp() {
-      return date("M jS, Y", strtotime($this->uploadDate));
+      return date("M jS, Y", strtotime($this->video["uploadDate"]));
    }
 
    public function incrementViews() {
+      $id = $this->id();
+
       $query = $this->db->prepare(
          "UPDATE videos SET views=views+1 WHERE id=:id"
       );
-      $query->bindParam(":id", $this->id);
+      $query->bindParam(":id", $id);
       $query->execute();
 
-      $this->views++;
+      $this->video["views"] = $this->video["views"] + 1;
    }
 
    public function addLike() {
-      if (in_array($this->user->username, $this->getLikedUsernameArray())) {
+      $id = $this->id();
+      $username = $this->user->username();
+
+      if (in_array($username, $this->getLikedUsernameArray())) {
          $query = $this->db->prepare(
             "DELETE FROM likes WHERE username=:username AND videoId=:videoId"
          );
-         $query->bindParam(":username", $this->user->username);
-         $query->bindParam(":videoId", $this->id);
+         $query->bindParam(":username", $username);
+         $query->bindParam(":videoId", $id);
          $query->execute();
 
          $result = array("likes" => -1, "dislikes" => 0);
@@ -115,8 +100,8 @@ class Video {
          $query = $this->db->prepare(
          "DELETE FROM dislikes WHERE username=:username AND videoId=:videoId"
          );
-         $query->bindParam(":username", $this->user->username);
-         $query->bindParam(":videoId", $this->id);
+         $query->bindParam(":username", $username);
+         $query->bindParam(":videoId", $id);
          $query->execute();
 
          $count = $query->rowCount();
@@ -124,8 +109,8 @@ class Video {
          $query = $this->db->prepare(
             "INSERT INTO likes (username, videoId) VALUES(:username,   :videoId)"
          );
-         $query->bindParam(":username", $this->user->username);
-         $query->bindParam(":videoId", $this->id);
+         $query->bindParam(":username", $username);
+         $query->bindParam(":videoId", $id);
          $query->execute();  
 
          $result = array("likes" => 1, "dislikes" => 0 - $count);
@@ -135,12 +120,15 @@ class Video {
    }
 
    public function addDislike() {
-      if (in_array($this->user->username, $this->getDislikedUsernameArray())) {
+      $id = $this->id();
+      $username = $this->user->username();
+
+      if (in_array($username, $this->getDislikedUsernameArray())) {
          $query = $this->db->prepare(
             "DELETE FROM dislikes WHERE username=:username AND videoId=:videoId"
          );
-         $query->bindParam(":username", $this->user->username);
-         $query->bindParam(":videoId", $this->id);
+         $query->bindParam(":username", $username);
+         $query->bindParam(":videoId", $id);
          $query->execute();
 
          $result = array("dislikes" => -1, "likes" => 0);
@@ -151,8 +139,8 @@ class Video {
          $query = $this->db->prepare(
          "DELETE FROM likes WHERE username=:username AND videoId=:videoId"
          );
-         $query->bindParam(":username", $this->user->username);
-         $query->bindParam(":videoId", $this->id);
+         $query->bindParam(":username", $username);
+         $query->bindParam(":videoId", $id);
          $query->execute();
 
          $count = $query->rowCount();
@@ -160,8 +148,8 @@ class Video {
          $query = $this->db->prepare(
             "INSERT INTO dislikes (username, videoId) VALUES(:username, :videoId)"
          );
-         $query->bindParam(":username", $this->user->username);
-         $query->bindParam(":videoId", $this->id);
+         $query->bindParam(":username", $username);
+         $query->bindParam(":videoId", $id);
          $query->execute(); 
 
          $result = array("dislikes" => 1, "likes" => 0 - $count);
@@ -171,10 +159,12 @@ class Video {
    }
 
    function getLikedUsernameArray() {
+      $id = $this->id();
+
       $query = $this->db->prepare(
          "SELECT * FROM likes WHERE videoId = :videoId"
       );
-      $query->bindParam(":videoId", $this->id);
+      $query->bindParam(":videoId", $id);
       $query->execute();
 
       $users = $query->fetchAll();
@@ -188,10 +178,12 @@ class Video {
    }
 
    public function getDislikedUsernameArray() {
+      $id = $this->id();
+
       $query = $this->db->prepare(
          "SELECT * FROM dislikes WHERE videoId = :videoId"
       );
-      $query->bindParam(":videoId", $this->id);
+      $query->bindParam(":videoId", $id);
       $query->execute();
 
       $users = $query->fetchAll();
@@ -205,36 +197,42 @@ class Video {
    }
 
    public function getCommentCount() {
+      $id = $this->id();
+
       $query = $this->db->prepare(
          "SELECT count(*) FROM comments WHERE videoId=:videoId"
       );
-      $query->bindParam(":videoId", $this->id);
+      $query->bindParam(":videoId", $id);
       $query->execute();
 
       return $query->fetchColumn();
    }
 
    public function getCommentsArray() {
+      $id = $this->id();
+
       $query = $this->db->prepare(
          "SELECT * FROM comments WHERE videoId=:videoId AND replyTo=0 ORDER BY postDate DESC"
       );
-      $query->bindParam(":videoId", $this->id);
+      $query->bindParam(":videoId", $id);
       $query->execute();
       $comments = array();
 
       while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
-         $comment = new CommentCard($this->db, $row, $this->user, $this->id);
+         $comment = new CommentCard($this->db, $row, $this->user, $id);
          array_push($comments, $comment);
       }
 
       return $comments;
    }
 
-   public function getThumbnails($single = true) {
+   public function getThumbnails($single = false) {
+      $id = $this->id();
+
       $getOne = $single ? "AND selected=1" : "";
       $query = $this->db->prepare(
          "SELECT * FROM thumbnails WHERE videoId=:videoId $getOne");
-      $query->bindParam(":videoId", $this->id);
+      $query->bindParam(":videoId", $id);
       $query->execute();
       
       if ($single) {
@@ -243,17 +241,14 @@ class Video {
          return $query->fetchAll();
       }
    }
-   
-   public function dataSameAs($data) {
-      $details = array(
-         $this->title(),
-         $this->description(),
-         $this->privacy(),
-         $this->category()
-      );
 
-      return sizeof(array_intersect($data, $details)) > 0;
+   public function getDetailsArray() {
+      return array(
+         "title" => $this->title(),
+         "description" => $this->description(),
+         "privacy" => $this->privacy(),
+         "category" => $this->category(),
+      );
    }
-   
    
 }

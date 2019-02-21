@@ -16,15 +16,16 @@ if (!isset($_GET["videoId"])) {
 } else {
    $video = new Video($db, $_GET["videoId"], $user);
 
-   if ($video->uploadedBy !== $user->username) {
+   if ($video->uploadedBy() !== $user->username()) {
       echo Error::$notOwnedVideo;
       exit();
    }
 }
-// video just uploaded and browser rerouted here
+// if video just uploaded and browser rerouted here
 if (isset($_GET["success"])) $alert = Success::$upload;
 
-$noChanges = isset($_POST) && !$video->dataSameAs($_POST);
+$noChanges = isset($_POST)
+   && !array_intersect($_POST, $video->getDetailsArray());
 
 if ($noChanges) {
    $alert = Error::$noChanges;
@@ -41,7 +42,7 @@ if ($noChanges) {
 
 <section class='row'>
    <?php
-   $videoPlayer = new VideoPlayer($video->filePath);
+   $videoPlayer = new VideoPlayer($video->filePath());
    echo $videoPlayer->render(false);
    
    $thumbnails = new ThumbnailSelector($video);
@@ -49,7 +50,7 @@ if ($noChanges) {
    ?>
 </section>
 <?php
-$form = new FormBuilder((array)$video);
+$form = new FormBuilder($video->getDetailsArray());
 
 echo $alert;
 echo $form->openFormTag("Edit Video");

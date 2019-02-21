@@ -41,10 +41,11 @@ class Button {
    public static function profileButton($db, $username) {
       $user = new User($db, $username);
       $link = "channel.php?username=$username";
+      $img = $user->image();
       
       return "
          <a href='$link'>
-            <img src='$user->image' class='profileImg'>
+            <img src='$img' class='profileImg'>
          </a>
       ";
    }
@@ -62,14 +63,19 @@ class Button {
 
    public static function subscribeButton($db, $subscriber, $uploader) {
       $uploader = new User($db, $uploader);
+      $uploaderUsername = $uploader->username();
+      $uploaderSubCount = $uploader->getSubscriberCount();
+      
+      $subscriberUsername = $subscriber->username();
       $subscribersSubs = $subscriber->subscriptionsArray();
-      $uploadersSubCount = $uploader->getSubscriberCount();
-      $alreadySubbed = in_array($uploader->username, $subscribersSubs);
+
+      $alreadySubbed = in_array($uploaderUsername, $subscribersSubs);
+
       $text = $alreadySubbed ? "SUBSCRIBED" : "SUBSCRIBE";
-      $text .= " " . $uploadersSubCount;
+      $text .= " " . $uploaderSubCount;
 
       $class = $alreadySubbed ? "unsubscribe button" : "subscribe button";
-      $action = "subscribe(this, \"$uploader->username\", \"$subscriber->username\")";
+      $action = "subscribe(this, \"$uploaderUsername\", \"$subscriberUsername\")";
 
       $button = Button::regular($text, $action, $class, NULL);
 

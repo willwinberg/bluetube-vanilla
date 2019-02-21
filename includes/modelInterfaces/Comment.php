@@ -2,7 +2,8 @@
 
 class Comment {
 
-   protected $db, $comment, $user, $videoId;
+   private $db, $comment, $user, $videoId; //CHECK private or protected
+   // does this need videoId
 
    public function __construct($db, $input, $user, $videoId) {
       if (is_array($input)) {
@@ -23,9 +24,9 @@ class Comment {
       $this->videoId = $videoId;
    }
 
-   public function user() {
-      return $this->user;
-   }
+   // public function user() { 
+   //    return $this->user;
+   // }
 
    public function id() {
       return $this->comment["id"];
@@ -52,13 +53,11 @@ class Comment {
    }
 
    public function body() {
-      $text = $this->comment["body"];
-      $text = strip_tags($text);
-      return $text;
+      return $this->comment["body"];
    }
 
    public function addComment() {
-      // in ajax for now...
+      // in ajax for now... // CHECK put in Account?
    }
 
    public function getRepliesArray() {

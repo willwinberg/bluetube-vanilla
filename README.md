@@ -6,7 +6,14 @@
 - Jquery
 - Bootstrap
 
-## TODO:
+### php.ini modifications
+
+- `max_execution_time=3000`
+- `max_filesize=1024M`
+
+#### Must include [ffmpeg and ffprobe](https://www.ffmpeg.org/download.html) in `assets/ffmpeg` for Widows, Mac, or Linux accordingly
+
+### TODO:
 
 - replies comments hide button
 - make delete video button
@@ -16,13 +23,5 @@
 - add custom profile picture feature
 - make comment reply nesting limited to 1
 - add custom banner feature
-- make Video class properties private, only functions public
 - make User class properties private, only functions public
 - foreign key constraints on privacy and category db attrs
-
-## php.ini modifications
-
-- `max_execution_time=3000`
-- `max_filesize=1024M`
-
-### Must include [ffmpeg and ffprobe](https://www.ffmpeg.org/download.html) in `assets/ffmpeg` for Widows, Mac, or Linux accordingly

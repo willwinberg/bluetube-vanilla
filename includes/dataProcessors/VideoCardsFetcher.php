@@ -16,8 +16,8 @@ class VideoCardsFetcher {
       $query->execute();
       $cards = array();
 
-      while ($video = $query->fetch(PDO::FETCH_ASSOC)) {
-         $card = new VideoCard($this->db, $video, $this->user);
+      while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
+         $card = new VideoCard($this->db, $row, $this->user);
          array_push($cards, $card);
       }
 
@@ -51,12 +51,10 @@ class VideoCardsFetcher {
       }
       $query->execute();
 
-      while ($video = $query->fetch(PDO::FETCH_ASSOC)) {
-         $card = new VideoCard($this->db, $video, $this->user);
+      while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
+         $card = new VideoCard($this->db, $row, $this->user);
          array_push($cards, $card);
       }
-
-      // var_dump($cards);
 
       return $cards;
    }
@@ -71,8 +69,8 @@ class VideoCardsFetcher {
 
       $cards = array();
 
-      while ($video = $query->fetch(PDO::FETCH_ASSOC)) {
-         $card = new VideoCard($this->db, $video, $this->user);
+      while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
+         $card = new VideoCard($this->db, $row, $this->user);
          array_push($cards, $card);
       }
 
@@ -88,8 +86,8 @@ class VideoCardsFetcher {
 
       $cards = array();
 
-      while ($video = $query->fetch(PDO::FETCH_ASSOC)) {
-         $card = new VideoCard($this->db, $video, $this->user);
+      while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
+         $card = new VideoCard($this->db, $row, $this->user);
          array_push($cards, $card);
       }
 
@@ -106,8 +104,8 @@ class VideoCardsFetcher {
 
       $cards = array();
 
-      while ($video = $query->fetch(PDO::FETCH_ASSOC)) {
-         $card = new VideoCard($this->db, $video["videoId"], $this->user);
+      while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
+         $card = new VideoCard($this->db, $row["videoId"], $this->user);
          array_push($cards, $card);
       }
 
@@ -122,8 +120,8 @@ class VideoCardsFetcher {
 
       $cards = array();
 
-      while ($video = $query->fetch(PDO::FETCH_ASSOC)) {
-         $card = new VideoCard($this->db, $video, $this->user);
+      while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
+         $card = new VideoCard($this->db, $row, $this->user);
          array_push($cards, $card);
       }
 

@@ -18,7 +18,7 @@ if (!isset($_GET["id"])) {
 $video = new Video($db, $_GET["id"], $user);
 $video->incrementViews();
 
-$videoPlayer = new VideoPlayer($video->filePath);
+$videoPlayer = new VideoPlayer($video->filePath());
 $videoInfo = new VideoInfo($db, $video, $user);
 $commentSection = new CommentSection($db, $video, $user);
 
