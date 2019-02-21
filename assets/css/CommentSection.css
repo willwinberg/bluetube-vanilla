@@ -46,5 +46,5 @@
   cursor: pointer;
 }
 .commentSection .header .commentForm .postComment:hover {
-  color: rgba(17, 17, 17, 0.6);
+  box-shadow: rgba(0, 0, 0, 0.3) 0 2px 2px;
 }

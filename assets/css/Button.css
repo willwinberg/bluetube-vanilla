@@ -19,6 +19,9 @@
   background-color: #f00;
   color: #fff;
 }
+/* .buttonContainer .subscribe:hover {
+  box-shadow: rgba(0, 0, 0, 0.3) 0 2px 2px;
+} */
 
 .buttonContainer .unsubscribe {
   background-color: #eee;
@@ -28,4 +31,8 @@
 .buttonContainer .edit {
   background-color: #2692e6;
   color: #fff;
+}
+
+.buttonContainer button:hover {
+  box-shadow: rgba(0, 0, 0, 0.3) 0 2px 2px;
 }
