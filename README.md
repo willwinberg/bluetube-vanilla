@@ -1,4 +1,4 @@
-![bluetube](https://github.com/Mehrunes-Dagon/bluetube/blob/master/assets/images/logo.png "BlueTube" | width=300)
+![bluetube](https://github.com/Mehrunes-Dagon/bluetube/blob/master/assets/images/logo.png "BlueTube")
 
 ### A video app like YouTube but only for sad videos
 
