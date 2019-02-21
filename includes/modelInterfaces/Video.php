@@ -226,16 +226,16 @@ class Video {
       return $comments;
    }
 
-   public function getThumbnails($single = false) {
+   public function getThumbnails($selected = false) {
       $id = $this->id();
 
-      $getOne = $single ? "AND selected=1" : "";
+      $getOne = $selected ? "AND selected=1" : "";
       $query = $this->db->prepare(
          "SELECT * FROM thumbnails WHERE videoId=:videoId $getOne");
       $query->bindParam(":videoId", $id);
       $query->execute();
       
-      if ($single) {
+      if ($selected) {
          return $query->fetch();
       } else {
          return $query->fetchAll();

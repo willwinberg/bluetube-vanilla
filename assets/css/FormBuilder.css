@@ -1,9 +1,14 @@
 .formHeader {
   font-size: 18px;
   font-weight: 400;
+  width: 100%;
   margin: 20px 0;
   border-bottom: 1px solid #dedede;
   padding-bottom: 8px;
+}
+
+form {
+  margin-right: 15px;
 }
 
 /* ENTRY FORMS, others in bootstrap */

@@ -29,23 +29,6 @@ class FormBuilder {
         ";
     }
 
-    public function fileInput($title) {
-        $name = strtolower($title);
-
-        return "
-            <div class='form-group row'>
-                <label class='inputLabel col-sm-2 col-form-label'>$title</label>
-                <input
-                    class='form-control-file col-sm-10'
-                    type='file'
-                    id='form-file'
-                    name='$name'
-                    required
-                >
-            </div>
-        ";
-    }
-
     public function textInput($title, $name, $type = "text") {
         $value = $this->data[$name];
         if ($type == "password") $value = null;
@@ -99,8 +82,21 @@ class FormBuilder {
         ";
     }
 
-    private function getError($inputName) {
-        
+    public function fileInput($title) {
+        $name = strtolower($title);
+
+        return "
+            <div class='form-group row'>
+                <label class='inputLabel col-sm-2 col-form-label'>$title</label>
+                <input
+                    class='form-control-file col-sm-10 btn'
+                    type='file'
+                    id='form-file'
+                    name='$name'
+                    required
+                >
+            </div>
+        ";
     }
 
     public function privacyInput() {

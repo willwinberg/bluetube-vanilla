@@ -22,7 +22,7 @@ class VideoCard extends Video {
    }
 
    private function makeThumbnail() {
-      $thumbnail = $this->getThumbnails();
+      $thumbnail = $this->getThumbnails($selected = true);
       $path = $thumbnail["filePath"];
       $id = $thumbnail["id"];
       $duration = $this->duration();

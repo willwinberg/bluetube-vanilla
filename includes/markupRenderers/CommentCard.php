@@ -1,4 +1,5 @@
 <?php
+require_once("Button.php"); 
 
 class CommentCard extends Comment {
 
