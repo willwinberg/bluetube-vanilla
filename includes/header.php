@@ -44,6 +44,6 @@ $masthead = new Masthead($db, $loggedInUsername);
       echo $navMenu->render();     
       ?>
 
-      <div id="mainSectionContainer" class="container-fluid">
+      <div id="mainSectionContainer">
          <div id="mainContentContainer">
             

@@ -17,7 +17,7 @@ if (User::isNotLoggedIn()) {
 $cardFetcher = new VideoCardsFetcher($db, $user);
 $likedCards = $cardFetcher->getLiked();
 
-$likedGrid = new VideoGrid($likedCards, true);
+$likedGrid = new VideoGrid($likedCards, "liked");
 echo $likedGrid->render("Videos You Liked");
 
 require_once("includes/footer.php"); 

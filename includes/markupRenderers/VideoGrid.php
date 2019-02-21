@@ -6,15 +6,17 @@ class VideoGrid {
 
    public function __construct($cards, $type = false) {
       $this->cards = $cards;
-      $this->type = $type;
       $this->cssClass = "videoGrid";
 
-      if ($type) {
-         $this->expanded = true;
-         $this->cssClass .= " large";
-      }
-      if (($type === "results")) {
-         $this->filterButtons = $this->makeFilterButtons();
+      switch ($type) {
+         case "watchPage":
+            $this->cssClass .= " asRows";
+            break;
+         case "results":
+            $this->filterButtons = $this->makeFilterButtons();
+         case true: // if "results" || something else
+            $this->expanded = true;
+            $this->cssClass .= " large";
       }
    }
 

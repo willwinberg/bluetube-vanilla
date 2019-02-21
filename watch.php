@@ -34,19 +34,19 @@ $commentSection = new CommentSection($db, $video, $user);
 
 $cardFetcher = new VideoCardsFetcher($db, $user);
 $recommendedCards = $cardFetcher->getRecommended();
-$recommendationsGrid = new VideoGrid($recommendedCards);
+$recommendationsGrid = new VideoGrid($recommendedCards, "watchPage");
 ?>
 
 <div class="row">
-    <div class="col-8">
+    <div class="col">
     <?php
     echo $videoPlayer->render(true);
     echo $videoInfo->render();
     echo $commentSection->render();
     ?>
     </div>
-    <div class="col-4 suggestions">
-        <?php echo $recommendationsGrid->render(); ?>
+    <div class="col">
+        <?php echo $recommendationsGrid->render(""); ?>
     </div>
 </div>
 

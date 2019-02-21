@@ -2,7 +2,7 @@
 
 .videoCard {
   margin: 0 4px;
-  margin-bottom: 24px;
+  margin-bottom: 15px;
 }
 
 .videoCard .thumbnail {
@@ -43,7 +43,7 @@
 
 .videoCard .details .title {
   margin: 8px 0;
-  max-height: 32px;
+  max-height: 18px;
   overflow: hidden;
   font-size: 16px;
   font-weight: 500;
@@ -85,6 +85,16 @@
   color: rgba(17, 17, 17, 0.6);
 }
 
+/* watch.php recomendations */
+
+.videoGrid.asRows .videoCard {
+  margin: 0 0 8px 18px;
+  display: flex;
+}
+
+.videoGrid.asRows .videoCard .details {
+  padding: 0 12px;
+}
 /* LARGE GRID */
 
 .videoGrid.large .videoCard {

@@ -12,7 +12,7 @@ require_once("includes/markupRenderers/VideoCard.php");
 $cardFetcher = new VideoCardsFetcher($db, $user);
 $trendingCards = $cardFetcher->getTrending();
 
-$trendingGrid = new VideoGrid($trendingCards, true);
+$trendingGrid = new VideoGrid($trendingCards, "trending");
 echo $trendingGrid->render("Trending");
 
 require_once("includes/footer.php");

@@ -16,7 +16,7 @@ if (User::isNotLoggedIn()) {
 $cardFetcher = new VideoCardsFetcher($db, $user);
 $subscriptionCards = $cardFetcher->getSubscribed();
 
-$subscriptionGrid = new VideoGrid($subscriptionCards, true);
+$subscriptionGrid = new VideoGrid($subscriptionCards, "subscriptions");
 echo $subscriptionGrid->render("Subscriptions");
 
 require_once("includes/footer.php");
