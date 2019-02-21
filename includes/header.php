@@ -1,6 +1,8 @@
 <?php
 require_once("includes/config.php");
 require_once("includes/modelInterfaces/User.php");
+require_once("includes/dataProcessors/Error.php");
+require_once("includes/dataProcessors/Success.php");
 require_once("includes/markupRenderers/Button.php"); 
 require_once("includes/markupRenderers/NavigationMenu.php"); 
 require_once("includes/markupRenderers/Masthead.php");

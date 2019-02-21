@@ -41,3 +41,10 @@
   border-top: 1px solid #e8e8e8;
   display: block;
 }
+
+#navContainer span.none {
+  font-size: 14px;
+  font-weight: 100;
+  padding-left: 30px;
+  padding-top: 10px;
+}

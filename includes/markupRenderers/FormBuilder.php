@@ -15,17 +15,19 @@ class FormBuilder {
 
     public function openFormTag($header = "", $enctype = "application/x-www-form-urlencoded") {
         return "
-            <h2 class='formHeader'>$header</h2>
-            <form
-                method='POST'
-                enctype='$enctype'
-            >
+            <div>
+                <h2 class='formHeader'>$header</h2>
+                <form
+                    method='POST'
+                    enctype='$enctype'
+                >
         ";
     }
 
     public function closeFormTag() {
         return "
-            </form>
+                </form>
+            </div>
         ";
     }
 
@@ -35,9 +37,9 @@ class FormBuilder {
 
         return "
             <div class='form-group row'>
-                <label class='inputLabel col-sm-2 col-form-label'>$title</label>
+                <label class='inputLabel col-3 col-form-label'>$title</label>
                 <input
-                    class='form-control col-sm-10'
+                    class='form-control col-9'
                     type='$type'
                     name='$name'
                     value='$value'

@@ -73,7 +73,7 @@ private $db, $loggedInUser, $channelsUsername;
       if ($this->channelOwner->username !== $this->loggedInUser->username) {
          return Button::subscribeButton($this->db, $this->loggedInUser, $this->channelOwner->username);
       } else {
-         return Button::hyperlink("Edit My Profile", "settings.php", "edit", null);
+         return Button::hyperlink("Edit Your Profile", "settings.php", "edit", null);
       }
    }
 

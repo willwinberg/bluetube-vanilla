@@ -18,7 +18,12 @@ $cardFetcher = new VideoCardsFetcher($db, $user);
 $likedCards = $cardFetcher->getLiked();
 
 $likedGrid = new VideoGrid($likedCards, "liked");
-echo $likedGrid->render("Videos You Liked");
+$html = $likedGrid->render("Videos You Liked");
+if ($html) {
+   echo $html;
+} else {
+   echo Error::$noLiked;
+}
 
 require_once("includes/footer.php"); 
 ?>

@@ -22,6 +22,7 @@ class VideoGrid {
 
    public function render($title = "") {
       $gridCards = $this->makeGridCards();
+      if (!$gridCards) return "";
       $filterButtons = $this->filterButtons;
       
       if ($title) {

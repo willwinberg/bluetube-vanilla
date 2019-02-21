@@ -17,7 +17,12 @@ $cardFetcher = new VideoCardsFetcher($db, $user);
 $subscriptionCards = $cardFetcher->getSubscribed();
 
 $subscriptionGrid = new VideoGrid($subscriptionCards, "subscriptions");
-echo $subscriptionGrid->render("Subscriptions");
+$html = $subscriptionGrid->render("Subscriptions");
+if ($html) {
+   echo $html;
+} else {
+   echo Error::$noSubscriptions;
+}
 
 require_once("includes/footer.php");
 ?>

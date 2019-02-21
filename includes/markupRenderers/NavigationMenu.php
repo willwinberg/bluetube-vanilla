@@ -54,6 +54,8 @@ class NavigationMenu {
          );
       }
 
+      if (!$html) return "<span class='none'>None yet</span>";
+
       return $html;
    }
 

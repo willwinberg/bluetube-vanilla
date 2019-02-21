@@ -37,15 +37,15 @@ $recommendedCards = $cardFetcher->getRecommended();
 $recommendationsGrid = new VideoGrid($recommendedCards, "watchPage");
 ?>
 
-<div class="row">
-    <div class="col">
+<div class="row justify-center">
+    <div class="col-7">
     <?php
     echo $videoPlayer->render(true);
     echo $videoInfo->render();
     echo $commentSection->render();
     ?>
     </div>
-    <div class="col">
+    <div class="col-4">
         <?php echo $recommendationsGrid->render(""); ?>
     </div>
 </div>

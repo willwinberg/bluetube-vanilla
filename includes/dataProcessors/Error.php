@@ -23,6 +23,8 @@ class Error {
    public static $noVideoSelected = "No video has been selected";
    public static $notOwnedVideo = "You do not have permission to edit this video";
    public static $upload = "<div class='alert alert-danger'>Video upload failed</div>";
+   public static $noSubscriptions = "<span class='errorMessage'>You haven't subscribed to anyone yet.</span>";
+   public static $noLiked = "<span class='errorMessage'>You haven't liked any videos yet.</span>";
 
    public static function alert($error) {
       return "
