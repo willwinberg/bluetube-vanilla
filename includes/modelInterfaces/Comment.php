@@ -51,10 +51,6 @@ class Comment {
       return $this->comment["body"];
    }
 
-   public function addComment() {
-      // in ajax for now... // CHECK put in Account?
-   }
-
    public function getRepliesArray() {
       $id = $this->id();
       $query = $this->db->prepare(

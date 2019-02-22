@@ -18,10 +18,7 @@
 - replies comments hide button
 - make delete video button
 - make all errors in span with class
-- processing, comments, need Sanitizer
-- make requires are only where necessary
 - add custom profile picture feature
-- make comment reply nesting limited to 1
 - add custom banner feature
 - make User class properties private, only functions public
-- foreign key constraints on privacy and category db attrs
+- foreign key constraints

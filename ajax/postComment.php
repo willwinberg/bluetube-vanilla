@@ -16,7 +16,5 @@ if (isset($_POST['body']) && isset($_POST['videoId'])) {
    $commentCard = new CommentCard($db, $commentId, $user, $videoId);
 
    echo $commentCard->render();
-} else {
-   echo "postComment.php is missing parameters";
 }
 ?>

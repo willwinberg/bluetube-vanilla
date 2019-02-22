@@ -26,7 +26,5 @@ if ($action === 'like') {
    }
 
    echo $html;
-} else {
-   echo "Error in commentActions.php";
 }
 ?>

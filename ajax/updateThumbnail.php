@@ -16,7 +16,5 @@ if (isset($_POST['videoId']) && isset($_POST['thumbnailId'])) {
       );
     $query->bindParam(":thumbnailId", $thumbnailId);
     $query->execute();
-} else {
-    echo "ajax/updateThumbnail.php is missing one or more parameters.";
 }
 ?>

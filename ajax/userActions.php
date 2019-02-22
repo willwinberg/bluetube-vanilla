@@ -14,7 +14,5 @@ if (isset($_POST["toUsername"]) && isset($_POST["fromUsername"])) {
    }
    
    echo $toUser->getSubscriberCount();
-} else {
-   echo "Error in userAction.php";
 }
 ?>
