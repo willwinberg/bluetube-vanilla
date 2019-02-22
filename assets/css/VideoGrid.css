@@ -1,6 +1,7 @@
 .videoGrid {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
 }
 
 .gridHeader {
@@ -8,6 +9,7 @@
   flex-direction: column;
   margin: 10px 0;
   font-size: 20px;
+  text-indent: 5vw;
   padding-bottom: 10px;
   border-bottom: 1px solid #e8e8e8;
 }

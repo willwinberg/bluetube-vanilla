@@ -56,12 +56,15 @@ class AccountHandler {
       }
    }
 
-
-
    public function updateDetails($data, $username) {
       $query = $this->db->prepare(
-         "UPDATE users SET firstName=:fistName, lastName=:lastName, email=:email WHERE username=:username");
-      $query->bindParam(":fistName", $data["firstName"]);
+         "UPDATE users SET
+         firstName=:firstName,
+         lastName=:lastName,
+         email=:email WHERE
+         username=:username"
+      );
+      $query->bindParam(":firstName", $data["firstName"]);
       $query->bindParam(":lastName", $data["lastName"]);
       $query->bindParam(":email", $data["email"]);
       $query->bindParam(":username", $username);
@@ -71,6 +74,23 @@ class AccountHandler {
          $this->success = Success::$detailsUpdate;
       } else {
          $this->error = Error::$detailsUpdateFailed;
+      }
+      return;
+   }
+
+   public function updateImage($path, $username) {
+      $query = $this->db->prepare(
+         "UPDATE users SET image=:image
+         WHERE username=:username"
+      );
+      $query->bindParam(":image", $path);
+      $query->bindParam(":username", $username);
+      $query->execute();
+
+      if ($query->rowCount() === 1) {
+         $this->success = Success::$profileImage;
+      } else {
+         $this->error = Error::$profileImage;
       }
       return;
    }

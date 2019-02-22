@@ -43,39 +43,67 @@ if (isset($_POST["passwordUpdate"])) {
    }
 }
 
-$form = new FormBuilder($user->user);
-
-echo $form->openFormTag("Modify Personal Information");
-   echo $account->success();
-   echo $validator->error(Error::$firstNameLength);
-   echo $form->textInput("First Name", "firstName");
-
-   echo $validator->error(Error::$lastNameLength);
-   echo $form->textInput("Last Name", "lastName");
-
-   echo $validator->error(Error::$emailInvalid);
-   echo $validator->error(Error::$emailTaken);
-   echo $form->textInput("Email", "email");
-
-   echo $validator->error(Error::$emailsDoNotMatch);
-   echo $form->textInput("Confirm Email", "emailConfirm");
-
-   echo $form->submitButton("SUBMIT", "detailsUpdate");
-echo $form->closeFormTag();
-
-echo $form->openFormTag("Change your password");
-   echo $validator->error(Error::$passwordIncorrect);
-   echo $form->textInput("Old Password", "oldPassword", "password");
-
-   echo $validator->error(Error::$passwordNotSecure);
-   echo $validator->error(Error::$passwordLength);
-   echo $form->textInput("New Password", "newPassword", "password");
-
-   echo $validator->error(Error::$passwordsDoNotMatch);   
-   echo $form->textInput("Confirm Password", "passwordConfirm", "password");
-
-   echo $form->submitButton("SUBMIT", "passwordUpdate");
-echo $form->closeFormTag();
-
-require_once("includes/footer.php");
+if (isset($_FILES["imageUpdate"])) {
+   $validator->validateImage();
+   $noErrors = empty($validator->errors);
+   var_dump($validator->errors);
+   if ($noErrors) {
+      $account->updateImage($path, $username);
+   }
+}
 ?>
+<div class="row">
+   <div class="col-7">
+      <?php
+      $form = new FormBuilder($user->user);
+
+      echo $form->openFormTag("Modify Personal Information");
+         echo $account->success();
+         echo $validator->error(Error::$firstNameLength);
+         echo $form->textInput("First Name", "firstName");
+
+         echo $validator->error(Error::$lastNameLength);
+         echo $form->textInput("Last Name", "lastName");
+
+         echo $validator->error(Error::$emailInvalid);
+         echo $validator->error(Error::$emailTaken);
+         echo $form->textInput("Email", "email");
+
+         echo $validator->error(Error::$emailsDoNotMatch);
+         echo $form->textInput("Confirm Email", "emailConfirm");
+
+         echo $form->submitButton("Submit", "detailsUpdate");
+      echo $form->closeFormTag();
+      ?>
+   </div>
+   <div class ="col-5">
+      <?php
+      echo $form->openFormTag("Change your profile picture", "multipart/form-data");
+         echo $form->FileInput("Image", "file");
+         
+         echo $form->submitButton("Submit", "imageUpdate");
+      echo $form->closeFormTag();
+      ?>
+   </div>
+</div>
+<div class="row">
+   <div class="col-7">
+      <?php
+      echo $form->openFormTag("Change your password");
+         echo $validator->error(Error::$passwordIncorrect);
+         echo $form->textInput("Old Password", "oldPassword", "password");
+
+         echo $validator->error(Error::$passwordNotSecure);
+         echo $validator->error(Error::$passwordLength);
+         echo $form->textInput("New Password", "newPassword", "password");
+
+         echo $validator->error(Error::$passwordsDoNotMatch);   
+         echo $form->textInput("Confirm Password", "passwordConfirm", "password");
+
+         echo $form->submitButton("Submit", "passwordUpdate");
+      echo $form->closeFormTag();
+      ?>
+   </div>
+</div>
+
+<?php require_once("includes/footer.php"); ?>

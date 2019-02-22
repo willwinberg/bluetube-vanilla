@@ -9,6 +9,7 @@ class Success {
    
    public static $videoUpdate = "<div class='alert alert-success'>Video updated successfully</div>";
    public static $upload = "<div class='alert alert-success'>Video upload successful</div>";
+   public static $image = "<div class='alert alert-success'>Image update successful</div>";
 
 
    function alert($message) {

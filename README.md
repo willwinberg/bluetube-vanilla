@@ -15,6 +15,7 @@
 
 ### TODO:
 
+- transfer Account to User
 - replies comments hide button
 - make delete video button
 - make all errors in span with class

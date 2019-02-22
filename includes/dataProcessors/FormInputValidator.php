@@ -37,6 +37,35 @@ class formInputValidator {
          array_push($this->errors, Error::$usernameTaken);
       }
    }
+   
+   public function validateImage() {
+      $targetDir = "assets/images/profilePictures/";
+      $targetFile = $targetDir . basename($_FILES["file"]["name"]);
+      $uploadOk = true;
+      $imageFileType = strtolower(pathinfo($targetFile,PATHINFO_EXTENSION));
+      
+      if (isset($_POST["imageUpdate"])) {
+         $check = getimagesize($_FILES["file"]["tmp_name"]);
+
+         if (!$check) {
+            $this->errors[] = Error::$notImage;
+         }
+      }
+
+      if ($_FILES["file"]["size"] > 5000000) { // 5mb
+         $this->errors[] = Error::$imageSize;
+      }
+
+      $allowedTypes = array("jpg", "png", "jpeg", "gif");
+
+      if (!in_array($imageFileType, $allowedTypes)) {
+         $this->errors[] = Error::$imageType;
+      }
+  
+      if (!move_uploaded_file($_FILES["file"]["tmp_name"], $targetFile)) {
+         $this->errors[] = Error::$imageUnknown;
+      }
+   }
 
    public function validateEmails($email, $emailConfirm, $currentEmail = false) {
       if ($email !== $emailConfirm) {
