@@ -2,27 +2,16 @@
 require_once("../includes/config.php");
 require_once("../includes/modelInterfaces/User.php");
 require_once("../includes/modelInterfaces/Comment.php");
+require_once("../includes/dataProcessors/FormInputSanitizer.php");
 require_once("../includes/markupRenderers/CommentCard.php");
 
-if (isset($_POST['body']) && isset($_POST['postedBy']) && isset($_POST['videoId'])) {
+if (isset($_POST['body']) && isset($_POST['videoId'])) {
    $user = new User($db, $_SESSION["loggedIn"]);
-   $postedBy = $_POST['postedBy'];
    $videoId = $_POST['videoId'];
    $replyTo = isset($_POST['replyTo']) ? $_POST['replyTo'] : 0;
-   $body = $_POST['body'];
+   $body = FormInputSanitizer::sanitize($_POST['body']);
 
-   $query = $db->prepare(
-   "INSERT INTO comments (postedBy, videoId, replyTo, body)
-    VALUES (:postedBy, :videoId, :replyTo, :body)"
-   );
-   $query->bindParam(":postedBy", $postedBy);
-   $query->bindParam(":videoId", $videoId);
-   $query->bindParam(":replyTo", $replyTo);
-   $query->bindParam(":body", $body);
-
-   $query->execute();
-
-   $commentId = $db->lastInsertId();
+   $commentId = $user->postComment($videoId, $replyTo, $body);
 
    $commentCard = new CommentCard($db, $commentId, $user, $videoId);
 

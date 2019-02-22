@@ -34,10 +34,10 @@ class CommentCard extends Comment {
                </div>
             </div>
             <div class='controls'>
-               $replyButton
-               $likeCount
                $likeButton
+               $likeCount
                $dislikeButton
+               $replyButton
             </div>
                $replySection
                $repliesText
@@ -50,7 +50,7 @@ class CommentCard extends Comment {
       $text = "REPLY";
       $action = "toggleReply(this)";
 
-      return Button::regular($text, $action, null, null);
+      return Button::regular($text, $action, "reply", null);
    }
 
    private function likeCount() {
@@ -107,7 +107,7 @@ class CommentCard extends Comment {
 
       $cancelAction = "toggleReply(this)";
       $cancelButton = Button::regular("Cancel", $cancelAction, "cancelReply", NULL);
-      $postAction = "postComment(this, \"$username\", \"$videoId\", \"$id\", \"repliesSection\")";
+      $postAction = "postComment(this, \"$videoId\", \"$id\", \"repliesSection\"), toggleReply(this)";
       $postButton = Button::regular("Reply",$postAction, "postReply", NULL);
 
       return "
@@ -139,7 +139,9 @@ class CommentCard extends Comment {
          $repliesText = "<div class='repliesSection'></div>";
       }
 
-      return $repliesText;
+      return "
+         $repliesText
+         ";
    }
 
    private function timeElapsed($full = false) {

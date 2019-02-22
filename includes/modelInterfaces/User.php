@@ -126,5 +126,22 @@ class User {
       return $subscribers;
    }
 
+   public function postComment($videoId, $replyTo, $body) {
+      $postedBy = $this->username();
+
+      $query = $this->db->prepare(
+      "INSERT INTO comments (postedBy, videoId, replyTo, body)
+      VALUES (:postedBy, :videoId, :replyTo, :body)"
+      );
+      $query->bindParam(":postedBy", $postedBy);
+      $query->bindParam(":videoId", $videoId);
+      $query->bindParam(":replyTo", $replyTo);
+      $query->bindParam(":body", $body);
+
+      $query->execute();
+
+      return $this->db->lastInsertId();
+   }
+
 }
 ?>

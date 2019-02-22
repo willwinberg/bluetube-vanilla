@@ -56,6 +56,8 @@ class AccountHandler {
       }
    }
 
+
+
    public function updateDetails($data, $username) {
       $query = $this->db->prepare(
          "UPDATE users SET firstName=:fistName, lastName=:lastName, email=:email WHERE username=:username");

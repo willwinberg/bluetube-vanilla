@@ -16,7 +16,7 @@ class CommentSection {
       $videoId = $this->video->id();
       $username = $this->user->username();
       $profileButton = Button::profileButton($this->db, $username);
-      $commentAction = "postComment(this, \"$username\", \"$videoId\", null, \"comments\")";
+      $commentAction = "postComment(this, \"$videoId\", null, \"comments\")";
       $commentButton = Button::regular("Submit", $commentAction, "postComment", NULL);
       
       $cards = $this->video->getCommentsArray();

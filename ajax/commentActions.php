@@ -18,7 +18,7 @@ if ($action === 'like') {
    echo $comment->addDislike();
 } elseif ($action === 'replies') {
    $replies = $comment->getRepliesArray();
-   $html = "";
+   $plural = sizeof($replies) > 1 ? "replies" : "reply";
 
    foreach ($replies as $reply) {
       $card = new CommentCard($db, $reply, $user, $videoId);

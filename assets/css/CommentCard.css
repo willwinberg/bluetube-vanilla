@@ -81,6 +81,7 @@
   font-weight: 500;
   color: rgba(17, 17, 17, 0.6);
   cursor: pointer;
+  padding-right: 8px;
 }
 
 .commentCard .controls button:hover {
@@ -89,10 +90,11 @@
 
 .commentCard .controls .likeCount {
   border: none;
+  width: 30px;
   font-size: 13px;
   font-weight: 500;
   color: rgba(17, 17, 17, 0.6);
-  margin: 0 5px;
+  margin: 0 8px 0 0px;
 }
 
 .commentCard .controls button img {
@@ -124,4 +126,12 @@
   cursor: pointer;
   font-size: 14px;
   font-weight: 500;
+}
+
+.commentCard .repliesSection .viewReplies {
+  display: none;
+}
+
+.commentCard .repliesSection .controls button.reply {
+  display: none;
 }

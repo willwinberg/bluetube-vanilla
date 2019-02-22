@@ -2,8 +2,7 @@
 
 class Comment {
 
-   protected $db, $comment, $user, $videoId; //CHECK private or protected
-   // does this need videoId
+   protected $db, $comment, $user, $videoId;
 
    public function __construct($db, $input, $user, $videoId) {
       if (is_array($input)) {
@@ -23,10 +22,6 @@ class Comment {
       $this->user = $user;
       $this->videoId = $videoId;
    }
-
-   // public function user() { 
-   //    return $this->user;
-   // }
 
    public function id() {
       return $this->comment["id"];

@@ -1,4 +1,4 @@
-function postComment(button, postedBy, videoId, replyTo, container) {
+function postComment(button, videoId, replyTo, container) {
    const textarea = $(button).siblings("textarea");
    const body = textarea.val();
 
@@ -7,7 +7,6 @@ function postComment(button, postedBy, videoId, replyTo, container) {
    if (body) {
       $.post("ajax/postComment.php", {
          body,
-         postedBy,
          videoId,
          replyTo
       })
@@ -81,7 +80,6 @@ function updateValue(element, num) {
 }
 
 function getReplies(button, commentId, videoId) {
-   console.log(`getReplies(this, ${commentId}, ${videoId}) called`);
    $.post("ajax/commentActions.php", { commentId, videoId, action: "replies" })
       .done(function (commentsHTML) {
          const replies = $("<div>").addClass("repliesSection");
