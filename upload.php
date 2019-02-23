@@ -21,8 +21,11 @@ if (isset($_POST["uploadVideo"]) && isset($_FILES["file"])) {
     $data["username"] = $loggedInUsername;
     $videoProcessor = new VideoProcessor($db, $loggedInUsername);
     $id = $videoProcessor->uploadVideo($data);
+    $noErrors = empty($videoProcessor->errors);
+    var_dump($videoProcessor->errors);
+    var_dump($_FILES);
 
-    if ($id) {
+    if ($id && $noErrors) {
         header("Location: editVideo.php?videoId=$id&success=true");
     } else {
         $message = Error::$upload;
@@ -35,6 +38,11 @@ $form = new FormBuilder($data);
     <?php
     echo $form->openFormTag("Upload a video to BlueTube", "multipart/form-data");
         echo $message;
+        if ($data["video"]) {
+            echo "<ul>";
+            foreach ($videoProcessor->errors as $error) echo "<li>" . $error . "</li>";
+            echo "</ul>";
+         }
         echo $form->FileInput("File", "file");
         echo $form->textInput("Title", "title");
         echo $form->textareaInput("Description", "description");

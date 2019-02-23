@@ -1,19 +1,43 @@
-.thumbnails {
+.thumbnailsContainer .header {
+  font-size: 18px;
+  font-weight: 400;
+  width: 100%;
+  margin: 12px 0;
+  border-bottom: 1px solid #dedede;
+  padding-bottom: 8px;
+}
+
+.thumbnailsContainer .thumbnails {
   display: flex;
   flex-direction: column;
-  margin: 0 10px;
+  margin: 12px 0;
   width: 210px;
 }
 
-.thumbnails .thumbnail {
+.thumbnailsContainer .thumbnails .thumbnail {
   margin-bottom: 10px;
-  padding: 2px;
 }
-.thumbnails .thumbnail.selected {
-  border: 3px solid #828282;
+.thumbnailsContainer .thumbnails .thumbnail.selected {
+  box-sizing: border-box;
+  border: 3px solid #078554;
+  position: relative;
+}
+.thumbnailsContainer .thumbnails .thumbnail.selected:after {
+  content: "Selected";
+  height: 18px;
+  width: 70px;
+  background: #078554;
+  color: #fff;
+  font-size: 12px;
+  text-align: center;
+  border: 2px 2px 0 2px solid #078554;
+  border-radius: 3px 3px 0 0;
+  position: absolute;
+  left: 35%;
+  bottom: 0;
 }
 
-.thumbnails .thumbnail img {
+.thumbnailsContainer .thumbnails .thumbnail img {
   width: 100%;
   cursor: pointer;
 }

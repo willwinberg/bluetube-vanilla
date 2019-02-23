@@ -21,6 +21,7 @@ class VideoProcessor {
    private $ffprobePath = "assets/ffmpeg/ffprobe";
 
    public $id = null;
+   public $errors = array();
 
    public function __construct($db) {
       $this->db = $db;
@@ -33,8 +34,9 @@ class VideoProcessor {
 
       $tempFilePath = $targetDirectory . uniqid() . basename($videoDataArray["name"]);
       $tempFilePath = str_replace(" ", "_", $tempFilePath);
-
+      echo "videoFileIsValid() pre";
       $isValidVideoFile = $this->videoFileIsValid($videoDataArray, $tempFilePath);
+      echo "videoFileIsValid() post";
 
       if (!$isValidVideoFile) {
          return false;
@@ -44,22 +46,22 @@ class VideoProcessor {
          $finalFilePath = $targetDirectory . uniqid() . ".mp4";
 
          if (!$this->insertVideoIntoDB($data, $finalFilePath)) {
-            echo "Insert query failed\n";
+            $errors[] = "Insert query failed\n";
             return false;
          } 
 
          if (!$this->convertVideoToMp4($tempFilePath, $finalFilePath)) {
-            echo "Converting video to mp4 failed\n";
+            $errors[] = "Converting video to mp4 failed\n";
             return false;
          }  
 
          if (!$this->deleteTempMovieFile($tempFilePath)) {
-            echo "Tempfile deletion failed\n";
+            $errors[] = "Tempfile deletion failed\n";
             return false;
          }
 
          if (!$this->generateVideoThumbnails($finalFilePath)) {
-            echo "Generating thumbnails failed\n";
+            $errors[] = "Generating thumbnails failed\n";
             return false;
          }
 
@@ -104,7 +106,7 @@ class VideoProcessor {
 
    private function deleteTempMovieFile($tempFilePath) {
       if (!unlink($tempFilePath)) {
-         echo "Could not delete file\n";
+         $errors[] = "Could not delete file\n";
          return false;
       }
 
@@ -151,7 +153,7 @@ class VideoProcessor {
          $success = $query->execute();
 
          if (!$success) {
-            echo "Error inserting thumbnails into database\n";
+            $errors[] = "Error inserting thumbnails into database\n";
             return false;
          }
       }
@@ -190,15 +192,15 @@ class VideoProcessor {
 
    private function videoFileIsValid($videoData, $filePath) {
       $videoType = pathInfo($filePath, PATHINFO_EXTENSION);
-      
+      echo "videoFileIsValid()";
       if (!$this->isValidSize($videoData)) {
-         echo "File must be no larger than " . $this->sizeLimit /1000000. . " megabytes.";
+         $errors[] = "File must be no larger than " . $this->sizeLimit /1000000. . " megabytes.";
          return false;
       } else if (!$this->isValidType($videoType)) {
-         echo "Invalid file type. Supported file types include";
+         $errors[] = "Invalid file type. Supported file types include" . implode(", ", $this->allowedTypes);
          return false;
       } else if ($this->hasError($videoData)) {
-         echo "Error: " . $videoData["error"];
+         $errors[] = "Error: " . $videoData["error"];
          return false;
       }
 

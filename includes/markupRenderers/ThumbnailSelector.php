@@ -9,7 +9,8 @@ class ThumbnailSelector {
    }
 
    public function render() {
-      $thumbnails = $this->video->getThumbnails($single = true);
+      $thumbnails = $this->video->getThumbnails();
+      // var_dump($thumbnails);
       $html = "";
 
       foreach ($thumbnails as $thumbnail) {
@@ -17,8 +18,11 @@ class ThumbnailSelector {
       }
 
       return "
-         <div class='thumbnails'>
-            $html
+         <div class='thumbnailsContainer'>
+            <h3 class='header'>Select Display Thumbnail</h3>
+            <div class='thumbnails'>
+               $html
+            </div>
          </div>
       ";
    }
@@ -27,7 +31,7 @@ class ThumbnailSelector {
       $id = $thumbnail["id"];
       $videoId = $thumbnail["videoId"];
       $path = $thumbnail["filePath"];
-      $selected = $thumbnail["selected"] === 1 ? "selected" : "";
+      $selected = $thumbnail["selected"] === '1' ? "selected" : "";
 
       return "
          <div

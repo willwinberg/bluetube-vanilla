@@ -43,7 +43,8 @@ class Button {
       
       return "
          <a href='$link'>
-            <img src='$img' class='profileImg'>
+            <img src='$img'
+            class='profileImg'>
          </a>
       ";
    }

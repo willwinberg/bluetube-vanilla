@@ -15,10 +15,12 @@
 
 ### TODO:
 
-- transfer Account to User?
+- resize uploaded images to save space
 - replies comments hide button
 - make delete video button
 - make all errors in span with class
 - add custom banner feature
 - make User class properties private, only functions public
+- deploy version using Vimeo API
+- transfer Account to User?
 - foreign key constraints

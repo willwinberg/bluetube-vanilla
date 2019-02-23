@@ -5,7 +5,7 @@ class FormBuilder {
     private $data;
 
     public function __construct($data = null) {
-        if (isset($_POST) && !isset($_POST["passwordUpdate"])) {
+        if (isset($_POST) && !empty($_POST) && !isset($_POST["passwordUpdate"])) {
             $this->data = $_POST;
         } else if ($data) {
             $this->data = $data;
@@ -18,7 +18,7 @@ class FormBuilder {
             <div>
                 <h2 class='formHeader'>$header</h2>
                 <form
-                    class='regular'
+
                     method='POST'
                     enctype='$enctype'
                 >
