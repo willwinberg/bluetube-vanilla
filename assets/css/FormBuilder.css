@@ -13,8 +13,26 @@ form .col-form-label {
   color: #252525;
 }
 
-form .form-group {
-  margin-right: 30px;
+form .form-group.row {
+  margin-right: 1px;
+  margin-bottom: 0.5em;
+  margin-top: 1em;
+}
+
+.entryMessage {
+  font-size: 14px;
+  font-weight: 400;
+  color: 212529;
+}
+
+span.errorMessage {
+  width: 100%;
+  color: #f00;
+  font-size: 11px;
+  font-weight: 400;
+  margin-left: 34%;
+  line-height: 0;
+  margin-bottom: 20px;
 }
 
 /* ENTRY FORMS, others in bootstrap */
@@ -87,21 +105,8 @@ form .form-group {
   box-shadow: rgba(0, 0, 0, 0.2) 0 2px 2px;
 }
 
-.entryMessage {
-  font-size: 14px;
-  font-weight: 400;
-  color: 212529;
-}
-
-.errorMessage {
-  color: #f00;
-  font-size: 11px;
-  font-weight: 400;
-  margin-left: 10px;
-}
-
 .entryContainer .errorMessage {
-  line-height: 0;
+  margin-left: 4px;
 }
 
 .successMessage {

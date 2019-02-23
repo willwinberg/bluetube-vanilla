@@ -58,18 +58,18 @@ if (isset($_POST["imageUpdate"])) {
       echo $form->openFormTag("Modify Personal Information");
          echo $account->success(Success::$detailsUpdate);
          echo $validator->error(Error::$noChanges);
-         echo $validator->error(Error::$firstNameLength);
          echo $form->textInput("First Name", "firstName");
+         echo $validator->error(Error::$firstNameLength);
 
-         echo $validator->error(Error::$lastNameLength);
          echo $form->textInput("Last Name", "lastName");
+         echo $validator->error(Error::$lastNameLength);
 
+         echo $form->textInput("Email", "email");
          echo $validator->error(Error::$emailInvalid);
          echo $validator->error(Error::$emailTaken);
-         echo $form->textInput("Email", "email");
 
-         echo $validator->error(Error::$emailsDoNotMatch);
          echo $form->textInput("Confirm Email", "emailConfirm");
+         echo $validator->error(Error::$emailsDoNotMatch);
 
          echo $form->submitButton("Submit", "detailsUpdate");
       echo $form->closeFormTag();
@@ -80,7 +80,9 @@ if (isset($_POST["imageUpdate"])) {
       echo $form->openFormTag("Change your profile picture", "multipart/form-data");
          echo $account->success(Success::$image);
          echo $form->imageInput("image", $user->image());
-         foreach ($validator->errors as $error) echo "<li>" . $error . "</li>";
+         if ($_FILES["image"]) {
+            foreach ($validator->errors as $error) echo "<li>" . $error . "</li>";
+         }
          echo $form->submitButton("Submit", "imageUpdate");
       echo $form->closeFormTag();
       ?>
@@ -90,16 +92,16 @@ if (isset($_POST["imageUpdate"])) {
    <div class="col-7">
       <?php
       echo $form->openFormTag("Change your password");
-         echo $account->success(Success::$passwordUpdate);
-         echo $validator->error(Error::$passwordIncorrect);
-         echo $form->textInput("Old Password", "oldPassword", "password");
+      echo $account->success(Success::$passwordUpdate);
+      echo $form->textInput("Old Password", "oldPassword", "password");
+      echo $validator->error(Error::$passwordIncorrect);
 
-         echo $validator->error(Error::$passwordNotSecure);
-         echo $validator->error(Error::$passwordLength);
-         echo $form->textInput("New Password", "newPassword", "password");
+      echo $form->textInput("New Password", "newPassword", "password");
+      echo $validator->error(Error::$passwordNotSecure);
+      echo $validator->error(Error::$passwordLength);
 
-         echo $validator->error(Error::$passwordsDoNotMatch);   
-         echo $form->textInput("Confirm Password", "passwordConfirm", "password");
+      echo $form->textInput("Confirm Password", "passwordConfirm", "password");
+      echo $validator->error(Error::$passwordsDoNotMatch);   
 
          echo $form->submitButton("Submit", "passwordUpdate");
       echo $form->closeFormTag();

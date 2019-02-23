@@ -15,6 +15,11 @@
   line-height: 1em;
 }
 
+.buttonContainer button.btn.btn-primary {
+  width: 100px;
+  margin-left: 5px;
+}
+
 .buttonContainer .subscribe {
   background-color: #f00;
   color: #fff;
