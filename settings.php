@@ -18,7 +18,7 @@ $account = new AccountHandler($db);
 
 $data = $dataSanitizer->sanitize($_POST);
 
-$inputChanged = sizeof(array_diff($data, $user->user)) > 1;
+$inputChanged = $user->dataDifferent($_POST);
 
 if (isset($_POST["detailsUpdate"])) {
    $validator->validateFirstName($data["firstName"]);
@@ -46,7 +46,7 @@ if (isset($_POST["passwordUpdate"])) {
 if (isset($_POST["imageUpdate"])) {
    $path = $validator->validateImage();
    $noErrors = empty($validator->errors);
-   var_dump($validator->errors);
+
    if ($noErrors) {
       $account->updateImage($path, $loggedInUsername);
    }
@@ -58,7 +58,7 @@ if (isset($_POST["imageUpdate"])) {
       $form = new FormBuilder($user->user);
 
       echo $form->openFormTag("Modify Personal Information");
-         echo $account->success();
+         echo $account->success(Success::$detailsUpdate);
          echo $validator->error(Error::$firstNameLength);
          echo $form->textInput("First Name", "firstName");
 
@@ -79,8 +79,9 @@ if (isset($_POST["imageUpdate"])) {
    <div class ="col-5">
       <?php
       echo $form->openFormTag("Change your profile picture", "multipart/form-data");
+         echo $account->success(Success::$image);
          echo $form->FileInput("File", "file");
-         
+         foreach($validator->errors as $error) echo "<li>" . $error . "</li>";
          echo $form->submitButton("Submit", "imageUpdate");
       echo $form->closeFormTag();
       ?>
@@ -90,6 +91,7 @@ if (isset($_POST["imageUpdate"])) {
    <div class="col-7">
       <?php
       echo $form->openFormTag("Change your password");
+         echo $account->success(Success::$passwordUpdate);
          echo $validator->error(Error::$passwordIncorrect);
          echo $form->textInput("Old Password", "oldPassword", "password");
 

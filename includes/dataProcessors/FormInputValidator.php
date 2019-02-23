@@ -40,18 +40,18 @@ class formInputValidator {
    
    public function validateImage() {
       $targetDir = "assets/images/profilePictures/";
-      $targetFile = $targetDir . uniqid() . basename($_FILES["image"]["name"]);
+      $targetFile = $targetDir . uniqid() . basename($_FILES["file"]["name"]);
       $imageFileType = strtolower(pathinfo($targetFile,PATHINFO_EXTENSION));
       
       if (isset($_POST["imageUpdate"])) {
-         $check = getimagesize($_FILES["image"]["tmp_name"]);
+         $check = getimagesize($_FILES["file"]["tmp_name"]);
 
          if (!$check) {
             $this->errors[] = Error::$notImage;
          }
       }
 
-      if ($_FILES["image"]["size"] > 5000000) { // 5mb
+      if ($_FILES["file"]["size"] > 5000000) { // 5mb
          $this->errors[] = Error::$imageSize;
       }
 
@@ -61,7 +61,7 @@ class formInputValidator {
          $this->errors[] = Error::$imageType;
       }
   
-      if (!move_uploaded_file($_FILES["image"]["tmp_name"], $targetFile)) {
+      if (!move_uploaded_file($_FILES["file"]["tmp_name"], $targetFile)) {
          $this->errors[] = Error::$imageUnknown;
       }
 

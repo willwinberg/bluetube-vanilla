@@ -143,5 +143,14 @@ class User {
       return $this->db->lastInsertId();
    }
 
+   public function dataDifferent($data) {
+      foreach ($data as $key => $value) {
+         if ($value !== $this->user[$key]) {
+            return true;
+         }
+      }
+      return false;
+   }
+
 }
 ?>

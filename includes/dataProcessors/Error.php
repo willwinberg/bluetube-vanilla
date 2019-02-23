@@ -27,11 +27,12 @@ class Error {
    public static $noLiked = "<span class='errorMessage'>You haven't liked any videos yet.</span>";
 
 
+   public static $image = "Error uploading image";
    public static $notImage = "<span class='errorMessage'>File is not an image</span>";
    public static $imageSize = "<span class='errorMessage'>File must be under 5MB</span>";
    public static $imageType = "<span class='errorMessage'>Only JPG, JPEG, PNG & GIF files are allowed</span>";
    public static $imageUnknown = "<span class='errorMessage'>An error occurred while uploading your file</span>";
-   public static $profileImage = "<span class='errorMessage'>Unable to update account image</span>";
+   public static $profileImage = "<span class='errorMessage'>Unable to update account</span>";
 
    public static function alert($error) {
       return "

@@ -8,6 +8,7 @@ class AccountHandler {
    public function __construct($db) {
       $this->db = $db;
       $this->validated = false;
+      $this->message = "";
    }
 
    public function login($loginData) {
@@ -71,9 +72,9 @@ class AccountHandler {
       $query->execute();
 
       if ($query->rowCount() === 1) {
-         $this->success = Success::$detailsUpdate;
+         $this->message = Success::$detailsUpdate;
       } else {
-         $this->error = Error::$detailsUpdateFailed;
+         $this->message = Error::$detailsUpdate;
       }
       return;
    }
@@ -88,9 +89,9 @@ class AccountHandler {
       $query->execute();
 
       if ($query->rowCount() === 1) {
-         $this->success = Success::$image;
+         $this->message = Success::$image;
       } else {
-         $this->error = Error::$image;
+         $this->message = Error::$image;
       }
       return;
    }
@@ -105,9 +106,9 @@ class AccountHandler {
       $success = $query->execute();
 
       if ($query->rowCount() === 1) {
-         $this->success = Success::$passwordUpdate;
+         $this->message = Success::$passwordUpdate;
       } else {
-         $this->error = Error::$passwordUpdateFailed;
+         $this->message = Error::$passwordUpdate;
       }
       return;
    }
@@ -132,8 +133,8 @@ class AccountHandler {
       }
    }
 
-   public function error() {
-      if ($this->error) {
+   public function error($message) {
+      if ($this->message === $message) {
          return "
             <div class='alert alert-danger'>
                $this->error
@@ -142,16 +143,15 @@ class AccountHandler {
       }
    }
 
-   public function success() {
-      if ($this->success) {
+   public function success($message) {
+      if ($this->message === $message) {
          return "
             <div class='alert alert-success'>
-               $this->success
+               $this->message
             </div>
          ";
       }
    }
-
 
 }
 ?>
