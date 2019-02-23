@@ -143,14 +143,17 @@ class User {
       return $this->db->lastInsertId();
    }
 
-   public function dataDifferent($data) {
-      foreach ($data as $key => $value) {
-         if ($value !== $this->user[$key]) {
-            return true;
-         }
-      }
-      return false;
+   public function basicDataArray() {
+      $here = array(
+         "firstName" => $this->firstName(),
+         "lastName" => $this->lastName(),
+         "email" => $this->email(),
+         "emailConfirm" => $this->email(),
+      );
+      
+      return $here;
    }
 
 }
 ?>
+

@@ -12,22 +12,20 @@ if (User::isNotLoggedIn()) {
    header("Location: login.php");
 }
 
-$dataSanitizer = new FormInputSanitizer;
 $validator = new formInputValidator($db);
 $account = new AccountHandler($db);
 
-$data = $dataSanitizer->sanitize($_POST);
-
-$inputChanged = $user->dataDifferent($_POST);
+$data = FormInputSanitizer::sanitize($_POST);
 
 if (isset($_POST["detailsUpdate"])) {
+   $validator->changesMade($user->basicDataArray());
    $validator->validateFirstName($data["firstName"]);
    $validator->validateLastName($data["lastName"]);
    $validator->validateEmails($data["email"], $data["emailConfirm"], $user->email);
    
    $noErrors = empty($validator->errors);
 
-   if ($noErrors && $inputChanged) {
+   if ($noErrors) {
       $account->updateDetails($data, $loggedInUsername);
    }
 }
@@ -55,10 +53,11 @@ if (isset($_POST["imageUpdate"])) {
 <div class="row">
    <div class="col-7">
       <?php
-      $form = new FormBuilder($user->user);
+      $form = new FormBuilder($user->basicDataArray());
 
       echo $form->openFormTag("Modify Personal Information");
          echo $account->success(Success::$detailsUpdate);
+         echo $validator->error(Error::$noChanges);
          echo $validator->error(Error::$firstNameLength);
          echo $form->textInput("First Name", "firstName");
 
@@ -80,8 +79,8 @@ if (isset($_POST["imageUpdate"])) {
       <?php
       echo $form->openFormTag("Change your profile picture", "multipart/form-data");
          echo $account->success(Success::$image);
-         echo $form->imageInput("image", $user->image);
-         foreach($validator->errors as $error) echo "<li>" . $error . "</li>";
+         echo $form->imageInput("image", $user->image());
+         foreach ($validator->errors as $error) echo "<li>" . $error . "</li>";
          echo $form->submitButton("Submit", "imageUpdate");
       echo $form->closeFormTag();
       ?>
