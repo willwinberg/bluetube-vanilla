@@ -18,7 +18,7 @@ $account = new AccountHandler($db);
 
 $data = $dataSanitizer->sanitize($_POST);
 
-$inputChanged = sizeof(array_diff($data, $user->user)) > 1;;
+$inputChanged = sizeof(array_diff($data, $user->user)) > 1;
 
 if (isset($_POST["detailsUpdate"])) {
    $validator->validateFirstName($data["firstName"]);
@@ -43,12 +43,12 @@ if (isset($_POST["passwordUpdate"])) {
    }
 }
 
-if (isset($_FILES["imageUpdate"])) {
-   $validator->validateImage();
+if (isset($_POST["imageUpdate"])) {
+   $path = $validator->validateImage();
    $noErrors = empty($validator->errors);
    var_dump($validator->errors);
    if ($noErrors) {
-      $account->updateImage($path, $username);
+      $account->updateImage($path, $loggedInUsername);
    }
 }
 ?>
@@ -79,7 +79,7 @@ if (isset($_FILES["imageUpdate"])) {
    <div class ="col-5">
       <?php
       echo $form->openFormTag("Change your profile picture", "multipart/form-data");
-         echo $form->FileInput("Image", "file");
+         echo $form->FileInput("File", "file");
          
          echo $form->submitButton("Submit", "imageUpdate");
       echo $form->closeFormTag();

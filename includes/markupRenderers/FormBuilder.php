@@ -84,9 +84,7 @@ class FormBuilder {
         ";
     }
 
-    public function fileInput($title) {
-        $name = strtolower($title);
-
+    public function fileInput($title, $name) {
         return "
             <div class='form-group row'>
                 <label class='inputLabel col-sm-2 col-form-label'>$title</label>

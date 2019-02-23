@@ -88,9 +88,9 @@ class AccountHandler {
       $query->execute();
 
       if ($query->rowCount() === 1) {
-         $this->success = Success::$profileImage;
+         $this->success = Success::$image;
       } else {
-         $this->error = Error::$profileImage;
+         $this->error = Error::$image;
       }
       return;
    }
