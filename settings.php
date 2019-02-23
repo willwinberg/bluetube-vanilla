@@ -80,7 +80,7 @@ if (isset($_POST["imageUpdate"])) {
       <?php
       echo $form->openFormTag("Change your profile picture", "multipart/form-data");
          echo $account->success(Success::$image);
-         echo $form->FileInput("File", "file");
+         echo $form->imageInput("image", $user->image);
          foreach($validator->errors as $error) echo "<li>" . $error . "</li>";
          echo $form->submitButton("Submit", "imageUpdate");
       echo $form->closeFormTag();

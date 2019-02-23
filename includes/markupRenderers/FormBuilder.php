@@ -37,9 +37,9 @@ class FormBuilder {
 
         return "
             <div class='form-group row'>
-                <label class='inputLabel col-3 col-form-label'>$title</label>
+                <label class='inputLabel col-4 col-form-label'>$title</label>
                 <input
-                    class='form-control col-9'
+                    class='form-control col-8'
                     type='$type'
                     name='$name'
                     value='$value'
@@ -71,13 +71,13 @@ class FormBuilder {
 
         return "
             <div class='form-group row'>
-                <label class='inputLabel col-sm-2 col-form-label'>$title</label>
+                <label class='inputLabel col-sm-4 col-form-label'>$title</label>
                 <textarea
-                    class='form-control col-sm-10'
+                    class='form-control col-sm-8'
                     type='text'
                     name='$name'
                     placeholder='$title'
-                    rows='3'
+                    rows='4'
                     required
                 >$value</textarea>
             </div>
@@ -87,9 +87,24 @@ class FormBuilder {
     public function fileInput($title, $name) {
         return "
             <div class='form-group row'>
-                <label class='inputLabel col-sm-2 col-form-label'>$title</label>
+                <label class='inputLabel col-sm-4 col-form-label'>$title</label>
                 <input
-                    class='form-control-file col-sm-10 btn'
+                    class='form-control-file col-sm-8 btn'
+                    type='file'
+                    id='form-file'
+                    name='$name'
+                    required
+                >
+            </div>
+        ";
+    }
+
+    public function imageInput($name, $src) {
+        return "
+            <div class='form-group'>
+                <img class='formImage' alt='profile image' src='$src'>
+                <input
+                    class='form-control-file btn'
                     type='file'
                     id='form-file'
                     name='$name'
@@ -106,8 +121,8 @@ class FormBuilder {
 
         return "
             <div class='form-group row'>
-                <label class='inputLabel col-sm-2 col-form-label'>Privacy</label>
-                <select class='form-control col-sm-10' name='privacy'>
+                <label class='inputLabel col-sm-4 col-form-label'>Privacy</label>
+                <select class='form-control col-sm-8' name='privacy'>
                     <option value='0' $notPrivate>Public</option>
                     <option value='1' $isPrivate>Private</option>
                 </select>
@@ -130,8 +145,8 @@ class FormBuilder {
         
         return "
             <div class='form-group row'>
-                <label class='inputLabel col-sm-2 col-form-label'>Category</label>
-                <select class='form-control col-sm-10' name='category'>
+                <label class='inputLabel col-sm-4 col-form-label'>Category</label>
+                <select class='form-control col-sm-8' name='category'>
                     $html
                 </select>
             </div>

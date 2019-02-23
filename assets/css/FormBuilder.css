@@ -109,3 +109,11 @@ form .form-group {
   flex: 1;
   justify-content: center;
 }
+
+.formImage {
+  width: 180px;
+  height: 180px;
+  text-align: center;
+  border-radius: 5px;
+  margin-left: 15px;
+}

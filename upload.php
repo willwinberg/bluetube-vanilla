@@ -30,17 +30,20 @@ if (isset($_POST["uploadVideo"]) && isset($_FILES["file"])) {
 }
 
 $form = new FormBuilder($data);
-
-echo $form->openFormTag("Upload a video to BlueTube", "multipart/form-data");
-    echo $message;
-    echo $form->FileInput("File", "file");
-    echo $form->textInput("Title", "title");
-    echo $form->textareaInput("Description", "description");
-    echo $form->privacyInput();
-    echo $form->categoriesInput($db);
-    echo $form->submitButton("Upload", "uploadVideo");
-echo $form->closeFormTag();
 ?>
+<div class="row d-flex justify-content-center">
+    <?php
+    echo $form->openFormTag("Upload a video to BlueTube", "multipart/form-data");
+        echo $message;
+        echo $form->FileInput("File", "file");
+        echo $form->textInput("Title", "title");
+        echo $form->textareaInput("Description", "description");
+        echo $form->privacyInput();
+        echo $form->categoriesInput($db);
+        echo $form->submitButton("Upload", "uploadVideo");
+    echo $form->closeFormTag();
+    ?>
+</div>
 
 <script>
 $("form").submit(function() {

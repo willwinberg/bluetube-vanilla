@@ -1,5 +1,5 @@
 .videoPlayer {
   padding-top: 12px;
-  width: 59.5vw;
-  height: 28vw;
+  width: 100%;
+  max-height: 30vw;
 }

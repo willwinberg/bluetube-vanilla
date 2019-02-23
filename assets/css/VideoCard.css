@@ -88,7 +88,7 @@
 /* watch.php recomendations */
 
 .videoGrid.asRows .videoCard {
-  margin: 0 0 8px 18px;
+  margin-bottom: 8px;
   display: flex;
 }
 

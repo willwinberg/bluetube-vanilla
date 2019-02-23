@@ -1,3 +1,7 @@
+<?php
+require_once("includes/dataProcessors/Error.php");
+require_once("includes/dataProcessors/Success.php");
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
