@@ -19,7 +19,7 @@ body {
 }
 
 #mainContentContainer {
-  margin: 0 15px;
+  margin: 0 30px;
   display: flex;
   flex-direction: column;
   flex: 1;

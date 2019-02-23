@@ -26,7 +26,7 @@ $form = new FormBuilder();
 
 echo $form->openEntryFormTag("Sign In");
    echo $form->entryTextInput("Username", "username");
-   echo $form->entryTextInput("Password", "password");
+   echo $form->entryTextInput("Password", "password", "password");
 
    echo "<span class='errorMessage'>$account->message</span>";
    echo $form->submitButton("SUBMIT", "submitLoginForm");
