@@ -48,21 +48,25 @@ class formInputValidator {
 
          if (!$check) {
             $this->errors[] = Error::$notImage;
+            return;
          }
       }
 
       if ($_FILES["image"]["size"] > 5000000) { // 5mb
          $this->errors[] = Error::$imageSize;
+         return;
       }
 
       $allowedTypes = array("jpg", "png", "jpeg", "gif");
 
       if (!in_array($imageFileType, $allowedTypes)) {
          $this->errors[] = Error::$imageType;
+         return;
       }
   
       if (!move_uploaded_file($_FILES["image"]["tmp_name"], $targetFile)) {
          $this->errors[] = Error::$imageUnknown;
+         return;
       }
 
       return $targetFile;

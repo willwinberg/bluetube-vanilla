@@ -24,8 +24,3 @@ body {
   flex-direction: column;
   flex: 1;
 }
-
-span.errorMessage {
-  font-size: 16px;
-  margin: 15px;
-}

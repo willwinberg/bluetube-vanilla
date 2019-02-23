@@ -100,6 +100,10 @@ form .form-group {
   margin-left: 10px;
 }
 
+.entryContainer .errorMessage {
+  line-height: 0;
+}
+
 .successMessage {
   color: rgb(16, 114, 57);
   font-size: 15px;

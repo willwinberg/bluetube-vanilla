@@ -14,9 +14,9 @@ $account = new AccountHandler($db);
 if (isset($_POST["submitLoginForm"])) {   
    $data = $dataSanitizer->sanitize($_POST);
 
-   $message = $account->login($data);
+   $account->login($data);
 
-   if ($account->validated) {
+   if ($account->message === Success::$login) {
       $_SESSION["loggedIn"] = $data["username"];
       header("Location: index.php");
    }
@@ -28,7 +28,7 @@ echo $form->openEntryFormTag("Sign In");
    echo $form->entryTextInput("Username", "username");
    echo $form->entryTextInput("Password", "password");
 
-   echo $message;
+   echo "<span class='errorMessage'>$account->message</span>";
    echo $form->submitButton("SUBMIT", "submitLoginForm");
 echo $form->closeEntryFormTag("register.php", "Don't have an account yet? Register here!");
 

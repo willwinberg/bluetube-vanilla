@@ -23,7 +23,7 @@
 }
 
 .channel .header {
-  padding: 15px 100px 0 100px;
+  padding: 15px 100px 0px 100px;
   display: flex;
   height: 100px;
 }
@@ -36,6 +36,7 @@
 .channel .header .info img {
   height: 80px;
   width: 80px;
+  margin: 10px;
 }
 
 .channel .header .info .bottom {
@@ -61,6 +62,10 @@
   background-color: #fff;
   border: 1px solid #ddd;
   border-top: none;
+}
+
+.channel .nav {
+  margin-top: 15px;
 }
 
 .channel .nav-item a {

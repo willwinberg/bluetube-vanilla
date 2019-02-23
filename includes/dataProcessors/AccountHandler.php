@@ -3,11 +3,9 @@
 class AccountHandler {
 
    private $db;
-   public $validated;
 
    public function __construct($db) {
       $this->db = $db;
-      $this->validated = false;
       $this->message = "";
    }
 
@@ -22,10 +20,9 @@ class AccountHandler {
       $query->execute();
 
       if ($query->rowCount() === 1) {
-         $this->validated = true;
-         return Success::$login;
+         $this->message = Success::$login;
       } else {
-         return Error::$login;
+         $this->message = Error::$login;
       }
    }
 
@@ -53,7 +50,7 @@ class AccountHandler {
       if ($query->rowCount() === 1) {
          return Success::$register;
       } else {
-         return Error::$registerFailed;
+         return Error::$register;
       }
    }
 
@@ -137,7 +134,7 @@ class AccountHandler {
       if ($this->message === $message) {
          return "
             <div class='alert alert-danger'>
-               $this->error
+               $this->message
             </div>   
          ";
       }
