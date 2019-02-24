@@ -13,8 +13,8 @@ require_once("includes/markupRenderers/Masthead.php");
 <?php
 
 $loggedInUsername = User::isLoggedIn() ? $_SESSION["loggedIn"] : "";
-$user = new User($db, $loggedInUsername);
-$navMenu = new NavigationMenu($user);
+$loggedInUser = new User($db, $loggedInUsername);
+$navMenu = new NavigationMenu($loggedInUser);
 $masthead = new Masthead($db, $loggedInUsername);
 ?>
 

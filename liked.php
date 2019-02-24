@@ -14,7 +14,7 @@ if (User::isNotLoggedIn()) {
    header("Location: login.php");
 }
 
-$cardFetcher = new VideoCardsFetcher($db, $user);
+$cardFetcher = new VideoCardsFetcher($db, $loggedInUser);
 $likedCards = $cardFetcher->getLiked();
 
 $likedGrid = new VideoGrid($likedCards, "liked");

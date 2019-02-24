@@ -47,10 +47,12 @@ class NavigationMenu {
       $html = "";
 
       foreach ($subscribers as $user) {
+         $username = $user->username();
+
          $html .= $this->makeNavLink(
-            $user->username,
-            $user->image,
-            "channel.php?username=$user->username"
+            $username,
+            $user->image(),
+            "channel.php?username=$username"
          );
       }
 

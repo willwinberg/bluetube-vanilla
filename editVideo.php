@@ -22,9 +22,9 @@ if (!isset($_GET["videoId"])) {
     echo Error::$noVideoSelected;
     exit();
 } else {
-   $video = new Video($db, $_GET["videoId"], $user);
+   $video = new Video($db, $_GET["videoId"], $loggedInUser);
 
-   if ($video->uploadedBy() !== $user->username()) {
+   if ($video->uploadedBy() !== $loggedInUser->username()) {
       echo Error::$notOwnedVideo;
       exit();
    }

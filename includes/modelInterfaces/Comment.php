@@ -28,7 +28,11 @@ class Comment {
    }
 
    public function videoId() {
-      return $this->comment["videoId"];
+      if ($this->comment["videoId"]) {
+         return $this->comment["videoId"];
+      } else {
+         return $this->videoId;
+      }
    }
 
    public function postedBy() {
@@ -105,12 +109,13 @@ class Comment {
 
    public function addLike() {
       $id = $this->id();
+      $username = $this->user->username();
 
-      if (in_array($this->user->username, $this->usersWhoLikedArray())) {
+      if (in_array($username, $this->usersWhoLikedArray())) {
          $query = $this->db->prepare(
             "DELETE FROM likes WHERE username=:username AND commentId=:commentId"
          );
-         $query->bindParam(":username", $this->user->username);
+         $query->bindParam(":username", $username);
          $query->bindParam(":commentId", $id);
          $query->execute();
          return -1;
@@ -118,7 +123,7 @@ class Comment {
          $query = $this->db->prepare(
             "DELETE FROM dislikes WHERE username=:username AND commentId=:commentId"
          );
-         $query->bindParam(":username", $this->user->username);
+         $query->bindParam(":username", $username);
          $query->bindParam(":commentId", $id);
          $query->execute();
          $count = $query->rowCount();
@@ -126,7 +131,7 @@ class Comment {
          $query = $this->db->prepare(
             "INSERT INTO likes (username, commentId) VALUES (:username, :commentId)"
          );
-         $query->bindParam(":username", $this->user->username);
+         $query->bindParam(":username", $username);
          $query->bindParam(":commentId", $id);
          $query->execute();
          return 1 + $count;
@@ -135,18 +140,20 @@ class Comment {
 
    public function usersWhoLikedArray() {
       $id = $this->id();
+      
+
 
       $query = $this->db->prepare(
          "SELECT * FROM likes WHERE username=:username AND commentId=:commentId"
       );
-      $query->bindParam(":username", $this->user->username);
+      $query->bindParam(":username", $username);
       $query->bindParam(":commentId", $id);
       $query->execute();
       $users = $query->fetchAll();
       $array = array();
 
       foreach ($users as $user) {
-         array_push($array, $user["username"]);
+         $array[] = $user["username"];
       }
 
       return $array;
@@ -154,12 +161,13 @@ class Comment {
 
    public function addDislike() {
       $id = $this->id();
+      $username = $this->user->username();
 
-      if (in_array($this->user->username, $this->usersWhoDislikedArray())) {
+      if (in_array($username, $this->usersWhoDislikedArray())) {
          $query = $this->db->prepare(
             "DELETE FROM dislikes WHERE username=:username AND commentId=:commentId"
          );
-         $query->bindParam(":username", $this->user->username);
+         $query->bindParam(":username", $username);
          $query->bindParam(":commentId", $id);
          $query->execute();
 
@@ -168,7 +176,7 @@ class Comment {
          $query = $this->db->prepare(
             "DELETE FROM likes WHERE username=:username AND commentId=:commentId"
          );
-         $query->bindParam(":username", $this->user->username);
+         $query->bindParam(":username", $username);
          $query->bindParam(":commentId", $id);
          $query->execute();
          $count = $query->rowCount();
@@ -176,7 +184,7 @@ class Comment {
          $query = $this->db->prepare(
             "INSERT INTO dislikes (username, commentId) VALUES (:username, :commentId)"
          );
-         $query->bindParam(":username", $this->user->username);
+         $query->bindParam(":username", $username);
          $query->bindParam(":commentId", $id);
          $query->execute();
 
@@ -190,14 +198,14 @@ class Comment {
       $query = $this->db->prepare(
          "SELECT * FROM dislikes WHERE username=:username AND commentId=:commentId"
       );
-      $query->bindParam(":username", $this->user->username);
+      $query->bindParam(":username", $username);
       $query->bindParam(":commentId", $id);
       $query->execute();
       $users = $query->fetchAll();
       $array = array();
 
       foreach ($users as $user) {
-         array_push($array, $user["username"]);
+         $array[] = $user["username"];
       }
 
       return $array;

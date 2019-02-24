@@ -99,7 +99,7 @@ class VideoCardsFetcher {
          "SELECT videoId FROM likes WHERE username=:username AND commentId=0
          ORDER BY id DESC"
       );
-      $query->bindParam(":username", $this->user->username);
+      $query->bindParam(":username", $this->user->username());
       $query->execute();
 
       $cards = array();
@@ -115,7 +115,7 @@ class VideoCardsFetcher {
    public function getOwned() {
       $query = $this->db->prepare(       
          "SELECT * FROM videos WHERE uploadedBy=:uploadedBy ORDER BY uploadDate DESC");
-      $query->bindParam(":uploadedBy", $this->user->username);
+      $query->bindParam(":uploadedBy", $this->user->username());
       $query->execute();
 
       $cards = array();

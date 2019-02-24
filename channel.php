@@ -18,7 +18,7 @@ if (isset($_GET["username"])) {
    exit();
 }
 
-$channelView = new ChannelView($db, $user, $channelUsername);
+$channelView = new ChannelView($db, $loggedInUser, $channelUsername);
 
 echo $channelView->render();
 

@@ -10,7 +10,7 @@ require_once("includes/markupRenderers/VideoCard.php");
 
 <div class="home">
     <?php
-   $cardFetcher = new VideoCardsFetcher($db, $user);
+   $cardFetcher = new VideoCardsFetcher($db, $loggedInUser);
 
 
     if (User::isLoggedIn()) {

@@ -18,10 +18,14 @@ $account = new AccountHandler($db);
 $data = FormInputSanitizer::sanitize($_POST);
 
 if (isset($_POST["detailsUpdate"])) {
-   $validator->changesMade($user->basicDataArray());
+   $validator->changesMade($loggedInUser->basicDataArray());
    $validator->validateFirstName($data["firstName"]);
    $validator->validateLastName($data["lastName"]);
-   $validator->validateEmails($data["email"], $data["emailConfirm"], $user->email);
+   $validator->validateEmails(
+      $data["email"],
+      $data["emailConfirm"],
+      $loggedInUser->email()
+   );
    
    $noErrors = empty($validator->errors);
 
@@ -47,13 +51,14 @@ if (isset($_POST["imageUpdate"])) {
 
    if ($noErrors) {
       $account->updateImage($path, $loggedInUsername);
+      header("Location: settings.php");
    }
 }
 ?>
 <div class="row">
    <div class="col-7">
       <?php
-      $form = new FormBuilder($user->basicDataArray());
+      $form = new FormBuilder($loggedInUser->basicDataArray());
 
       echo $form->openFormTag("Modify Personal Information");
          echo $account->success(Success::$detailsUpdate);
@@ -79,9 +84,11 @@ if (isset($_POST["imageUpdate"])) {
       <?php
       echo $form->openFormTag("Change your profile picture", "multipart/form-data");
          echo $account->success(Success::$image);
-         echo $form->imageInput("image", $user->image());
+         echo $form->imageInput("image", $loggedInUser->image());
          if ($_FILES["image"]) {
-            foreach ($validator->errors as $error) echo "<li>" . $error . "</li>";
+            foreach ($validator->errors as $error){
+               echo "<li class='imgError'>" . $error . "</li>";
+            }
          }
          echo $form->submitButton("Submit", "imageUpdate");
       echo $form->closeFormTag();

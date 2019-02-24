@@ -25,14 +25,14 @@ if (!isset($_GET["id"])) {
     exit();
 }
 
-$video = new Video($db, $_GET["id"], $user);
+$video = new Video($db, $_GET["id"], $loggedInUser);
 $video->incrementViews();
 
 $videoPlayer = new VideoPlayer($video->filePath());
-$videoInfo = new VideoInfo($db, $video, $user);
-$commentSection = new CommentSection($db, $video, $user);
+$videoInfo = new VideoInfo($db, $video, $loggedInUser);
+$commentSection = new CommentSection($db, $video, $loggedInUser);
 
-$cardFetcher = new VideoCardsFetcher($db, $user);
+$cardFetcher = new VideoCardsFetcher($db, $loggedInUser);
 $recommendedCards = $cardFetcher->getRecommended();
 $recommendationsGrid = new VideoGrid($recommendedCards, "watchPage");
 ?>

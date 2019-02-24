@@ -7,10 +7,10 @@ if (isset($_POST["toUsername"]) && isset($_POST["fromUsername"])) {
    $fromUser = new User($db, $_POST["fromUsername"]);
 
    // Already subscribed
-   if (in_array($toUser->username, $fromUser->subscriptionsArray())) {
-      $fromUser->unsubscribe($toUser->username);
+   if (in_array($toUser->username(), $fromUser->subscriptionsArray())) {
+      $fromUser->unsubscribe($toUser->username());
    } else {
-      $fromUser->subscribe($toUser->username);
+      $fromUser->subscribe($toUser->username());
    }
    
    echo $toUser->getSubscriberCount();

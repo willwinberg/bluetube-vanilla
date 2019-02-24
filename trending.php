@@ -9,7 +9,7 @@ require_once("includes/markupRenderers/VideoCard.php");
 <link rel="stylesheet" type="text/css" href="assets/css/VideoCard.css">
 <?php
 
-$cardFetcher = new VideoCardsFetcher($db, $user);
+$cardFetcher = new VideoCardsFetcher($db, $loggedInUser);
 $trendingCards = $cardFetcher->getTrending();
 
 $trendingGrid = new VideoGrid($trendingCards, "trending");

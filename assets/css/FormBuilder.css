@@ -18,6 +18,16 @@ form .form-group.row {
   margin-bottom: 0.5em;
   margin-top: 1em;
 }
+.formImage {
+  width: 180px;
+  height: 180px;
+  text-align: center;
+  border-radius: 5px;
+}
+
+div.form-group.imageInput {
+  margin-bottom: 0;
+}
 
 .entryMessage {
   font-size: 14px;
@@ -33,6 +43,15 @@ span.errorMessage {
   margin-left: 34%;
   line-height: 0;
   margin-bottom: 20px;
+}
+
+li.imgError {
+  margin-left: 5px;
+  margin-bottom: 10px;
+}
+
+li.imgError span.errorMessage {
+  margin-left: 0;
 }
 
 /* ENTRY FORMS, others in bootstrap */
@@ -117,12 +136,4 @@ span.errorMessage {
   margin-bottom: 20px;
   flex: 1;
   justify-content: center;
-}
-
-.formImage {
-  width: 180px;
-  height: 180px;
-  text-align: center;
-  border-radius: 5px;
-  margin-left: 15px;
 }

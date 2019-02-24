@@ -36,8 +36,8 @@ private $db, $loggedInUser, $channelsUsername;
    }
 
    private function makeBanner() {
-      $src = $this->channelOwner->bannerImg;
-      $username = $this->channelOwner->username;
+      $src = $this->channelOwner->bannerImg();
+      $username = $this->channelOwner->username();
 
       return "
          <div class='banner'>
@@ -48,7 +48,7 @@ private $db, $loggedInUser, $channelsUsername;
    }
 
    private function makeHeader() {
-      $image = $this->channelOwner->image;
+      $image = $this->channelOwner->image();
       $name = $this->channelOwner->fullName();
       $subscriberCount = $this->channelOwner->getSubscriberCount();
       $subscribeButton = $this->makeSubscribeButton();
@@ -70,8 +70,8 @@ private $db, $loggedInUser, $channelsUsername;
    }
 
    private function makeSubscribeButton() {
-      if ($this->channelOwner->username !== $this->loggedInUser->username) {
-         return Button::subscribeButton($this->db, $this->loggedInUser, $this->channelOwner->username);
+      if ($this->channelOwner->username() !== $this->loggedInUser->username()) {
+         return Button::subscribeButton($this->db, $this->loggedInUser, $this->channelOwner->username());
       } else {
          return Button::hyperlink("Edit Your Profile", "settings.php", "edit", null);
       }
@@ -113,7 +113,7 @@ private $db, $loggedInUser, $channelsUsername;
    private function makeVideos() {
       $cardFetcher = new VideoCardsFetcher($this->db, $this->channelOwner);
       $ownedVideos = $cardFetcher->getOwned();
-      $ownerUsername = $this->channelOwner->username;
+      $ownerUsername = $this->channelOwner->username();
 
       if (sizeof($ownedVideos) > 0) {
          $ownedGrid = new VideoGrid($ownedVideos);
@@ -135,7 +135,7 @@ private $db, $loggedInUser, $channelsUsername;
 
    private function makeAbout() {
       $name = $this->channelOwner->fullName();
-      $username = $this->channelOwner->username;
+      $username = $this->channelOwner->username();
       $subscriberCount = $this->channelOwner->getSubscriberCount();
       $totalViews = $this->channelOwner->getTotalViews();
       $signUpDate = $this->channelOwner->signUpDate();

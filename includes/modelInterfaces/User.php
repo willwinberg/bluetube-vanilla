@@ -2,8 +2,7 @@
 
 class User {
 
-   private $db;
-   public $user; // CHANGE
+   private $db, $user;
 
    public function __construct($db, $username) {
       $query = $db->prepare(
@@ -16,14 +15,6 @@ class User {
 
       $this->db = $db;
       $this->user = $user;
-
-      $this->firstName = $user["firstName"];
-      $this->lastName = $user["lastName"];
-      $this->username = $user["username"];
-      $this->email = $user["email"];
-      // $this->bannerImg = $user["coverPhoto"];
-      $this->bannerImg = "assets/images/banners/default-banner.png";
-      $this->image = $user["image"];
    }
    
    public static function isLoggedIn() {
@@ -59,7 +50,8 @@ class User {
    }
 
    public function bannerImg() {
-      return $this->user["bannerImg"];
+      // EDIT
+      return "assets/images/banners/default-banner.png";
    }
 
    public function signUpDate() {
@@ -69,37 +61,45 @@ class User {
     }
 
    public function subscribe($toUsername) {
+      $username = $this->username();
+
       $query = $this->db->prepare(
          "INSERT INTO subscribes (toUsername, fromUsername) VALUES (:toUsername, :fromUsername)"
       );
       $query->bindParam(":toUsername", $toUsername);
-      $query->bindParam(":fromUsername", $this->username);
+      $query->bindParam(":fromUsername", $username);
       $query->execute();
    }
 
    public function unSubscribe($toUsername) {
+      $username = $this->username();
+
       $query = $this->db->prepare(
          "DELETE FROM subscribes WHERE (toUsername=:toUsername AND fromUsername=:fromUsername)"
       );
       $query->bindParam(":toUsername", $toUsername);
-      $query->bindParam(":fromUsername", $this->username);
+      $query->bindParam(":fromUsername", $username);
       $query->execute();
    }
 
    public function getSubscriberCount() {
+      $username = $this->username();
+
       $query = $this->db->prepare(
          "SELECT * FROM subscribes WHERE toUsername=:toUsername"
       );
-      $query->bindParam(":toUsername", $this->username);
+      $query->bindParam(":toUsername", $username);
       $query->execute();
       return $query->rowCount();
    }
 
    public function getTotalViews() {
+      $username = $this->username();
+
       $query = $this->db->prepare(
          "SELECT sum(views) FROM videos WHERE uploadedBy=:uploadedBy"
       );
-      $query->bindParam(":uploadedBy", $this->username);
+      $query->bindParam(":uploadedBy", $username);
       $query->execute();
 
       return $query->fetchColumn();
@@ -107,10 +107,12 @@ class User {
 
    // Array of usernames to which $this is subscribed
    public function subscriptionsArray($objects = false) {
+      $username = $this->username();
+      
       $query = $this->db->prepare(
          "SELECT toUsername FROM subscribes WHERE fromUsername=:fromUsername"
       );
-      $query->bindParam(":fromUsername", $this->username);
+      $query->bindParam(":fromUsername", $username);
       $query->execute();
       
       $subscribers = array();
@@ -118,8 +120,8 @@ class User {
 
       while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
          $user = new User($this->db, $row["toUsername"]);
-         array_push($subscribers, $user->username);
-         array_push($subscriberObjs, $user);
+         $subscribers[] = $user->username();
+         $subscriberObjs[] = $user;
       }
 
       if ($objects) return $subscriberObjs;
@@ -144,14 +146,14 @@ class User {
    }
 
    public function basicDataArray() {
-      $here = array(
+      $array = array(
          "firstName" => $this->firstName(),
          "lastName" => $this->lastName(),
          "email" => $this->email(),
          "emailConfirm" => $this->email(),
       );
       
-      return $here;
+      return $array;
    }
 
 }

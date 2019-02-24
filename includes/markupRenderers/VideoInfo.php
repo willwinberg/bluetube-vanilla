@@ -76,7 +76,7 @@ class VideoInfo {
       $class = "likeButton";
       $src = "assets/images/icons/thumb-up.png"; 
 
-      if (in_array($this->user->username, $likedUsers)) {
+      if (in_array($this->user->username(), $likedUsers)) {
          $src = "assets/images/icons/thumb-up-active.png";
       }
 
@@ -91,7 +91,7 @@ class VideoInfo {
       $class = "dislikeButton";
       $src = "assets/images/icons/thumb-down.png";
 
-      if (in_array($this->user->username, $dislikedUsers)) {
+      if (in_array($this->user->username(), $dislikedUsers)) {
          $src = "assets/images/icons/thumb-down-active.png";
       }
       

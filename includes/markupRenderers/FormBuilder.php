@@ -102,7 +102,7 @@ class FormBuilder {
 
     public function imageInput($name, $src) {
         return "
-            <div class='form-group'>
+            <div class='form-group imageInput'>
                 <img class='formImage' alt='profile image' src='$src'>
                 <input
                     class='form-control-file btn'

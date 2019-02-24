@@ -22,7 +22,7 @@ if(!isset($orderParam) || $orderParam === "views") {
 
 
    <?php
-   $cardFetcher = new VideoCardsFetcher($db, $user);
+   $cardFetcher = new VideoCardsFetcher($db, $loggedInUser);
    
    $searchResultCards = $cardFetcher->getSearchResults($term, $orderBy);
    $searchResultsGrid = new VideoGrid($searchResultCards, "results");

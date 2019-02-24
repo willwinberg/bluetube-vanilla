@@ -75,7 +75,7 @@ class CommentCard extends Comment {
       $class = "likeButton";
       $src = "assets/images/icons/thumb-up.png";
 
-      if (in_array($this->user->username, $usersWhoLiked)) {
+      if (in_array($this->user->username(), $usersWhoLiked)) {
          $src = "assets/images/icons/thumb-up-active.png";
       }
 
@@ -91,7 +91,7 @@ class CommentCard extends Comment {
       $class = "dislikeButton";
       $src = "assets/images/icons/thumb-down.png";
 
-      if (in_array($this->user->username, $usersWhoDisliked)) {
+      if (in_array($this->user->username(), $usersWhoDisliked)) {
          $src = "assets/images/icons/thumb-down-active.png";
       }
 
@@ -101,7 +101,7 @@ class CommentCard extends Comment {
     private function replySection() {
       $id = $this->id();
       $videoId = $this->videoId();
-      $username = $this->user->username;
+      $username = $this->user->username();
 
       $profileButton = Button::profileButton($this->db, $username); 
 

@@ -60,9 +60,8 @@ class Button {
       ";
     }
 
-   public static function subscribeButton($db, $subscriber, $uploader) {
-      $uploader = new User($db, $uploader);
-      $uploaderUsername = $uploader->username();
+   public static function subscribeButton($db, $subscriber, $uploaderUsername) {
+      $uploader = new User($db, $uploaderUsername);
       $uploaderSubCount = $uploader->getSubscriberCount();
       
       $subscriberUsername = $subscriber->username();

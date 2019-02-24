@@ -3,6 +3,7 @@
 ### A video app like YouTube but only for sad videos
 
 - OO PHP
+- PDO/SQL
 - Jquery
 - Bootstrap
 
@@ -15,12 +16,9 @@
 
 ### TODO:
 
-- resize uploaded images to save space
-- replies comments hide button
-- make delete video button
-- make all errors in span with class
+- resize uploaded images to save space/be square
+- delete video button
 - add custom banner feature
-- make User class properties private, only functions public
+- media queries
 - deploy version using Vimeo API
-- transfer Account to User?
 - foreign key constraints

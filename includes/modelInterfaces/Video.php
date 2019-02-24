@@ -171,7 +171,7 @@ class Video {
       $array = array();
       
       foreach ($users as $user) {
-         array_push($array, $user["username"]);
+         $array[] = $user["username"];
       }
 
       return $array;
@@ -190,7 +190,7 @@ class Video {
       $array = array();
       
       foreach ($users as $user) {
-         array_push($array, $user["username"]);
+         $array[] = $user["username"];
       }
 
       return $array;
@@ -220,7 +220,7 @@ class Video {
 
       while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
          $comment = new CommentCard($this->db, $row, $this->user, $id);
-         array_push($comments, $comment);
+         $comments[] = $comment;
       }
 
       return $comments;
