@@ -164,6 +164,16 @@ class FormBuilder {
         ";
     }
 
+    public function deleteButton($text, $name) {
+        return "
+        <div class='buttonContainer'>
+        <button type='SUBMIT' class='btn btn-primary' name='$name'>
+            $text
+        </button>
+        </div>
+        ";
+    }
+
     public function openEntryFormTag($title) {
         return "
             <div class='entryContainer'>
