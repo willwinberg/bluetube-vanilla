@@ -22,7 +22,7 @@ if (isset($_POST["uploadVideo"]) && isset($_FILES["file"])) {
     $videoProcessor = new VideoProcessor($db, $loggedInUsername);
     $id = $videoProcessor->uploadVideo($data);
     $noErrors = empty($videoProcessor->errors);
-    var_dump($videoProcessor->errors);
+
     if ($id && $noErrors) {
         header("Location: editVideo.php?videoId=$id&success=true");
     } else {

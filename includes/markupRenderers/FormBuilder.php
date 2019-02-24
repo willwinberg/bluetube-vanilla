@@ -34,7 +34,7 @@ class FormBuilder {
 
     public function textInput($title, $name, $type = "text") {
         $value = $this->data[$name];
-        if ($type == "password") $value = null;
+        if ($type === "password") $value = null;
 
         return "
             <div class='form-group row'>
@@ -54,7 +54,7 @@ class FormBuilder {
 
     public function entryTextInput($title, $name, $type = "text") {
         $value = $this->data[$name];
-        if ($name == "password") $value = null;
+        if ($type === "password") $value = null;
 
         return "
             <input

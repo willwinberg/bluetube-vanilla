@@ -1,7 +1,14 @@
+.videoGridContainer {
+  display: flex;
+  flex-direction: column;
+}
+
 .videoGrid {
   display: flex;
   flex-wrap: wrap;
-  /* justify-content: center; */
+}
+
+.home .videoGrid {
 }
 
 .gridHeader {
@@ -9,12 +16,13 @@
   flex-direction: column;
   margin: 10px 0;
   font-size: 20px;
-  text-indent: 5vw;
+  text-indent: 1vw;
   padding-bottom: 10px;
   border-bottom: 1px solid #e8e8e8;
 }
 
 .videoGrid.large {
+  flex-wrap: nowrap;
   flex-direction: column;
   flex: 1;
 }

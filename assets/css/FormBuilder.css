@@ -2,7 +2,7 @@
   font-size: 18px;
   font-weight: 400;
   width: 100%;
-  margin: 20px 0;
+  margin-top: 12px;
   border-bottom: 1px solid #dedede;
   padding-bottom: 8px;
 }
@@ -116,7 +116,7 @@ li.imgError span.errorMessage {
   border: none;
   border-radius: 3px;
   font-weight: 500;
-  margin-top: 10px;
+  margin-top: 28px;
   margin-bottom: 20px;
 }
 
@@ -124,8 +124,9 @@ li.imgError span.errorMessage {
   box-shadow: rgba(0, 0, 0, 0.2) 0 2px 2px;
 }
 
-.entryContainer .errorMessage {
+.entryContainer span.errorMessage {
   margin-left: 4px;
+  margin-bottom: 0;
 }
 
 .successMessage {

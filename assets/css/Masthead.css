@@ -48,6 +48,8 @@
   flex: 1;
   display: flex;
   margin-block-end: 0em;
+  justify-content: center;
+  margin-right: 15%;
 }
 
 #mastheadContainer .searchBar input {

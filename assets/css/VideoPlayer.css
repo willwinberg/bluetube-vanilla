@@ -1,5 +1,9 @@
 .videoPlayer {
   padding-top: 12px;
-  max-height: 800px;
+  max-height: 400px;
   width: 100%;
+}
+
+form .videoPlayer {
+  padding-top: 0;
 }

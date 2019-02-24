@@ -38,14 +38,14 @@ $recommendationsGrid = new VideoGrid($recommendedCards, "watchPage");
 ?>
 
 <div class="row justify-center">
-    <div class="col-lg-7">
+    <div class="col-lg-7 col-xl-8">
     <?php
     echo $videoPlayer->render(true);
     echo $videoInfo->render();
     echo $commentSection->render();
     ?>
     </div>
-    <div class="col-lg-5 d-none-lg pl-0">
+    <div class="col-lg-5 col-xl-4 d-none-lg pl-0">
         <?php echo $recommendationsGrid->render(""); ?>
     </div>
 </div>
