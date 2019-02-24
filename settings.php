@@ -87,7 +87,7 @@ if (isset($_POST["imageUpdate"])) {
          echo $form->imageInput("image", $loggedInUser->image());
          if ($_FILES["image"]) {
             foreach ($validator->errors as $error){
-               echo "<li class='imgError'>" . $error . "</li>";
+               echo "<li>" . $error . "</li>";
             }
          }
          echo $form->submitButton("Submit", "imageUpdate");

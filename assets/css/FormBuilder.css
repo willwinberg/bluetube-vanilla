@@ -45,7 +45,7 @@ span.errorMessage {
   margin-bottom: 20px;
 }
 
-li.imgError {
+li span.errorMessage {
   margin-left: 5px;
   margin-bottom: 10px;
 }

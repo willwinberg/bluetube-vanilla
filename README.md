@@ -10,7 +10,8 @@
 ### php.ini modifications
 
 - `max_execution_time=3000`
-- `max_filesize=1024M`
+- `upload_max_filesize=1024M`
+- `post_max_size = 1024M`
 
 #### Must include [ffmpeg and ffprobe](https://www.ffmpeg.org/download.html) in `assets/ffmpeg` for Widows, Mac, or Linux accordingly
 

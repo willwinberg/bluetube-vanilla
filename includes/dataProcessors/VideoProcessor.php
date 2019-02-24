@@ -34,9 +34,8 @@ class VideoProcessor {
 
       $tempFilePath = $targetDirectory . uniqid() . basename($videoDataArray["name"]);
       $tempFilePath = str_replace(" ", "_", $tempFilePath);
-      echo "videoFileIsValid() pre";
+   
       $isValidVideoFile = $this->videoFileIsValid($videoDataArray, $tempFilePath);
-      echo "videoFileIsValid() post";
 
       if (!$isValidVideoFile) {
          return false;
@@ -46,22 +45,22 @@ class VideoProcessor {
          $finalFilePath = $targetDirectory . uniqid() . ".mp4";
 
          if (!$this->insertVideoIntoDB($data, $finalFilePath)) {
-            $errors[] = "Insert query failed\n";
+            $this->errors[] = "Insert query failed";
             return false;
          } 
 
          if (!$this->convertVideoToMp4($tempFilePath, $finalFilePath)) {
-            $errors[] = "Converting video to mp4 failed\n";
+            $this->errors[] = "Could not convert file to mp4";
             return false;
          }  
 
          if (!$this->deleteTempMovieFile($tempFilePath)) {
-            $errors[] = "Tempfile deletion failed\n";
+            $this->errors[] = "Tempfile deletion failed";
             return false;
          }
 
          if (!$this->generateVideoThumbnails($finalFilePath)) {
-            $errors[] = "Generating thumbnails failed\n";
+            $this->errors[] = "Generating thumbnails failed";
             return false;
          }
 
@@ -106,7 +105,7 @@ class VideoProcessor {
 
    private function deleteTempMovieFile($tempFilePath) {
       if (!unlink($tempFilePath)) {
-         $errors[] = "Could not delete file\n";
+         $this->errors[] = "Could not delete file";
          return false;
       }
 
@@ -153,7 +152,7 @@ class VideoProcessor {
          $success = $query->execute();
 
          if (!$success) {
-            $errors[] = "Error inserting thumbnails into database\n";
+            $this->errors[] = "Error inserting thumbnails into database";
             return false;
          }
       }
@@ -192,15 +191,15 @@ class VideoProcessor {
 
    private function videoFileIsValid($videoData, $filePath) {
       $videoType = pathInfo($filePath, PATHINFO_EXTENSION);
-      echo "videoFileIsValid()";
+
       if (!$this->isValidSize($videoData)) {
-         $errors[] = "File must be no larger than " . $this->sizeLimit /1000000. . " megabytes.";
+         $this->errors[] = "File must be no larger than " . $this->sizeLimit /1000000. . " megabytes.";
          return false;
       } else if (!$this->isValidType($videoType)) {
-         $errors[] = "Invalid file type. Supported file types include" . implode(", ", $this->allowedTypes);
+         $this->errors[] = "Invalid file type. Supported file types include " . implode(", ", $this->allowedTypes);
          return false;
       } else if ($this->hasError($videoData)) {
-         $errors[] = "Error: " . $videoData["error"];
+         $this->errors[] = "Error: " . $videoData["error"];
          return false;
       }
 
