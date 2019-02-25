@@ -8,9 +8,6 @@
   flex-wrap: wrap;
 }
 
-.home .videoGrid {
-}
-
 .gridHeader {
   display: flex;
   flex-direction: column;

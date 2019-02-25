@@ -37,9 +37,14 @@ class Button {
     }
 
    public static function profileButton($db, $username) {
-      $user = new User($db, $username);
-      $link = "channel.php?username=$username";
-      $img = $user->image();
+      if (User::isNotLoggedIn()) {
+         $link = "login.php";
+         $img = "assets/images/profilePictures/default.png";
+      } else {
+         $user = new User($db, $username);
+         $link = "channel.php?username=$username";
+         $img = $user->image();
+      }
       
       return "
          <a href='$link'>
