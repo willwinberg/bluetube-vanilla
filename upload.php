@@ -32,7 +32,7 @@ if (isset($_POST["uploadVideo"]) && isset($_FILES["file"])) {
 
 $form = new FormBuilder($data);
 ?>
-<div class="row d-flex justify-content-center">
+<div id='uploadForm' class='row-1'>
     <?php
     echo $form->openFormTag("Upload a video to BlueTube", "multipart/form-data");
         echo $message;

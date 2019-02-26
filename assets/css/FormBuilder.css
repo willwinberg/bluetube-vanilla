@@ -18,6 +18,11 @@ form .form-group.row {
   margin-bottom: 0.5em;
   margin-top: 1em;
 }
+
+.form-control-file.btn {
+  text-align: start;
+}
+
 .formImage {
   width: 180px;
   height: 180px;
@@ -28,12 +33,6 @@ form .form-group.row {
 
 div.form-group.imageInput {
   margin-bottom: 0;
-}
-
-.entryMessage {
-  font-size: 14px;
-  font-weight: 400;
-  color: 212529;
 }
 
 span.errorMessage {
@@ -130,6 +129,12 @@ li.imgError span.errorMessage {
   margin-bottom: 0;
 }
 
+.entryMessage {
+  font-size: 14px;
+  font-weight: 400;
+  color: 212529;
+}
+
 .successMessage {
   color: rgb(16, 114, 57);
   font-size: 15px;
@@ -138,4 +143,12 @@ li.imgError span.errorMessage {
   margin-bottom: 20px;
   flex: 1;
   justify-content: center;
+}
+
+#uploadForm {
+  display: inline-block;
+  min-width: 700px;
+  box-align: center;
+  margin-left: auto;
+  margin-right: auto;
 }

@@ -140,9 +140,8 @@ class Comment {
 
    public function usersWhoLikedArray() {
       $id = $this->id();
+      $username = $this->user->username();
       
-
-
       $query = $this->db->prepare(
          "SELECT * FROM likes WHERE username=:username AND commentId=:commentId"
       );

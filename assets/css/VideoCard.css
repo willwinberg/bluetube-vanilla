@@ -43,7 +43,7 @@
 
 .videoCard .details .title {
   margin: 8px 0;
-  max-height: 18px;
+  max-height: 1.1em;
   overflow: hidden;
   font-size: 16px;
   font-weight: 500;
