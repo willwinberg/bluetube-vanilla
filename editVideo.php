@@ -31,13 +31,13 @@ if (!isset($_GET["videoId"])) {
    }
 }
 // if video just uploaded and browser rerouted here
-if (isset($_GET["success"])) $alert = Success::$upload;
+if (isset($_GET["success"])) $message = Success::$upload;
 
 $noChanges = isset($_POST["editVideo"])
    && empty(array_intersect($_POST, $video->getDetailsArray()));
 
 if ($noChanges && isset($_POST["editVideo"])) {
-   $alert = Error::$noChanges;
+   $message = Error::$noChanges;
 
 } else if (isset($_POST["editVideo"])) {
    $_POST["videoId"] = $_GET["videoId"];

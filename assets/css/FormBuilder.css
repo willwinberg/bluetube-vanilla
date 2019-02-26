@@ -21,6 +21,7 @@ form .form-group.row {
 .formImage {
   width: 180px;
   height: 180px;
+  margin: 0.5em;
   text-align: center;
   border-radius: 5px;
 }
