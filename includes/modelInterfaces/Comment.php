@@ -193,6 +193,7 @@ class Comment {
 
    public function usersWhoDislikedArray() {
       $id = $this->id();
+      $username = $this->user->username();
 
       $query = $this->db->prepare(
          "SELECT * FROM dislikes WHERE username=:username AND commentId=:commentId"

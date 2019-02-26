@@ -34,7 +34,7 @@ if (!isset($_GET["videoId"])) {
 if (isset($_GET["success"])) $message = Success::$upload;
 
 $noChanges = isset($_POST["editVideo"])
-   && array_diff_assoc($_POST, $video->getDetailsArray()) > 1;
+   && sizeof(array_diff_assoc($_POST, $video->getDetailsArray())) === 1;
 
 if ($noChanges && isset($_POST["editVideo"])) {
    $message = Error::$noChanges;
