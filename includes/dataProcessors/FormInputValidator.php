@@ -13,28 +13,28 @@ class formInputValidator {
       $differenceArr = array_diff_assoc($data, $_POST);
 
       if (empty($differenceArr)) {
-        $this->errors[] = Error::$noChanges; 
+        $this->errors[] = ErrorMsg::$noChanges; 
       }
    }
 
    public function validateFirstName($firstName) {
       if (strlen($firstName) > 30 || strlen($firstName) < 2) {
-         $this->errors[] = Error::$firstNameLength;
+         $this->errors[] = ErrorMsg::$firstNameLength;
       }
    }
 
    public function validateLastName($lastName) {
       if (strlen($lastName) > 30 || strlen($lastName) < 2) {
-         $this->errors[] = Error::$lastNameLength;
+         $this->errors[] = ErrorMsg::$lastNameLength;
       }
    }
 
    public function validateUsername($username) {
       if (!ctype_alnum($username)) {
-         $this->errors[] = Error::$usernameChars;
+         $this->errors[] = ErrorMsg::$usernameChars;
       }
       if (strlen($username) > 20 || strlen($username) < 5) {
-         $this->errors[] = Error::$usernameLength;
+         $this->errors[] = ErrorMsg::$usernameLength;
          return;
       }
 
@@ -45,18 +45,18 @@ class formInputValidator {
       $query->execute();
 
       if ($query->rowCount() !== 0) {
-         $this->errors[] = Error::$usernameTaken;
+         $this->errors[] = ErrorMsg::$usernameTaken;
       }
    }
 
    public function validateEmails($email, $emailConfirm, $currentEmail = false) {
       if ($email !== $emailConfirm) {
-         $this->errors[] = Error::$emailsDoNotMatch;
+         $this->errors[] = ErrorMsg::$emailsDoNotMatch;
          return;
       }
 
       if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-         $this->errors[] = Error::$emailInvalid;
+         $this->errors[] = ErrorMsg::$emailInvalid;
          return;
       }
 
@@ -67,23 +67,23 @@ class formInputValidator {
       $query->execute();
 
       if ($query->rowCount() !== 0 && $email !== $currentEmail) {
-         $this->errors[] = Error::$emailTaken;
+         $this->errors[] = ErrorMsg::$emailTaken;
       }
    }
 
    public function validatePasswords($password, $passwordConfirm) {
       if ($password != $passwordConfirm) {
-         $this->errors[] = Error::$passwordsDoNotMatch;
+         $this->errors[] = ErrorMsg::$passwordsDoNotMatch;
          return;
       }
 
       if (preg_match("/^.*(?=.{8,})(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).*$/", $password)) {
-         $this->errors[] = Error::$passwordNotSecure;
+         $this->errors[] = ErrorMsg::$passwordNotSecure;
          return;
       }
 
       if (strlen($password) > 30 || strlen($password) < 8) {
-         $this->errors[] = Error::$passwordLength;
+         $this->errors[] = ErrorMsg::$passwordLength;
       }
    }
 
@@ -98,12 +98,13 @@ class formInputValidator {
       $query->execute();
 
       if($query->rowCount() == 0) {
-         $this->errors[] = Error::$passwordIncorrect;
+         $this->errors[] = ErrorMsg::$passwordIncorrect;
       }
     }
    
    public function error($errorMessage) {
       if (in_array($errorMessage, $this->errors)) {
+         if ($errorMessage === ErrorMsg::$noChanges) return $errorMessage;
          return "<span class='errorMessage'>$errorMessage</span>";
       }
    }

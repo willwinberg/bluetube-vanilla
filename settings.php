@@ -14,6 +14,9 @@ if (User::isNotLoggedIn()) {
 
 $validator = new formInputValidator($db);
 $user = $loggedInUser;
+$detailsMessage = "";
+$passwordMessage = "";
+$imageMessage = "";
 
 $data = FormInputSanitizer::sanitize($_POST);
 
@@ -61,19 +64,19 @@ if (isset($_POST["imageUpdate"])) {
 
       echo $form->openFormTag("Modify Personal Information");
          echo $detailsMessage;
-         echo $validator->error(Error::$noChanges);
+         echo $validator->error(ErrorMsg::$noChanges);
          echo $form->textInput("First Name", "firstName");
-         echo $validator->error(Error::$firstNameLength);
+         echo $validator->error(ErrorMsg::$firstNameLength);
 
          echo $form->textInput("Last Name", "lastName");
-         echo $validator->error(Error::$lastNameLength);
+         echo $validator->error(ErrorMsg::$lastNameLength);
 
          echo $form->textInput("Email", "email");
-         echo $validator->error(Error::$emailInvalid);
-         echo $validator->error(Error::$emailTaken);
+         echo $validator->error(ErrorMsg::$emailInvalid);
+         echo $validator->error(ErrorMsg::$emailTaken);
 
          echo $form->textInput("Confirm Email", "emailConfirm");
-         echo $validator->error(Error::$emailsDoNotMatch);
+         echo $validator->error(ErrorMsg::$emailsDoNotMatch);
 
          echo $form->submitButton("Submit", "detailsUpdate");
       echo $form->closeFormTag();
@@ -96,14 +99,14 @@ if (isset($_POST["imageUpdate"])) {
       echo $form->openFormTag("Change your password");
       echo $passwordMessage;
       echo $form->textInput("Old Password", "oldPassword", "password");
-      echo $validator->error(Error::$passwordIncorrect);
+      echo $validator->error(ErrorMsg::$passwordIncorrect);
 
       echo $form->textInput("New Password", "newPassword", "password");
-      echo $validator->error(Error::$passwordNotSecure);
-      echo $validator->error(Error::$passwordLength);
+      echo $validator->error(ErrorMsg::$passwordNotSecure);
+      echo $validator->error(ErrorMsg::$passwordLength);
 
       echo $form->textInput("Confirm Password", "passwordConfirm", "password");
-      echo $validator->error(Error::$passwordsDoNotMatch);   
+      echo $validator->error(ErrorMsg::$passwordsDoNotMatch);   
 
          echo $form->submitButton("Submit", "passwordUpdate");
       echo $form->closeFormTag();

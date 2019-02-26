@@ -207,16 +207,32 @@ class VideoProcessor {
    }
 
    private function isValidSize($videoData) {
-        return $videoData["size"] <= $this->sizeLimit;
-    }
+         return $videoData["size"] <= $this->sizeLimit;
+      }
 
-    private function isValidType($videoType) {
-        $lowercased = strtolower($videoType);
-        return in_array($lowercased, $this->allowedTypes);
-    }
-    
-    private function hasError($videoData) {
-        return $videoData["error"] != 0;
-    }
-}
+      private function isValidType($videoType) {
+         $lowercased = strtolower($videoType);
+         return in_array($lowercased, $this->allowedTypes);
+      }
+      
+      private function hasError($videoData) {
+         return $videoData["error"] != 0;
+      }
+
+      public function errors() {
+         $html = "";
+         if (!empty($this->errors)) {
+            $html .= "<ul>";
+
+            foreach ($this->errors as $error) {
+               $html .= "<li><span class='errorMessage'>" . $error . "</span></li>";
+            }
+
+            $html .= "</ul>";
+         }
+
+         return $html;
+      }
+
+   }
 ?>

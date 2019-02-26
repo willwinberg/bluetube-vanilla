@@ -5,11 +5,13 @@ class FormBuilder {
     private $data;
 
     public function __construct($data = null) {
-        if (isset($_POST) && !empty($_POST) && !isset($_POST["passwordUpdate"])) {
+        if (isset($_POST["detailsUpdate"])) {
             $this->data = $_POST;
-        } else if ($data) {
-            $this->data = $data;
             $this->data["emailConfirm"] = $data["email"];
+        } else if (isset($_POST["editVideo"])) {
+            $this->data = $_POST;
+        } else {
+            $this->data = $data;
         }
     }
 
@@ -33,8 +35,11 @@ class FormBuilder {
     }
 
     public function textInput($title, $name, $type = "text") {
-        $value = $this->data[$name];
-        if ($type === "password") $value = null;
+        if ($type === "password") {
+            $value = null;
+        } else {
+            $value = $this->data[$name];
+        }
 
         return "
             <div class='form-group row'>

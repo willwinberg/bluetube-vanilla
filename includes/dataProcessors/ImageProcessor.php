@@ -19,25 +19,25 @@ class ImageProcessor {
       if (isset($_POST["imageUpdate"])) {
          $check = getimagesize($_FILES["image"]["tmp_name"]);
          if (!$check) {
-            $this->errors[] = Error::$notImage;
+            $this->errors[] = ErrorMsg::$notImage;
             return;
          }
       }
 
       if ($_FILES["image"]["size"] > 5000000) { // 5mb
-         $this->errors[] = Error::$imageSize;
+         $this->errors[] = ErrorMsg::$imageSize;
          return;
       }
 
       $allowedTypes = array("jpg", "png", "jpeg", "gif");
 
       if (!in_array($imageFileType, $allowedTypes)) {
-         $this->errors[] = Error::$imageType;
+         $this->errors[] = ErrorMsg::$imageType;
          return;
       }
   
       if (!move_uploaded_file($_FILES["image"]["tmp_name"], $targetFile)) {
-         $this->errors[] = Error::$imageInvalid;
+         $this->errors[] = ErrorMsg::$imageInvalid;
          return;
       }
 
@@ -117,13 +117,15 @@ class ImageProcessor {
       if ($query->rowCount() == 1) {
          return Success::$image;
       } else {
-         return Error::$image;
+         return ErrorMsg::$image;
       }
    }
 
    public function errors() {
+      $html = "";
+
       if (!empty($this->errors)) {
-         $html = "<ul>";
+         $html .= "<ul>";
 
          foreach ($this->errors as $error) {
             $html .= "<li><span class='errorMessage'>$error</span></li>";

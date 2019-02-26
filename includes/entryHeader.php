@@ -1,5 +1,5 @@
 <?php
-require_once("includes/dataProcessors/Error.php");
+require_once("includes/dataProcessors/ErrorMsg.php");
 require_once("includes/dataProcessors/Success.php");
 ?>
 <!DOCTYPE html>

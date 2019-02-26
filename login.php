@@ -7,6 +7,7 @@ require_once("includes/markupRenderers/FormBuilder.php");
 ?>
 <link rel="stylesheet" type="text/css" href="assets/css/FormBuilder.css">
 <?php
+$result = "";
 
 if (isset($_POST["login"])) {   
    $data = FormInputSanitizer::sanitize($_POST);

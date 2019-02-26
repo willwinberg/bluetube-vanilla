@@ -19,16 +19,18 @@ if (User::isNotLoggedIn()) {
 }
 
 if (!isset($_GET["videoId"])) {
-    echo Error::$noVideoSelected;
+    echo ErrorMsg::$noVideoSelected;
     exit();
 } else {
    $video = new Video($db, $_GET["videoId"], $loggedInUser);
 
    if ($video->uploadedBy() !== $loggedInUser->username()) {
-      echo Error::$notOwnedVideo;
+      echo ErrorMsg::$notOwnedVideo;
       exit();
    }
 }
+
+$message = "";
 // if video just uploaded and browser rerouted here
 if (isset($_GET["success"])) $message = Success::$upload;
 
@@ -36,7 +38,7 @@ $noChanges = isset($_POST["editVideo"])
    && sizeof(array_diff_assoc($_POST, $video->getDetailsArray())) === 1;
 
 if ($noChanges && isset($_POST["editVideo"])) {
-   $message = Error::$noChanges;
+   $message = ErrorMsg::$noChanges;
 
 } else if (isset($_POST["editVideo"])) {
    $_POST["videoId"] = $_GET["videoId"];

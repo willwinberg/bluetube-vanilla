@@ -6,25 +6,26 @@ class VideoGrid {
 
    public function __construct($cards, $type = false) {
       $this->cards = $cards;
+      $this->expanded = false;
       $this->cssClass = "videoGrid";
 
       switch ($type) {
          case "watchPage":
             $this->cssClass .= " asRows";
             break;
-         case "results":
-            $this->filterButtons = $this->makeFilterButtons();
-         case true: // if "results" || something else
+         case true:
             $this->expanded = true;
             $this->cssClass .= " large";
       }
    }
 
-   public function render($title = "") {
+   public function render($title = "", $filterButtons = false) {
       $gridCards = $this->makeGridCards();
       if (!$gridCards) return "";
-      $filterButtons = $this->filterButtons;
-      
+      if ($filterButtons) {
+         $filterButtons = $this->makeFilterButtons();
+      }
+
       if ($title) {
          $header = "
             <div class='gridHeader'>
@@ -59,8 +60,9 @@ class VideoGrid {
       return $html;
    }
 
-   public function makeFilterButtons() {
+   private function makeFilterButtons() {
       $url = preg_replace("#&orderBy=.*#", '', $_SERVER['REQUEST_URI']);
+      echo $url;
       
       return "
          <div class='right'>

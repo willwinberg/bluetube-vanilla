@@ -212,7 +212,7 @@ class Video {
       if ($count === 1) {
          return Success::$videoUpdate;
       } else {
-         return Error::$videoUpdate;
+         return ErrorMsg::$videoUpdate;
       }
    }
 

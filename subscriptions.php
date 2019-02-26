@@ -21,7 +21,7 @@ $html = $subscriptionGrid->render("Subscriptions");
 if ($html) {
    echo $html;
 } else {
-   echo Error::$noSubscriptions;
+   echo ErrorMsg::$noSubscriptions;
 }
 
 require_once("includes/footer.php");

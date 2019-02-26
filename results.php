@@ -29,7 +29,7 @@ if(!isset($orderParam) || $orderParam === "views") {
    $length = sizeof($searchResultCards);
    $plural = $length > 1 ? "s" : "";
 
-   echo $searchResultsGrid->render("Your search  for \"$term\" returned $length result$plural");
+   echo $searchResultsGrid->render("Your search  for \"$term\" returned $length result$plural", true);
    ?>
 
 

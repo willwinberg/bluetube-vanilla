@@ -136,7 +136,7 @@ class User {
       if ($query->rowCount() === 1) {
          return Success::$detailsUpdate;
       } else {
-         return Error::$detailsUpdate;
+         return ErrorMsg::$detailsUpdate;
       }
    }
 
@@ -153,7 +153,7 @@ class User {
       if ($query->rowCount() === 1) {
          return Success::$passwordUpdate;
       } else {
-         return Error::$passwordUpdate;
+         return ErrorMsg::$passwordUpdate;
       }
    }
 

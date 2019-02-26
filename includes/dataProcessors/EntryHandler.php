@@ -14,7 +14,7 @@ class EntryHandler {
       if ($query->rowCount() === 1) {
          return Success::$login;
       } else {
-         return Error::$login;
+         return ErrorMsg::$login;
       }
    }
 
@@ -42,7 +42,7 @@ class EntryHandler {
       if ($query->rowCount() === 1) {
          return Success::$register;
       } else {
-         return Error::$register;
+         return ErrorMsg::$register;
       }
    }
 }

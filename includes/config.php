@@ -1,22 +1,13 @@
 <?php
 ob_start();
 session_start();
-// date_default_timezone_set("America/Denver");
-date_default_timezone_set("America/Los_Angeles");
+date_default_timezone_set("America/Denver");
+// date_default_timezone_set("America/Los_Angeles");
 
-define('IS_LIVE', 'localhost' != $_SERVER['HTTP_HOST']);
-
-if (IS_LIVE) {
-    $dbName = "";
-    $host = "";
-    $root = "";
-    $password = "";
-} else {
-    $dbName = "bluetube";
-    $host = "localhost";
-    $root = "root";
-    $password = "ambros1a";
-}
+$dbName = "blue_tube";
+$host = "localhost";
+$root = "root";
+$password = "";
 
 try {
     $db = new PDO("mysql:dbname=$dbName;host=$host", "$root", "$password");

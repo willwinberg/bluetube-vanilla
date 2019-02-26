@@ -22,7 +22,7 @@ $html = $likedGrid->render("Videos You Liked");
 if ($html) {
    echo $html;
 } else {
-   echo Error::$noLiked;
+   echo ErrorMsg::$noLiked;
 }
 
 require_once("includes/footer.php"); 

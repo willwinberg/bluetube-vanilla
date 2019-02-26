@@ -12,21 +12,22 @@ if (User::isNotLoggedIn()) {
    header("Location: login.php");
 }
 
-$dataSanitizer = new FormInputSanitizer;
-
-$data = $dataSanitizer->sanitize($_POST);
+$videoProcessor = new VideoProcessor($db, $loggedInUsername);
+$message = "";
+$data = NULL;
 
 if (isset($_POST["uploadVideo"]) && isset($_FILES["file"])) {
+    $data = FormInputSanitizer::sanitize($_POST);
     $data["video"] = $_FILES["file"];
     $data["username"] = $loggedInUsername;
-    $videoProcessor = new VideoProcessor($db, $loggedInUsername);
+
     $id = $videoProcessor->uploadVideo($data);
     $noErrors = empty($videoProcessor->errors);
 
     if ($id && $noErrors) {
         header("Location: editVideo.php?videoId=$id&success=true");
     } else {
-        $message = Error::$upload;
+        $message = ErrorMsg::$upload;
     }
 }
 
@@ -36,11 +37,8 @@ $form = new FormBuilder($data);
     <?php
     echo $form->openFormTag("Upload a video to BlueTube", "multipart/form-data");
         echo $message;
-        if ($data["video"]) {
-            foreach ($videoProcessor->errors as $error) {
-                echo "<li><span class='errorMessage'>" . $error . "</span></li>";
-            }
-         }
+        echo $videoProcessor->errors();
+
         echo $form->FileInput("File", "file");
         echo $form->textInput("Title", "title");
         echo $form->textareaInput("Description", "description");
