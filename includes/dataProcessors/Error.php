@@ -5,6 +5,7 @@ class Error {
    public static $firstNameLength = "First name must be between 2 and 30 characters";
    public static $lastNameLength = "Last name must be between 2 and 30 characters";
    public static $usernameLength = "Username must be between 5 and 20 characters";
+   public static $usernameChars = "Username may only consist of letters and numbers";
    public static $usernameTaken = "Username taken";
    public static $emailInvalid = "Invalid email address";
    public static $emailsDoNotMatch = "Emails do not match";

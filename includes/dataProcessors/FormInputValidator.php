@@ -30,6 +30,9 @@ class formInputValidator {
    }
 
    public function validateUsername($username) {
+      if (!ctype_alnum($username)) {
+         $this->errors[] = Error::$usernameChars;
+      }
       if (strlen($username) > 20 || strlen($username) < 5) {
          $this->errors[] = Error::$usernameLength;
          return;

@@ -43,6 +43,7 @@ echo $validator->error(Error::$firstNameLength);
    echo $form->entryTextInput("Username", "username");
    echo $validator->error(Error::$usernameLength);
    echo $validator->error(Error::$usernameTaken);
+   echo $validator->error(Error::$usernameChars);
 
    echo $form->entryTextInput("Email", "email");
    echo $validator->error(Error::$emailInvalid);

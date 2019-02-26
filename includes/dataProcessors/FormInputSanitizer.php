@@ -19,7 +19,7 @@ class FormInputSanitizer {
             } else if (in_array($name, array("firstName", "lastName"))) {
                 $sanitizedData[$name] = FormInputSanitizer::sanitizeWord($value);
             } else {
-                // echo "\nsanitation skipped on $name => $value\n";
+                //echo "\nsanitation skipped on $name => $value\n";
             }       
         }
         
@@ -27,6 +27,7 @@ class FormInputSanitizer {
     }
 
     private function sanitizeWord($input) {
+        $input = htmlspecialchars($input);
         $input = trim($input);
         $input = strip_tags($input);
         $input = str_replace(" ", "", $input);
@@ -48,6 +49,7 @@ class FormInputSanitizer {
     }
 
     private function sanitizeText($input) {
+        $input = htmlspecialchars($input);
         $input = trim($input);
         $input = strip_tags($input);
         return $input;
