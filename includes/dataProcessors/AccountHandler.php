@@ -76,23 +76,6 @@ class AccountHandler {
       return;
    }
 
-   public function updateImage($path, $username) {
-      $query = $this->db->prepare(
-         "UPDATE users SET image=:image
-         WHERE username=:username"
-      );
-      $query->bindParam(":image", $path);
-      $query->bindParam(":username", $username);
-      $query->execute();
-
-      if ($query->rowCount() === 1) {
-         $this->message = Success::$image;
-      } else {
-         $this->message = Error::$image;
-      }
-      return;
-   }
-
    public function updatePassword($password, $username) {
       $password = hash("sha256", $password);
 

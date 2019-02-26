@@ -17,7 +17,6 @@
 
 ### TODO:
 
-- resize uploaded images to save space/be square
 - delete video button
 - add custom banner feature
 - media queries

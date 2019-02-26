@@ -15,25 +15,25 @@ class Error {
    public static $passwordLength = "Password must be between 8 and 30 characters";
    public static $passwordIncorrect = "You've entered an incorrect password";
    public static $register = "A fatal error ocurred during registration";
-   public static $login = "Username or password is incorrect";
+
+   public static $login = "Invalid username and password";
 
    public static $noChanges = "<div class='alert alert-warning'>No Changes have been detected</div>";
+   public static $videoUpdate = "<div class='alert alert-danger'>Your video update failed</div>";
+   public static $upload = "<div class='alert alert-danger'>Video upload failed</div>";
    public static $detailsUpdate = "Your details update failed";
    public static $passwordUpdate = "Your password update failed";
-   public static $videoUpdate = "<div class='alert alert-danger'>Your video update failed</div>";
    public static $noVideoSelected = "No video has been selected";
    public static $notOwnedVideo = "You do not have permission to edit this video";
+
    public static $noSubscriptions = "<span class='errorMessage'>You haven't subscribed to anyone yet.</span>";
    public static $noLiked = "<span class='errorMessage'>You haven't liked any videos yet.</span>";
-   
-   public static $upload = "<div class='alert alert-danger'>Video upload failed</div>";
 
    public static $image = "Error uploading image";
-   public static $notImage = "<span class='errorMessage'>File is not an image</span>";
-   public static $imageSize = "<span class='errorMessage'>File must be under 5MB</span>";
-   public static $imageType = "<span class='errorMessage'>Only JPG, JPEG, PNG & GIF files are allowed</span>";
-   public static $imageUnknown = "<span class='errorMessage'>An error occurred while uploading your file</span>";
-   public static $profileImage = "<span class='errorMessage'>Unable to update account</span>";
+   public static $notImage = "File is not an image";
+   public static $imageSize = "File must be under 5MB";
+   public static $imageType = "Only JPG, JPEG, PNG & GIF files are allowed";
+   public static $imageInvalid = "The designated file is invalid";
 
    public static function alert($error) {
       return "

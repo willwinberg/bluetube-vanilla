@@ -3,6 +3,7 @@ require_once("includes/header.php");
 require_once("includes/config.php");
 require_once("includes/dataProcessors/FormInputSanitizer.php");
 require_once("includes/dataProcessors/FormInputValidator.php");
+require_once("includes/dataProcessors/ImageProcessor.php");
 require_once("includes/dataProcessors/AccountHandler.php");
 require_once("includes/markupRenderers/FormBuilder.php");
 ?>
@@ -26,10 +27,8 @@ if (isset($_POST["detailsUpdate"])) {
       $data["emailConfirm"],
       $loggedInUser->email()
    );
-   
-   $noErrors = empty($validator->errors);
 
-   if ($noErrors) {
+   if (empty($validator->errors)) {
       $account->updateDetails($data, $loggedInUsername);
    }
 }
@@ -38,19 +37,18 @@ if (isset($_POST["passwordUpdate"])) {
    $validator->validateOldPassword($data["oldPassword"], $loggedInUsername);
    $validator->validatePasswords($data["newPassword"], $data["passwordConfirm"]);
 
-   $noErrors = empty($validator->errors);
-
-   if ($noErrors) {
+   if (empty($validator->errors)) {
       $account->updatePassword($data["newPassword"], $loggedInUsername);
    }
 }
 
-if (isset($_POST["imageUpdate"])) {
-   $path = $validator->validateImage();
-   $noErrors = empty($validator->errors);
+$imageProcessor = new ImageProcessor($db);
 
-   if ($noErrors) {
-      $account->updateImage($path, $loggedInUsername);
+if (isset($_POST["imageUpdate"])) {
+   $imageProcessor->validateImage();
+
+   if (empty($imageProcessor->errors)) {
+      $imageProcessor->updateImagePath($loggedInUsername);
       header("Location: settings.php");
    }
 }
@@ -83,13 +81,11 @@ if (isset($_POST["imageUpdate"])) {
    <div class ="col-5">
       <?php
       echo $form->openFormTag("Change your profile picture", "multipart/form-data");
-         echo $account->success(Success::$image);
+         echo $imageProcessor->message;
+
          echo $form->imageInput("image", $loggedInUser->image());
-         if ($_FILES["image"]) {
-            foreach ($validator->errors as $error){
-               echo "<li>" . $error . "</li>";
-            }
-         }
+         echo $imageProcessor->errors();
+
          echo $form->submitButton("Submit", "imageUpdate");
       echo $form->closeFormTag();
       ?>
