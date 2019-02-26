@@ -3,7 +3,8 @@ require_once("includes/entryHeader.php");
 require_once("includes/config.php");
 require_once("includes/dataProcessors/FormInputSanitizer.php"); 
 require_once("includes/dataProcessors/FormInputValidator.php");
-require_once("includes/dataProcessors/AccountHandler.php");
+require_once("includes/dataProcessors/EntryHandler.php");
+require_once("includes/modelInterfaces/User.php");
 require_once("includes/markupRenderers/FormBuilder.php");
 ?>
 <link rel="stylesheet" type="text/css" href="assets/css/FormBuilder.css">
@@ -11,7 +12,6 @@ require_once("includes/markupRenderers/FormBuilder.php");
 
 $dataSanitizer = new FormInputSanitizer;
 $validator = new formInputValidator($db);
-$account = new AccountHandler($db);
 
 if (isset($_POST["submitRegisterForm"])) {
    $data = $dataSanitizer->sanitize($_POST);
@@ -25,7 +25,7 @@ if (isset($_POST["submitRegisterForm"])) {
    $noErrors = empty($validator->errors);
 
    if ($noErrors) {
-      $account->registerNewUser($data);
+      EntryHandler::registerNewUser($db, $data);
       $_SESSION["loggedIn"] = $data["username"];
       header("Location: index.php");
    }

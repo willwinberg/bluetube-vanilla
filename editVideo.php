@@ -2,7 +2,6 @@
 require_once("includes/header.php");
 require_once("includes/modelInterfaces/Video.php");
 require_once("includes/dataProcessors/FormInputSanitizer.php");
-require_once("includes/dataProcessors/AccountHandler.php");
 require_once("includes/markupRenderers/VideoPlayer.php");
 require_once("includes/markupRenderers/ThumbnailSelector.php");
 require_once("includes/markupRenderers/FormBuilder.php");
@@ -42,9 +41,8 @@ if ($noChanges && isset($_POST["editVideo"])) {
 } else if (isset($_POST["editVideo"])) {
    $_POST["videoId"] = $_GET["videoId"];
    $data = FormInputSanitizer::sanitize($_POST);
-   $account = new AccountHandler($db);
 
-   $message = $account->updateVideo($data); 
+   $message = $video->updateVideo($data); 
 }
 ?>
 

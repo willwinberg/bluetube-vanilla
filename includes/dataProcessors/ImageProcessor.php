@@ -3,13 +3,12 @@
 class ImageProcessor {
 
    private $db;
-   public $errors, $message;
+   public $errors;
 
    public function __construct($db) {
       $this->db = $db;
       $this->finalPath = NULL;
       $this->errors = array();
-      $this->message = "";
    }
 
    public function validateImage() {
@@ -115,12 +114,11 @@ class ImageProcessor {
       $query->bindParam(":username", $username);
       $query->execute();
 
-      if ($query->rowCount() === 1) {
-         $this->message = Success::$image;
+      if ($query->rowCount() == 1) {
+         return Success::$image;
       } else {
-         $this->message = Error::$image;
+         return Error::$image;
       }
-      return;
    }
 
    public function errors() {

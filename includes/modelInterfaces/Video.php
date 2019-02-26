@@ -196,6 +196,26 @@ class Video {
       return $array;
    }
 
+   public function updateVideo($update) {
+      $query = $this->db->prepare(
+         "UPDATE videos SET title=:title, description=:description,
+         privacy=:privacy, category=:category WHERE id=:videoId"
+      );       
+      $query->bindParam(":title", $update["title"]);
+      $query->bindParam(":description", $update["description"]);
+      $query->bindParam(":privacy", $update["privacy"]);
+      $query->bindParam(":category", $update["category"]);
+      $query->bindParam(":videoId", $update["videoId"]);
+      $success = $query->execute();
+      $count = $query->rowCount();
+
+      if ($count === 1) {
+         return Success::$videoUpdate;
+      } else {
+         return Error::$videoUpdate;
+      }
+   }
+
    public function getCommentCount() {
       $id = $this->id();
 

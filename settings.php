@@ -4,7 +4,6 @@ require_once("includes/config.php");
 require_once("includes/dataProcessors/FormInputSanitizer.php");
 require_once("includes/dataProcessors/FormInputValidator.php");
 require_once("includes/dataProcessors/ImageProcessor.php");
-require_once("includes/dataProcessors/AccountHandler.php");
 require_once("includes/markupRenderers/FormBuilder.php");
 ?>
 <link rel="stylesheet" type="text/css" href="assets/css/FormBuilder.css">
@@ -14,52 +13,54 @@ if (User::isNotLoggedIn()) {
 }
 
 $validator = new formInputValidator($db);
-$account = new AccountHandler($db);
+$user = $loggedInUser;
 
 $data = FormInputSanitizer::sanitize($_POST);
 
 if (isset($_POST["detailsUpdate"])) {
-   $validator->changesMade($loggedInUser->basicDataArray());
+   $validator->changesMade($user->basicDataArray());
    $validator->validateFirstName($data["firstName"]);
    $validator->validateLastName($data["lastName"]);
    $validator->validateEmails(
       $data["email"],
       $data["emailConfirm"],
-      $loggedInUser->email()
+      $user->email()
    );
 
    if (empty($validator->errors)) {
-      $account->updateDetails($data, $loggedInUsername);
+      $detailsMessage = $user->updateDetails($data);
    }
 }
 
 if (isset($_POST["passwordUpdate"])) {
-   $validator->validateOldPassword($data["oldPassword"], $loggedInUsername);
+   $validator->validateOldPassword($data["oldPassword"], $user->username());
    $validator->validatePasswords($data["newPassword"], $data["passwordConfirm"]);
 
    if (empty($validator->errors)) {
-      $account->updatePassword($data["newPassword"], $loggedInUsername);
+      $passwordMessage = $user->updatePassword($data["newPassword"]);
    }
 }
 
 $imageProcessor = new ImageProcessor($db);
+$image = $user->image();
 
 if (isset($_POST["imageUpdate"])) {
    $imageProcessor->validateImage();
 
    if (empty($imageProcessor->errors)) {
-      $imageProcessor->updateImagePath($loggedInUsername);
-      header("Location: settings.php");
+      $imageMessage = $imageProcessor->updateImagePath($user->username());
+      $image = $imageProcessor->finalPath;
    }
 }
 ?>
+
 <div class="row">
    <div class="col-7">
       <?php
-      $form = new FormBuilder($loggedInUser->basicDataArray());
+      $form = new FormBuilder($user->basicDataArray());
 
       echo $form->openFormTag("Modify Personal Information");
-         echo $account->success(Success::$detailsUpdate);
+         echo $detailsMessage;
          echo $validator->error(Error::$noChanges);
          echo $form->textInput("First Name", "firstName");
          echo $validator->error(Error::$firstNameLength);
@@ -81,11 +82,9 @@ if (isset($_POST["imageUpdate"])) {
    <div class ="col-5">
       <?php
       echo $form->openFormTag("Change your profile picture", "multipart/form-data");
-         echo $imageProcessor->message;
-
-         echo $form->imageInput("image", $loggedInUser->image());
+         echo $imageMessage;
+         echo $form->imageInput("image", $image);
          echo $imageProcessor->errors();
-
          echo $form->submitButton("Submit", "imageUpdate");
       echo $form->closeFormTag();
       ?>
@@ -95,7 +94,7 @@ if (isset($_POST["imageUpdate"])) {
    <div class="col-7">
       <?php
       echo $form->openFormTag("Change your password");
-      echo $account->success(Success::$passwordUpdate);
+      echo $passwordMessage;
       echo $form->textInput("Old Password", "oldPassword", "password");
       echo $validator->error(Error::$passwordIncorrect);
 

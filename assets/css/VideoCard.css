@@ -43,8 +43,6 @@
 
 .videoCard .details .title {
   margin: 8px 0;
-  max-height: 1.1em;
-  overflow: hidden;
   font-size: 16px;
   font-weight: 500;
   line-height: 20px;
@@ -60,8 +58,6 @@
 .videoCard .details .lower {
   color: rgba(17, 17, 17, 0.6);
   font-size: 13px;
-  overflow-x: hidden;
-  text-overflow: ellipsis;
   white-space: nowrap;
 }
 
@@ -69,6 +65,7 @@
   color: #000;
   font-size: 13px;
   font-weight: 400;
+  overflow: hidden;
 }
 
 .gridHeader {

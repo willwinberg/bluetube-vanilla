@@ -2,7 +2,7 @@
 
 class User {
 
-   private $db, $user;
+   protected $db, $user;
 
    public function __construct($db, $username) {
       $query = $db->prepare(
@@ -58,30 +58,19 @@ class User {
         $date = $this->user["signUpDate"];
 
         return date("F jS, Y", strtotime($date));
-    }
-
-   public function subscribe($toUsername) {
-      $username = $this->username();
-
-      $query = $this->db->prepare(
-         "INSERT INTO subscribes (toUsername, fromUsername) VALUES (:toUsername, :fromUsername)"
-      );
-      $query->bindParam(":toUsername", $toUsername);
-      $query->bindParam(":fromUsername", $username);
-      $query->execute();
    }
 
-   public function unSubscribe($toUsername) {
-      $username = $this->username();
-
-      $query = $this->db->prepare(
-         "DELETE FROM subscribes WHERE (toUsername=:toUsername AND fromUsername=:fromUsername)"
+   public function basicDataArray() {
+      $array = array(
+         "firstName" => $this->firstName(),
+         "lastName" => $this->lastName(),
+         "email" => $this->email(),
+         "emailConfirm" => $this->email(),
       );
-      $query->bindParam(":toUsername", $toUsername);
-      $query->bindParam(":fromUsername", $username);
-      $query->execute();
+      
+      return $array;
    }
-
+   
    public function getSubscriberCount() {
       $username = $this->username();
 
@@ -103,7 +92,7 @@ class User {
       $query->execute();
 
       return $query->fetchColumn();
-    }
+   }
 
    // Array of usernames to which $this is subscribed
    public function subscriptionsArray($objects = false) {
@@ -128,6 +117,70 @@ class User {
       return $subscribers;
    }
 
+   public function updateDetails($data) {
+      $username = $this->username();
+
+      $query = $this->db->prepare(
+         "UPDATE users SET
+         firstName=:firstName,
+         lastName=:lastName,
+         email=:email WHERE
+         username=:username"
+      );
+      $query->bindParam(":firstName", $data["firstName"]);
+      $query->bindParam(":lastName", $data["lastName"]);
+      $query->bindParam(":email", $data["email"]);
+      $query->bindParam(":username", $username);
+      $query->execute();
+
+      if ($query->rowCount() === 1) {
+         return Success::$detailsUpdate;
+      } else {
+         return Error::$detailsUpdate;
+      }
+   }
+
+   public function updatePassword($password) {
+      $username = $this->username();
+      $password = hash("sha256", $password);
+
+      $query = $this->db->prepare(
+         "UPDATE users SET password=:password WHERE username=:username");
+      $query->bindParam(":password", $password);
+      $query->bindParam(":username", $username);
+      $success = $query->execute();
+
+      if ($query->rowCount() === 1) {
+         return Success::$passwordUpdate;
+      } else {
+         return Error::$passwordUpdate;
+      }
+   }
+
+   public function subscribe($toUsername) {
+      $username = $this->username();
+
+      $query = $this->db->prepare(
+         "INSERT INTO subscribes (toUsername, fromUsername) VALUES (:toUsername, :fromUsername)"
+      );
+      $query->bindParam(":toUsername", $toUsername);
+      $query->bindParam(":fromUsername", $username);
+      $query->execute();
+      return null;
+   }
+
+   public function unSubscribe($toUsername) {
+      $username = $this->username();
+
+      $query = $this->db->prepare(
+         "DELETE FROM subscribes WHERE (toUsername=:toUsername AND fromUsername=:fromUsername)"
+      );
+      $query->bindParam(":toUsername", $toUsername);
+      $query->bindParam(":fromUsername", $username);
+      $query->execute();
+      return null;
+   }
+
    public function postComment($videoId, $replyTo, $body) {
       $postedBy = $this->username();
 
@@ -143,17 +196,6 @@ class User {
       $query->execute();
 
       return $this->db->lastInsertId();
-   }
-
-   public function basicDataArray() {
-      $array = array(
-         "firstName" => $this->firstName(),
-         "lastName" => $this->lastName(),
-         "email" => $this->email(),
-         "emailConfirm" => $this->email(),
-      );
-      
-      return $array;
    }
 
 }
