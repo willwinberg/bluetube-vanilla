@@ -10,7 +10,6 @@ require_once("includes/markupRenderers/FormBuilder.php");
 <link rel="stylesheet" type="text/css" href="assets/css/ThumbnailSelector.css">
 <link rel="stylesheet" type="text/css" href="assets/css/FormBuilder.css">
 <script src="assets/javascript/selectThumbnail.js"></script>
-<script src="assets/javascript/selectFormBuilder.js"></script>
 <link rel="stylesheet" type="text/css" href="assets/css/loadingModal.css">
 <?php
 

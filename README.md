@@ -17,7 +17,7 @@
 
 ### TODO:
 
-- delete video button
+- delete video/account/comment button
 - add custom banner feature
 - media queries
 - deploy version using Vimeo API
