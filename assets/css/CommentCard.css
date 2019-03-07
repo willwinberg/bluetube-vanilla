@@ -118,14 +118,17 @@
 }
 
 .commentCard .repliesSection {
-  padding-left: 64px;
+  margin-left: 49px;
+  padding-left: 15px;
   margin-top: 16px;
+  border-left: 2px solid #dedede;
 }
 
 .commentCard .viewReplies {
   cursor: pointer;
   font-size: 14px;
   font-weight: 500;
+  border-left: none;
 }
 
 .commentCard .repliesSection .viewReplies {

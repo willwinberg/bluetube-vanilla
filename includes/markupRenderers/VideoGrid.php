@@ -1,10 +1,12 @@
 <?php
 
-class VideoGrid {
+class VideoGrid
+{
 
    private $cards, $type;
 
-   public function __construct($cards, $type = false) {
+   public function __construct($cards, $type = false)
+   {
       $this->cards = $cards;
       $this->expanded = false;
       $this->cssClass = "videoGrid";
@@ -19,7 +21,8 @@ class VideoGrid {
       }
    }
 
-   public function render($title = "", $filterButtons = false) {
+   public function render($title = "", $filterButtons = false)
+   {
       $gridCards = $this->makeGridCards();
       if (!$gridCards) return "";
       if ($filterButtons) {
@@ -49,7 +52,8 @@ class VideoGrid {
       ";
    }
 
-   private function makeGridCards() {
+   private function makeGridCards()
+   {
       $html = "";
 
       foreach ($this->cards as $card) {
@@ -60,18 +64,17 @@ class VideoGrid {
       return $html;
    }
 
-   private function makeFilterButtons() {
+   private function makeFilterButtons()
+   {
       $url = preg_replace("#&orderBy=.*#", '', $_SERVER['REQUEST_URI']);
-      echo $url;
-      
+
       return "
          <div class='right'>
             <span>Order by:</span>
             <a href='$url&orderBy=uploadDate'>Upload date</a>
             <a href='$url&orderBy=views'>Most viewed</a>
          </div>
-      "; 
+      ";
    }
-
 }
-?>
+ 

@@ -1,8 +1,8 @@
 <?php
-require_once("../includes/config.php"); 
+require_once("../includes/config.php");
 require_once("../includes/modelInterfaces/Comment.php");
 require_once("../includes/markupRenderers/CommentCard.php");
-require_once("../includes/modelInterfaces/User.php"); 
+require_once("../includes/modelInterfaces/User.php");
 
 $username = $_SESSION["loggedIn"];
 $videoId = $_POST["videoId"];
@@ -19,6 +19,7 @@ if ($action === 'like') {
 } elseif ($action === 'replies') {
    $replies = $comment->getRepliesArray();
    $plural = sizeof($replies) > 1 ? "replies" : "reply";
+   $html = "";
 
    foreach ($replies as $reply) {
       $card = new CommentCard($db, $reply, $user, $videoId);
@@ -27,4 +28,4 @@ if ($action === 'like') {
 
    echo $html;
 }
-?>
+ 

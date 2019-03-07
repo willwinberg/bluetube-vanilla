@@ -3,7 +3,7 @@ require_once("includes/header.php");
 require_once("includes/modelInterfaces/Video.php");
 require_once("includes/dataProcessors/FormInputSanitizer.php");
 require_once("includes/dataProcessors/VideoCardsFetcher.php");
-require_once("includes/markupRenderers/VideoGrid.php"); 
+require_once("includes/markupRenderers/VideoGrid.php");
 require_once("includes/markupRenderers/VideoCard.php");
 ?>
 <link rel="stylesheet" type="text/css" href="assets/css/VideoGrid.css">
@@ -11,9 +11,9 @@ require_once("includes/markupRenderers/VideoCard.php");
 <?php
 
 $term = FormInputSanitizer::sanitize($_GET["term"]);
-$orderParam = $_GET["orderBy"];
+$orderParam = isset($_GET["orderBy"]) ? $_GET["orderBy"] : "views";
 
-if(!isset($orderParam) || $orderParam === "views") {
+if (!isset($orderParam) || $orderParam === "views") {
     $orderBy = "views";
 } else {
     $orderBy = "uploadDate";
@@ -21,16 +21,16 @@ if(!isset($orderParam) || $orderParam === "views") {
 ?>
 
 
-   <?php
-   $cardFetcher = new VideoCardsFetcher($db, $loggedInUser);
-   
-   $searchResultCards = $cardFetcher->getSearchResults($term, $orderBy);
-   $searchResultsGrid = new VideoGrid($searchResultCards, "results");
-   $length = sizeof($searchResultCards);
-   $plural = $length > 1 ? "s" : "";
+<?php
+$cardFetcher = new VideoCardsFetcher($db, $loggedInUser);
 
-   echo $searchResultsGrid->render("Your search  for \"$term\" returned $length result$plural", true);
-   ?>
+$searchResultCards = $cardFetcher->getSearchResults($term, $orderBy);
+$searchResultsGrid = new VideoGrid($searchResultCards, "results");
+$length = sizeof($searchResultCards);
+$plural = $length > 1 ? "s" : "";
+
+echo $searchResultsGrid->render("Your search  for \"$term\" returned $length result$plural", true);
+?>
 
 
-<?php require_once("includes/footer.php"); ?>
+<?php require_once("includes/footer.php"); ?> 

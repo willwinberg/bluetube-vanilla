@@ -1,16 +1,18 @@
 <?php
 
-class ThumbnailSelector {
+class ThumbnailSelector
+{
 
    private $video;
 
-   public function __construct($video) {
+   public function __construct($video)
+   {
       $this->video = $video;
    }
 
-   public function render() {
+   public function render()
+   {
       $thumbnails = $this->video->getThumbnails();
-      // var_dump($thumbnails);
       $html = "";
 
       foreach ($thumbnails as $thumbnail) {
@@ -27,7 +29,8 @@ class ThumbnailSelector {
       ";
    }
 
-   private function makeThumbnail($thumbnail) {
+   private function makeThumbnail($thumbnail)
+   {
       $id = $thumbnail["id"];
       $videoId = $thumbnail["videoId"];
       $path = $thumbnail["filePath"];
@@ -42,6 +45,5 @@ class ThumbnailSelector {
          </div>
       ";
    }
-
 }
-?>
+ 
