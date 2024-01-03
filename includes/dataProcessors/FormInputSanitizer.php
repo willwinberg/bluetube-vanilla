@@ -6,18 +6,18 @@ class FormInputSanitizer {
         $sanitizedData = $data;
 
         if (gettype($data) === "string") {
-            return FormInputSanitizer::sanitizeText($data);
+            return (new FormInputSanitizer)->sanitizeText($data);
         }
 
         foreach ($data as $name => $value) {
             if (in_array($name, array("username", "email", "emailConfirm"))) {
-                $sanitizedData[$name] = FormInputSanitizer::sanitizeIdentifier($value);
+                $sanitizedData[$name] = (new FormInputSanitizer)->sanitizeIdentifier($value);
             } else if (in_array($name,array("password", "passwordConfirm", "oldPassword"))) {
-                $sanitizedData[$name] = FormInputSanitizer::sanitizePassword($value);
+                $sanitizedData[$name] = (new FormInputSanitizer)->sanitizePassword($value);
             } else if (in_array($name, array("title", "body", "description", "term"))) {
-                $sanitizedData[$name] = FormInputSanitizer::sanitizeText($value);
+                $sanitizedData[$name] = (new FormInputSanitizer)->sanitizeText($value);
             } else if (in_array($name, array("firstName", "lastName"))) {
-                $sanitizedData[$name] = FormInputSanitizer::sanitizeWord($value);
+                $sanitizedData[$name] = (new FormInputSanitizer)->sanitizeWord($value);
             } else {
                 //echo "\nsanitation skipped on $name => $value\n";
             }       
